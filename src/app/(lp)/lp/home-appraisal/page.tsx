@@ -5,6 +5,7 @@ import { getService, services } from "@/lib/services";
 import { faqs } from "@/lib/faqs";
 import { Icon } from "@/components/Icon";
 import { QuoteForm } from "@/components/QuoteForm";
+import { Testimonials } from "@/components/Testimonials";
 import { CtaBand, FaqList, HeroCtas, Process, SectionHead, TrustStrip } from "@/components/Sections";
 
 /**
@@ -66,6 +67,7 @@ export default async function AdsLanding({ searchParams }: Props) {
           ))}
         </div>
       </section>
+      <Testimonials service={service?.name} />
       <section className="bg-navy-50 py-16">
         <div className="container-x">
           <SectionHead eyebrow="How it works" title="Quote today. Report this week." />

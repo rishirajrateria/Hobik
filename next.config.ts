@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   images: { formats: ["image/avif", "image/webp"] },
+  serverExternalPackages: ["@libsql/client", "libsql"],
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
@@ -25,6 +26,8 @@ const nextConfig: NextConfig = {
       { source: "/about-us.php", destination: "/about", permanent: true },
       { source: "/services.php", destination: "/services", permanent: true },
       { source: "/faq.php", destination: "/faq", permanent: true },
+      { source: "/guides", destination: "/blog", permanent: true },
+      { source: "/guides/:slug", destination: "/blog/:slug", permanent: true },
     ];
   },
 };

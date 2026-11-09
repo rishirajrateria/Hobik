@@ -6,11 +6,13 @@ import { faqSchema } from "@/lib/schema";
 import { absUrl } from "@/lib/site";
 import { Icon } from "@/components/Icon";
 import { QuoteForm } from "@/components/QuoteForm";
+import { Testimonials } from "@/components/Testimonials";
 import { AreaChips, AreaMap, CtaBand, FaqList, HeroCtas, JsonLd, PageHero, Process, SectionHead, ServiceGrid } from "@/components/Sections";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export const dynamicParams = false;
+export const revalidate = 3600;
 export function generateStaticParams() {
   return areas.map((a) => ({ slug: a.slug }));
 }
@@ -89,6 +91,8 @@ export default async function AreaPage({ params }: Props) {
           <div className="mt-14"><ServiceGrid citySuffix={a.name} /></div>
         </div>
       </section>
+
+      <Testimonials title={`Trusted by homeowners across the GTA.`} />
 
       <section className="container-x py-20">
         <SectionHead eyebrow="How it works" title="Four steps. Zero hassle." />

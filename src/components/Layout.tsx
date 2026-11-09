@@ -27,7 +27,7 @@ const nav = [
   { href: "/services", label: "Services" },
   { href: "/areas", label: "Areas" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/guides", label: "Guides" },
+  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -133,7 +133,7 @@ export function Footer() {
         <div className="lg:col-span-2">
           <h2 className="text-sm font-bold tracking-widest text-white uppercase">Company</h2>
           <ul className="mt-4 space-y-2 text-sm">
-            {[["/about", "About"], ["/pricing", "Pricing"], ["/faq", "FAQ"], ["/guides", "Guides"], ["/contact", "Contact"], ["/get-a-quote", "Get a Quote"]].map(([h, l]) => (
+            {[["/about", "About"], ["/pricing", "Pricing"], ["/faq", "FAQ"], ["/blog", "Blog"], ["/book-appraisal", "Book Online"], ["/contact", "Contact"], ["/get-a-quote", "Get a Quote"]].map(([h, l]) => (
               <li key={h}><Link className="hover:text-gold-300" href={h}>{l}</Link></li>
             ))}
           </ul>

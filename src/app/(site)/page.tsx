@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { faqs } from "@/lib/faqs";
-import { guides } from "@/lib/guides";
+import { getPublishedPosts } from "@/lib/content";
+import { BlogCard } from "@/components/BlogCard";
+import { Testimonials } from "@/components/Testimonials";
 import { faqSchema } from "@/lib/schema";
 import { Icon } from "@/components/Icon";
 import { QuoteForm } from "@/components/QuoteForm";
@@ -29,7 +31,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function HomePage() {
+export const revalidate = 3600;
+
+export default async function HomePage() {
+  const posts = (await getPublishedPosts()).slice(0, 3);
   return (
     <>
       <JsonLd data={faqSchema(faqs)} />
@@ -104,25 +109,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* GUIDES */}
-      <section className="bg-navy-50 py-20 sm:py-28">
-        <div className="container-x">
-          <SectionHead eyebrow="Appraisal guides" title="Quick answers, no jargon." />
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {guides.map((g, i) => (
-              <Link key={g.slug} href={`/guides/${g.slug}`} className="group card overflow-hidden transition hover:-translate-y-1">
-                <div className={`flex h-36 items-end p-6 ${["bg-gradient-to-br from-navy-900 to-navy-700", "bg-gradient-to-br from-gold-400 to-gold-600", "bg-gradient-to-br from-mint-500 to-navy-700"][i % 3]}`}>
-                  <Icon name={["coins", "check", "scale"][i % 3]} className={`h-12 w-12 ${i === 1 ? "text-navy-950" : "text-white"}`} />
-                </div>
-                <div className="p-6">
-                  <p className="text-xs font-bold tracking-widest text-gold-600 uppercase">{g.readMins} min read</p>
-                  <h3 className="mt-2 text-lg font-extrabold text-navy-950 group-hover:text-navy-700">{g.title}</h3>
-                </div>
-              </Link>
-            ))}
+      <Testimonials />
+
+      {/* BLOG */}
+      {posts.length > 0 && (
+        <section className="bg-navy-50 py-20 sm:py-28">
+          <div className="container-x">
+            <SectionHead eyebrow="From the blog" title="Quick answers, no jargon." />
+            <div className="mt-12 grid gap-5 md:grid-cols-3">{posts.map((p) => <BlogCard key={p.id} p={p} />)}</div>
+            <div className="mt-10 text-center"><Link href="/blog" className="btn-outline">All articles <Icon name="arrow" className="h-4 w-4" /></Link></div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* FAQ */}
       <section className="container-x py-20 sm:py-28">

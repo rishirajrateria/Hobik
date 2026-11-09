@@ -40,9 +40,6 @@ export const site = {
   sameAs: [
     "https://www.facebook.com/HomeAppraisal/", // VERIFY this is the client's page
   ] as string[],
-  // Paste real Google reviews here (author, rating, text). Nothing is shown and no
-  // review schema is emitted while this is empty — never publish invented reviews.
-  reviews: [] as { author: string; rating: number; text: string; date: string }[],
 };
 
 export type Site = typeof site;

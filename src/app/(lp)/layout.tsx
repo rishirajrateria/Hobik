@@ -1,4 +1,5 @@
 import { Logo, MobileCtaBar } from "@/components/Layout";
+import { PublicChrome } from "@/components/PublicChrome";
 import { Icon } from "@/components/Icon";
 import { CallLink } from "@/components/Tracked";
 import { site, telHref } from "@/lib/site";
@@ -7,6 +8,7 @@ import { site, telHref } from "@/lib/site";
 export default function LandingLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <PublicChrome />
       <header className="sticky top-0 z-50 border-b border-navy-100/70 bg-white/90 backdrop-blur-xl">
         <div className="container-x flex h-16 items-center justify-between lg:h-20">
           <Logo />

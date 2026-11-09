@@ -4,6 +4,7 @@ import { Icon } from "@/components/Icon";
 import { QuoteForm } from "@/components/QuoteForm";
 import { CallLink } from "@/components/Tracked";
 import { PageHero, Process } from "@/components/Sections";
+import { Testimonials } from "@/components/Testimonials";
 
 export const metadata = pageMeta({
   title: "Get a Free Home Appraisal Quote | Toronto & GTA",
@@ -28,6 +29,7 @@ export default function QuotePage() {
         </ul>
         <CallLink href={telHref} location="quote_page" className="btn-ghost mt-8 text-lg"><Icon name="phone" className="h-5 w-5" /> Prefer to talk? {site.phone}</CallLink>
       </PageHero>
+      <Testimonials />
       <section className="container-x py-20"><Process /></section>
     </>
   );

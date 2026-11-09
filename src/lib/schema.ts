@@ -1,14 +1,15 @@
 import { site, absUrl } from "./site";
 import { areas } from "./areas";
 import type { Service } from "./services";
+import type { Testimonial } from "@/db/schema";
 
 const orgId = absUrl("/#business");
 const websiteId = absUrl("/#website");
 
 const days = (d: string[]) => d.map((x) => `https://schema.org/${x}`);
 
-export function businessSchema() {
-  const reviews = site.reviews;
+export function businessSchema(testimonials: Testimonial[] = []) {
+  const reviews = testimonials.map((t) => ({ author: t.name, rating: t.rating, text: t.body, date: t.createdAt.toISOString().slice(0, 10) }));
   return {
     "@context": "https://schema.org",
     "@type": ["ProfessionalService", "LocalBusiness"],
@@ -64,11 +65,6 @@ export function businessSchema() {
     },
     ...(reviews.length
       ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1),
-            reviewCount: reviews.length,
-          },
           review: reviews.map((r) => ({
             "@type": "Review",
             author: { "@type": "Person", name: r.author },
@@ -131,18 +127,18 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
   };
 }
 
-export function articleSchema(a: { title: string; description: string; path: string; updated: string }) {
+export function articleSchema(a: { title: string; description: string; path: string; updated: string; published?: string; image?: string }) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: a.title,
     description: a.description,
     dateModified: a.updated,
-    datePublished: a.updated,
+    datePublished: a.published ?? a.updated,
     author: { "@id": orgId },
     publisher: { "@id": orgId },
     mainEntityOfPage: absUrl(a.path),
-    image: absUrl("/opengraph-image"),
+    image: a.image ?? absUrl("/opengraph-image"),
     inLanguage: "en-CA",
   };
 }

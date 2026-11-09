@@ -16,12 +16,12 @@ export function track(event: string, params: Record<string, unknown> = {}) {
   window.dataLayer.push({ event, ...params });
 }
 
-/** tel: link that records a `phone_click` conversion event. */
+/** tel: link that records a `phone_click` conversion (GTM) and a click (dashboard analytics). */
 export function CallLink({ location, ...props }: ComponentProps<"a"> & { location: string }) {
-  return <a {...props} onClick={(e) => { track("phone_click", { cta_location: location }); props.onClick?.(e); }} />;
+  return <a data-cta={location} {...props} onClick={(e) => { track("phone_click", { cta_location: location }); props.onClick?.(e); }} />;
 }
 
-/** Internal link that records a `cta_click` event. */
+/** Internal CTA link that records a `cta_click` event. */
 export function CtaLink({ location, ...props }: ComponentProps<typeof Link> & { location: string }) {
-  return <Link {...props} onClick={(e) => { track("cta_click", { cta_location: location }); props.onClick?.(e); }} />;
+  return <Link data-cta={location} {...props} onClick={(e) => { track("cta_click", { cta_location: location }); props.onClick?.(e); }} />;
 }

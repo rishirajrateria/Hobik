@@ -6,11 +6,13 @@ import { faqs as generalFaqs } from "@/lib/faqs";
 import { faqSchema, serviceSchema } from "@/lib/schema";
 import { Icon } from "@/components/Icon";
 import { QuoteForm } from "@/components/QuoteForm";
+import { Testimonials } from "@/components/Testimonials";
 import { AreaChips, CtaBand, FaqList, HeroCtas, JsonLd, PageHero, Process, SectionHead } from "@/components/Sections";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export const dynamicParams = false;
+export const revalidate = 3600;
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
@@ -78,6 +80,8 @@ export default async function ServicePage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      <Testimonials service={s.name} dark />
 
       <section className="bg-navy-50 py-20">
         <div className="container-x">

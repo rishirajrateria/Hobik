@@ -1,6 +1,7 @@
 import { llmsTxt } from "@/lib/llms";
+import { getPublishedPosts, getTestimonials } from "@/lib/content";
 
-export const dynamic = "force-static";
-export function GET() {
-  return new Response(llmsTxt(), { headers: { "Content-Type": "text/plain; charset=utf-8" } });
+export const revalidate = 3600;
+export async function GET() {
+  return new Response(llmsTxt(await getPublishedPosts()), { headers: { "Content-Type": "text/plain; charset=utf-8" } });
 }

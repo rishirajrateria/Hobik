@@ -2,18 +2,30 @@
 
 A fast, visual, conversion-focused website for **Home Value Inc.**, a residential appraisal firm in Toronto. It's built to rank in Google and to be cited by AI assistants (ChatGPT, Perplexity, Gemini, Claude, Copilot), and it's ready for Google Ads traffic.
 
-**Stack:** Next.js 16 (App Router, static generation) · React 19 · TypeScript · Tailwind CSS 4. There are no image files: every visual is inline SVG/CSS, which keeps pages fast for Core Web Vitals.
+**Stack:** Next.js 16 (App Router, static generation) · React 19 · TypeScript · Tailwind CSS 4 · Drizzle ORM + libSQL (SQLite locally, Turso in production). Website visuals are inline SVG/CSS, which keeps pages fast for Core Web Vitals.
+
+It also includes a **built-in dashboard** at `/dashboard` (sign in at `/login`) for analytics, leads, forms, blog, testimonials and team roles. See below.
 
 ## Run
 
 ```bash
 npm install
 cp .env.example .env.local   # fill in values
-npm run dev                  # http://localhost:3000
+npm run dev                  # migrates the DB, then http://localhost:3000
 npm run build && npm start   # production
 ```
 
-Deploy to Vercel (recommended) or any Node host. Set the env vars from `.env.example`.
+Then open `/login`. The **first visit creates the owner account**; after that, the owner invites everyone else from *Team & roles*.
+
+To preview the dashboard with sample charts locally, run `npm run db:demo`. It inserts ~60 days of clearly labelled **demo** traffic and leads into your local DB only. Never run it against production.
+
+### Deploy (Vercel + Turso)
+
+1. Create a free Turso database and set `DATABASE_URL` (`libsql://…`) and `DATABASE_AUTH_TOKEN` in Vercel.
+2. Deploy. `npm run build` applies migrations and seeds the default forms and blog posts automatically.
+3. Visit `/login` to create the owner account.
+
+Visitor country, province/state and city come from Vercel's (or Cloudflare's) geo headers. No IP addresses are stored, and analytics uses no cookies.
 
 ## Pages (49 static + landing)
 
@@ -23,10 +35,28 @@ Deploy to Vercel (recommended) or any Node host. Set the env vars from `.env.exa
 | `/services`, `/services/[slug]` | 10 service pages (mortgage, estate, divorce, CRA, MPAC, FSBO, pre-purchase, condo, private lending, litigation) |
 | `/areas`, `/areas/[slug]` | 20 city pages (Toronto, North York, Mississauga, Vaughan, Markham, Oakville, Hamilton …) |
 | `/pricing`, `/faq`, `/about`, `/contact`, `/get-a-quote` | Core pages |
-| `/guides/[slug]` | Answer-first articles for featured snippets and AI citations |
+| `/blog`, `/blog/[slug]` | Blog managed from the dashboard (seeded with 3 answer-first guides) |
+| `/book-appraisal` | Multi-step booking questionnaire (questions editable in the dashboard) |
 | `/lp/home-appraisal` | **Google Ads landing page**: no nav, noindex, with message match via URL params |
 
-Edit content in `src/lib/` (`site.ts`, `services.ts`, `areas.ts`, `faqs.ts`, `guides.ts`). Every page, schema block, sitemap entry and llms.txt line is generated from those files.
+Edit service, city and FAQ content in `src/lib/` (`site.ts`, `services.ts`, `areas.ts`, `faqs.ts`); blog posts, forms and testimonials are edited in the dashboard. Pages, schema, the sitemap and llms.txt are generated from both.
+
+## Dashboard (`/dashboard`)
+
+| Section | What it does |
+|---|---|
+| **Overview** | Visitors, page views, leads and conversion rate vs the previous period; traffic chart; lead pipeline; latest leads; top pages and countries |
+| **Analytics** | First-party analytics. Visitors, sessions, page views and button clicks over 24h / 7d / 30d / 90d / 12m. Breakdowns by **page**, **country**, **province/state** and **city**, plus traffic source, leads by source, device and browser. **Every button and link click** is listed by label and position, site-wide and per page. Click any page to filter the whole report to that page. |
+| **Leads** | Status pipeline (new → contacted → quoted → booked → completed / lost / spam), assignees, notes and activity timeline, quoted fee, full attribution (landing page, UTM, Google Ads click ID, location), search and filters, CSV export |
+| **Forms** | Form builder: add, remove and reorder questions (text, phone, email, dropdown, single/multiple choice, date, number, long text); required and width settings; "one card" or "one step at a time" layout; live preview. The **primary** form appears in every quote box on the site. Every form also gets a page at `/forms/<slug>`, and the multi-step questionnaire lives at `/book-appraisal`. |
+| **Blog** | Markdown editor with toolbar and preview, cover image, card colour, tags, custom URL, SEO title and description with a Google snippet preview, draft/publish. Posts appear at `/blog`, in the sitemap and in `llms.txt`. |
+| **Testimonials** | Add, edit, hide, feature and delete testimonials with star ratings. The website's testimonials section appears automatically once one is published. |
+| **Team & roles** | Add users (email = login ID) with a set or generated password, change roles, reset passwords, deactivate or remove users. A permission matrix shows what each role can do. |
+| **My account** | Change name and password (other devices are signed out) |
+
+**Roles:** Owner (everything) · Admin (everything except managing owners) · Editor (blog, testimonials, forms, analytics) · Sales (leads + analytics) · Viewer (read-only leads + analytics).
+
+**Security:** passwords are hashed with scrypt; sessions are random tokens in httpOnly cookies, stored hashed and revocable; an account locks for 15 minutes after 5 failed sign-ins; every server action checks permissions; at least one owner must always remain; CSV export blocks spreadsheet formula injection; blog HTML is sanitised; the dashboard and login are `noindex` and disallowed in robots.txt.
 
 ## SEO / AEO / LLM optimization
 
@@ -45,7 +75,7 @@ Edit content in `src/lib/` (`site.ts`, `services.ts`, `areas.ts`, `faqs.ts`, `gu
 
 ## Leads
 
-`POST /api/quote` sends each lead by email through [Resend](https://resend.com) (`RESEND_API_KEY`, `LEAD_TO_EMAIL`, `LEAD_FROM_EMAIL`) and/or to a webhook (`LEAD_WEBHOOK_URL` for Zapier, Make or a CRM). It includes a honeypot spam trap. If neither is configured, leads are only logged to the server console.
+`POST /api/leads` validates the submission against the form's current questions, saves it to the dashboard, and also sends it by email through [Resend](https://resend.com) (`RESEND_API_KEY`, `LEAD_TO_EMAIL`, `LEAD_FROM_EMAIL`) and/or to a webhook (`LEAD_WEBHOOK_URL` for Zapier, Make or a CRM). It includes a honeypot spam trap. Leads are always saved in the dashboard; email and webhook delivery are optional extras.
 
 ## ⚠️ Confirm with the client before launch
 
@@ -55,7 +85,7 @@ These facts came from public listings because the old site couldn't be reached d
 - Credentials (AACI / CRA designations, AIC membership) and the typical turnaround (currently "48–72 hours")
 - Starting price (`startingPrice`, currently hidden; a directory listed "from $650", which is unverified)
 - Facebook / Google Business Profile URLs (`sameAs`)
-- **Real Google reviews** go in `site.reviews`. Review stars and schema appear only when real reviews are added. Never add invented ones.
+- **Real client reviews** go in *Dashboard → Testimonials*. Never publish invented ones.
 
 ## Off-site work that moves rankings
 
@@ -63,4 +93,4 @@ These facts came from public listings because the old site couldn't be reached d
 2. Ask happy clients (lawyers, brokers, executors) for Google reviews.
 3. Build consistent citations: AIC directory, Yelp, BBB, YellowPages, Bing Places, Apple Business Connect.
 4. Submit `sitemap.xml` in Google Search Console and Bing Webmaster Tools; Bing feeds ChatGPT search.
-5. Publish a new guide each month in `guides.ts`.
+5. Publish a new blog post every month from the dashboard.
