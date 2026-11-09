@@ -6,6 +6,7 @@ import { faqs as generalFaqs } from "@/lib/faqs";
 import { faqSchema, serviceSchema } from "@/lib/schema";
 import { Icon } from "@/components/Icon";
 import { QuoteForm } from "@/components/QuoteForm";
+import { DarkAurora } from "@/components/Ambient";
 import { Testimonials } from "@/components/Testimonials";
 import { AreaChips, CtaBand, FaqList, HeroCtas, JsonLd, PageHero, Process, SectionHead } from "@/components/Sections";
 
@@ -57,7 +58,7 @@ export default async function ServicePage({ params }: Props) {
       {/* what you get + who it's for */}
       <section className="container-x grid gap-8 pb-20 lg:grid-cols-2">
         <div className="card p-8 sm:p-10">
-          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gold-400 text-navy-950"><Icon name={s.icon} className="h-7 w-7" /></span>
+          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-gold-300 to-gold-500 text-navy-950 shadow-[0_10px_30px_-8px_rgba(245,176,49,0.8)]"><Icon name={s.icon} className="h-7 w-7" /></span>
           <h2 className="mt-6 text-3xl font-extrabold text-navy-950">What you get</h2>
           <ul className="mt-6 space-y-4">
             {s.bullets.map((b) => (
@@ -65,13 +66,13 @@ export default async function ServicePage({ params }: Props) {
             ))}
           </ul>
         </div>
-        <div className="relative overflow-hidden rounded-3xl bg-navy-950 p-8 text-white sm:p-10">
-          <div className="bg-grid absolute inset-0" aria-hidden="true" />
+        <div data-reveal="right" className="glow-border relative overflow-hidden rounded-3xl bg-navy-950 p-8 text-white sm:p-10">
+          <DarkAurora />
           <div className="relative">
             <h2 className="text-3xl font-extrabold">Who it&apos;s for</h2>
             <div className="mt-6 grid gap-3">
               {s.forWho.map((w) => (
-                <div key={w} className="flex items-center gap-4 rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+                <div key={w} className="flex items-center gap-4 rounded-2xl bg-white/[0.06] p-4 ring-1 ring-white/10 backdrop-blur-xl transition hover:translate-x-1 hover:bg-white/10">
                   <span className="grid h-10 w-10 place-items-center rounded-xl bg-gold-400/15 text-gold-300"><Icon name="check" className="h-5 w-5" /></span>
                   <span className="text-lg font-bold">{w}</span>
                 </div>
@@ -83,7 +84,7 @@ export default async function ServicePage({ params }: Props) {
 
       <Testimonials service={s.name} dark />
 
-      <section className="bg-navy-50 py-20">
+      <section className="relative border-y border-white/50 bg-white/20 py-20">
         <div className="container-x">
           <SectionHead eyebrow="The process" title="Booked, inspected, delivered." />
           <div className="mt-14"><Process /></div>
@@ -99,7 +100,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      <section className="bg-navy-50 py-20">
+      <section className="relative border-y border-white/50 bg-white/20 py-20">
         <div className="container-x">
           <SectionHead eyebrow="Where we work" title={`${s.name} across the GTA`} />
           <div className="mt-10 flex justify-center"><AreaChips /></div>
@@ -107,7 +108,7 @@ export default async function ServicePage({ params }: Props) {
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {related.map((r) => (
               <Link key={r.slug} href={`/services/${r.slug}`} className="card group flex items-center gap-4 p-5 hover:ring-gold-400">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-navy-50 text-navy-800 group-hover:bg-gold-400"><Icon name={r.icon} className="h-6 w-6" /></span>
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/80 text-navy-800 ring-1 ring-white transition group-hover:bg-gold-400"><Icon name={r.icon} className="h-6 w-6" /></span>
                 <span className="font-bold text-navy-950">{r.name}</span>
               </Link>
             ))}

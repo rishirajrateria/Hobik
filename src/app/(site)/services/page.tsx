@@ -29,7 +29,7 @@ export default function ServicesPage() {
         <HeroCtas location="services_hero" />
       </PageHero>
       <section className="container-x py-20"><ServiceGrid /></section>
-      <section className="bg-navy-50 py-20">
+      <section className="relative border-y border-white/50 bg-white/20 py-20">
         <div className="container-x">
           <SectionHead eyebrow="How it works" title="Simple from start to finish." />
           <div className="mt-14"><Process /></div>

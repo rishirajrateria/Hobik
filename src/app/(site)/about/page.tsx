@@ -1,6 +1,7 @@
 import { pageMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { Icon } from "@/components/Icon";
+import { DarkAurora } from "@/components/Ambient";
 import { CtaBand, HeroCtas, PageHero, SectionHead, StatsBand, WhyUs } from "@/components/Sections";
 
 export const metadata = pageMeta({
@@ -28,15 +29,15 @@ export default function AboutPage() {
             { icon: "pin", t: "Our market", d: "Toronto, the GTA and Southern Ontario — the market we live and work in every day." },
           ].map((c) => (
             <div key={c.t} className="card p-8">
-              <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gold-400 text-navy-950"><Icon name={c.icon} className="h-7 w-7" /></span>
+              <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-gold-300 to-gold-500 text-navy-950 shadow-[0_10px_30px_-8px_rgba(245,176,49,0.8)]"><Icon name={c.icon} className="h-7 w-7" /></span>
               <h2 className="mt-5 text-2xl font-extrabold text-navy-950">{c.t}</h2>
               <p className="mt-2 text-slate-600">{c.d}</p>
             </div>
           ))}
         </div>
       </section>
-      <section className="relative overflow-hidden bg-navy-950 py-20">
-        <div className="bg-grid absolute inset-0" aria-hidden="true" />
+      <section className="relative overflow-hidden rounded-[2.5rem] bg-navy-950 py-20">
+        <DarkAurora />
         <div className="container-x relative">
           <StatsBand />
           <div className="mt-16"><SectionHead dark eyebrow="Why clients choose us" title="Trusted by the people who rely on values." /></div>

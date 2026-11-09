@@ -4,6 +4,8 @@ import { services } from "@/lib/services";
 import { areas } from "@/lib/areas";
 import { Icon } from "./Icon";
 import { CallLink, CtaLink } from "./Tracked";
+import { HeaderShell } from "./HeaderShell";
+import { DarkAurora } from "./Ambient";
 
 export function Logo({ light = false }: { light?: boolean }) {
   return (
@@ -34,55 +36,47 @@ const nav = [
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-navy-100/70 bg-white/85 backdrop-blur-xl">
-      <div className="hidden bg-navy-950 text-xs text-white/80 sm:block">
-        <div className="container-x flex h-9 items-center justify-between">
-          <p className="flex items-center gap-2">
-            <Icon name="shield" className="h-4 w-4 text-gold-400" /> {site.credentials} · {site.yearsExperience} years valuing GTA homes
-          </p>
-          <p className="flex items-center gap-2">
-            <Icon name="clock" className="h-4 w-4 text-gold-400" /> {site.hoursLabel}
-          </p>
-        </div>
+    <HeaderShell>
+      <Logo light />
+      <nav aria-label="Main" className="hidden items-center gap-0.5 lg:flex">
+        {nav.map((n) => (
+          <Link key={n.href} href={n.href} className="group relative rounded-full px-4 py-2 text-sm font-semibold text-white/80 transition hover:bg-white/10 hover:text-white">
+            {n.label}
+            <span className="absolute inset-x-4 -bottom-0.5 h-0.5 origin-left scale-x-0 rounded-full bg-gradient-to-r from-gold-400 to-mint-400 transition-transform duration-300 group-hover:scale-x-100" />
+          </Link>
+        ))}
+      </nav>
+      <div className="flex items-center gap-2">
+        <CallLink href={telHref} location="header" className="hidden items-center gap-2 rounded-full bg-white/[0.08] px-4 py-2.5 text-sm font-bold text-white ring-1 ring-white/15 transition hover:bg-white/15 md:inline-flex">
+          <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-mint-400 opacity-70" /><span className="relative inline-flex h-2 w-2 rounded-full bg-mint-500" /></span>
+          {site.phone}
+        </CallLink>
+        <CtaLink href="/get-a-quote" location="header" className="btn-gold !hidden !px-5 !py-2.5 text-sm sm:!inline-flex">
+          Free Quote
+        </CtaLink>
+        <details className="group relative lg:hidden">
+          <summary className="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-xl bg-white/10 text-white ring-1 ring-white/15 [&::-webkit-details-marker]:hidden" aria-label="Open menu">
+            <Icon name="menu" className="h-5 w-5 group-open:hidden" />
+            <Icon name="x" className="hidden h-5 w-5 group-open:block" />
+          </summary>
+          <div className="glass absolute right-0 mt-4 w-72 origin-top-right animate-fade-up p-2">
+            {nav.map((n) => (
+              <Link key={n.href} href={n.href} className="flex items-center justify-between rounded-xl px-4 py-3 font-semibold text-navy-900 hover:bg-white">
+                {n.label} <Icon name="arrow" className="h-4 w-4 text-slate-400" />
+              </Link>
+            ))}
+            <CallLink href={telHref} location="mobile_menu" className="btn-navy mt-2 w-full !py-3 text-sm"><Icon name="phone" className="h-4 w-4" /> {site.phone}</CallLink>
+          </div>
+        </details>
       </div>
-      <div className="container-x flex h-16 items-center justify-between gap-4 lg:h-20">
-        <Logo />
-        <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
-          {nav.map((n) => (
-            <Link key={n.href} href={n.href} className="rounded-full px-4 py-2 text-sm font-semibold text-navy-900 transition hover:bg-navy-50">
-              {n.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="flex items-center gap-2">
-          <CallLink href={telHref} location="header" className="hidden items-center gap-2 rounded-full px-4 py-2.5 text-sm font-bold text-navy-900 ring-1 ring-navy-100 hover:ring-navy-700 md:inline-flex">
-            <Icon name="phone" className="h-4 w-4" /> {site.phone}
-          </CallLink>
-          <CtaLink href="/get-a-quote" location="header" className="btn-gold !px-5 !py-2.5 text-sm">
-            Free Quote
-          </CtaLink>
-          <details className="group relative lg:hidden">
-            <summary className="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-full ring-1 ring-navy-100 [&::-webkit-details-marker]:hidden" aria-label="Open menu">
-              <Icon name="menu" className="h-5 w-5" />
-            </summary>
-            <div className="absolute right-0 mt-3 w-64 rounded-2xl bg-white p-2 shadow-2xl ring-1 ring-navy-100">
-              {nav.map((n) => (
-                <Link key={n.href} href={n.href} className="block rounded-xl px-4 py-3 font-semibold text-navy-900 hover:bg-navy-50">
-                  {n.label}
-                </Link>
-              ))}
-            </div>
-          </details>
-        </div>
-      </div>
-    </header>
+    </HeaderShell>
   );
 }
 
 export function MobileCtaBar() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-navy-100 bg-white/95 p-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] backdrop-blur-xl md:hidden">
-      <CallLink href={telHref} location="mobile_bar" className="btn-navy !py-3 text-sm">
+    <div className="fixed inset-x-2 bottom-2 z-50 grid grid-cols-2 gap-2 rounded-2xl bg-navy-950/70 p-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_20px_50px_-15px_rgba(5,13,31,0.7),inset_0_1px_0_rgba(255,255,255,0.12)] ring-1 ring-white/10 backdrop-blur-2xl backdrop-saturate-150 md:hidden">
+      <CallLink href={telHref} location="mobile_bar" className="btn-ghost !py-3 text-sm">
         <Icon name="phone" className="h-4 w-4" /> Call Now
       </CallLink>
       <CtaLink href="/get-a-quote" location="mobile_bar" className="btn-gold !py-3 text-sm">
@@ -96,7 +90,8 @@ export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="relative overflow-hidden bg-navy-950 pb-24 text-white/70 md:pb-0">
-      <div className="bg-grid absolute inset-0 opacity-40" aria-hidden="true" />
+      <DarkAurora />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold-400/60 to-transparent" aria-hidden="true" />
       <div className="container-x relative grid gap-12 py-16 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <Logo light />

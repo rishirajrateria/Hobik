@@ -71,8 +71,8 @@ export function DynamicForm({
 
   if (status === "done") {
     return (
-      <div className="card p-8 text-center" role="status">
-        <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-mint-400/15 text-mint-500"><Icon name="check" className="h-8 w-8" /></div>
+      <div className="glass glow-border animate-fade-up !rounded-3xl p-8 text-center" role="status">
+        <div className="relative mx-auto grid h-16 w-16 place-items-center rounded-full bg-mint-400/15 text-mint-500"><span className="absolute inset-0 animate-pulse-ring rounded-full bg-mint-400/30" /><Icon name="check" className="relative h-8 w-8" /></div>
         <h3 className="mt-5 text-2xl font-extrabold text-navy-950">{form.successTitle}</h3>
         <p className="mt-2 text-slate-600">{form.successMessage}</p>
         <a href={telHref} data-cta={`${location}_success`} onClick={() => track("phone_click", { cta_location: `${location}_success` })} className="btn-navy mt-6">
@@ -115,13 +115,13 @@ export function DynamicForm({
       else setStep(step + 1);
     };
     return (
-      <form onSubmit={(e) => { e.preventDefault(); next(); }} className="card relative overflow-hidden p-6 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
-        <div className="absolute inset-x-0 top-0 h-1.5 bg-navy-50">
+      <form onSubmit={(e) => { e.preventDefault(); next(); }} className="glass glow-border !bg-white/[0.94] relative overflow-hidden !rounded-3xl p-6 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
+        <div className="absolute inset-x-0 top-0 h-1.5 bg-white/60">
           <div className="h-full bg-gradient-to-r from-gold-400 to-mint-400 transition-all duration-500" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
         </div>
         <div className="flex items-center justify-between">
           {header}
-          <span className="shrink-0 rounded-full bg-navy-50 px-3 py-1 text-xs font-bold text-navy-800">{step + 1} / {steps.length}</span>
+          <span className="shrink-0 rounded-full bg-white/80 px-3 py-1 text-xs font-bold text-navy-800 ring-1 ring-white">{step + 1} / {steps.length}</span>
         </div>
         <div key={step} className="mt-6 grid animate-fade-up gap-4 sm:grid-cols-2">
           {cur.map((f) => (
@@ -145,7 +145,7 @@ export function DynamicForm({
 
   /* ---------------- single card ---------------- */
   return (
-    <form onSubmit={(e) => { e.preventDefault(); submit(); }} className="card relative p-6 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
+    <form onSubmit={(e) => { e.preventDefault(); submit(); }} className="glass glow-border !bg-white/[0.94] relative !rounded-3xl p-6 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
       {header}
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {form.fields.map((f) => <Field key={f.id} f={f} uid={uid} value={values[f.key]} onChange={(v) => set(f.key, v)} />)}
@@ -192,7 +192,7 @@ function Field({ f, uid, value, onChange, big = false }: { f: FormField; uid: st
           {(f.options ?? []).map((o) => {
             const on = f.type === "radio" ? str === o : arr.includes(o);
             return (
-              <label key={o} className={`flex cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold ring-1 transition ${on ? "bg-gold-400/15 text-navy-950 ring-2 ring-gold-400" : "bg-navy-50 text-navy-900 ring-navy-100 hover:ring-navy-700"}`}>
+              <label key={o} className={`flex cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold ring-1 transition ${on ? "bg-gold-300/30 text-navy-950 ring-2 ring-gold-400 shadow-[0_8px_24px_-10px_rgba(245,176,49,0.8)]" : "bg-white/60 text-navy-900 ring-white hover:-translate-y-0.5 hover:bg-white hover:ring-gold-300"}`}>
                 <input
                   type={f.type}
                   name={id}

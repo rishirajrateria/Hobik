@@ -43,9 +43,15 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-CA" className={`${inter.variable} ${jakarta.variable}`}>
+    <html lang="en-CA" className={`${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site summary" />
+        {/* Enable scroll-reveal before first paint; auto-disable if JS never boots. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(d){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;d.classList.add('motion');setTimeout(function(){if(!d.classList.contains('motion-ready'))d.classList.remove('motion')},3500)})(document.documentElement)`,
+          }}
+        />
       </head>
       <body>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">Skip to content</a>

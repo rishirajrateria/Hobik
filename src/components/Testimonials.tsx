@@ -1,6 +1,7 @@
 import { getTestimonials } from "@/lib/content";
 import { Icon } from "./Icon";
 import { SectionHead } from "./Sections";
+import { DarkAurora } from "./Ambient";
 
 function Stars({ n, onGold = false }: { n: number; onGold?: boolean }) {
   return (
@@ -20,11 +21,11 @@ export async function Testimonials({ service, dark = false, title = "What our cl
   const avg = all.reduce((s, t) => s + t.rating, 0) / all.length;
 
   return (
-    <section className={`relative overflow-hidden py-20 sm:py-28 ${dark ? "bg-navy-950" : "bg-gradient-to-b from-white to-navy-50"}`} data-section="testimonials">
-      {dark && <div className="bg-grid absolute inset-0" aria-hidden="true" />}
+    <section className={`relative overflow-hidden py-20 sm:py-28 ${dark ? "rounded-[2.5rem] bg-navy-950" : ""}`} data-section="testimonials">
+      {dark && <DarkAurora />}
       <div className="container-x relative">
         <SectionHead dark={dark} eyebrow="Client reviews" title={title} />
-        <div className={`mx-auto mt-6 flex w-fit items-center gap-3 rounded-full px-5 py-2 ring-1 ${dark ? "bg-white/5 ring-white/15" : "bg-white ring-navy-100"}`}>
+        <div data-reveal className={`mx-auto mt-6 flex w-fit items-center gap-3 rounded-full px-5 py-2 ring-1 backdrop-blur-xl ${dark ? "bg-white/5 ring-white/15" : "bg-white/60 ring-white"}`}>
           <Stars n={Math.round(avg)} />
           <span className={`text-sm font-bold ${dark ? "text-white" : "text-navy-950"}`}>{avg.toFixed(1)} average · {all.length} review{all.length === 1 ? "" : "s"}</span>
         </div>
@@ -32,8 +33,10 @@ export async function Testimonials({ service, dark = false, title = "What our cl
           {shown.map((t, i) => (
             <figure
               key={t.id}
-              className={`relative flex w-[85%] shrink-0 snap-center flex-col rounded-3xl p-7 md:w-auto ${
-                i === 0 && t.featured ? "bg-gradient-to-br from-gold-400 to-gold-500 text-navy-950" : dark ? "bg-white/5 text-white ring-1 ring-white/10" : "card"
+              data-reveal
+              style={{ "--d": i } as React.CSSProperties}
+              className={`spotlight relative flex w-[85%] shrink-0 snap-center flex-col rounded-3xl p-7 transition duration-500 hover:-translate-y-1.5 md:w-auto ${
+                i === 0 && t.featured ? "bg-gradient-to-br from-gold-300 via-gold-400 to-gold-500 text-navy-950 shadow-[0_30px_60px_-25px_rgba(245,176,49,0.9),inset_0_1px_0_rgba(255,255,255,0.6)]" : dark ? "glass-dark text-white" : "card"
               }`}
             >
               <svg viewBox="0 0 32 32" className={`absolute top-6 right-6 h-10 w-10 ${i === 0 && t.featured ? "text-navy-950/15" : "text-gold-400/30"}`} fill="currentColor" aria-hidden="true">

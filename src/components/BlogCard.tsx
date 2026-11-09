@@ -13,14 +13,15 @@ export const ACCENTS: Record<string, string> = {
 
 export function BlogCard({ p }: { p: Post }) {
   return (
-    <Link href={`/blog/${p.slug}`} className="group card flex flex-col overflow-hidden transition hover:-translate-y-1 hover:ring-gold-400">
-      <div className={`relative h-44 overflow-hidden ${ACCENTS[p.accent] ?? ACCENTS.navy}`}>
+    <Link href={`/blog/${p.slug}`} className="group card spotlight flex w-full flex-col overflow-hidden transition duration-500 hover:-translate-y-1.5 hover:bg-white/75">
+      <div className={`relative m-2 h-44 overflow-hidden rounded-2xl ${ACCENTS[p.accent] ?? ACCENTS.navy}`}>
         {p.coverImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={p.coverImage} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
         ) : (
           <>
             <div className="bg-grid absolute inset-0 opacity-60" aria-hidden="true" />
+            <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/25 blur-2xl transition duration-700 group-hover:scale-150" aria-hidden="true" />
             <p className={`absolute inset-x-6 bottom-5 line-clamp-2 font-display text-xl font-extrabold ${p.accent === "gold" ? "text-navy-950" : "text-white"}`}>{p.tags[0] ?? "Guide"}</p>
           </>
         )}

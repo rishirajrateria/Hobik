@@ -62,12 +62,12 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="bg-navy-50 py-20">
+      <section className="relative border-y border-white/50 bg-white/20 py-20">
         <div className="container-x">
           <SectionHead eyebrow="Included in every report" title="What you always get." />
           <div className="mx-auto mt-12 grid max-w-4xl gap-3 sm:grid-cols-2">
             {["On-site inspection & measurements", "Photos of interior & exterior", "Comparable sales analysis", "Market value conclusion", "Signed PDF report", "Follow-up questions answered", "CUSPAP-compliant format", `Typical delivery in ${site.turnaround}`].map((t) => (
-              <div key={t} className="flex items-center gap-3 rounded-2xl bg-white p-4 font-semibold text-navy-900 ring-1 ring-navy-100">
+              <div key={t} className="flex items-center gap-3 card !rounded-2xl p-4 font-semibold text-navy-900">
                 <Icon name="check" className="h-5 w-5 text-mint-500" /> {t}
               </div>
             ))}

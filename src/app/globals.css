@@ -20,53 +20,114 @@
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-float-slow: float 9s ease-in-out infinite;
-  --animate-fade-up: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  --animate-marquee: marquee 40s linear infinite;
-  --animate-pulse-ring: pulse-ring 2.4s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  --animate-fade-up: fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-marquee: marquee 45s linear infinite;
+  --animate-pulse-ring: pulse-ring 2.6s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
+  --animate-aurora-a: aurora-a 22s ease-in-out infinite alternate;
+  --animate-aurora-b: aurora-b 28s ease-in-out infinite alternate;
+  --animate-aurora-c: aurora-c 34s ease-in-out infinite alternate;
+  --animate-spin-slow: spin 18s linear infinite;
+  --animate-dash: dash-flow 1.6s linear infinite;
+  --animate-blink: blink 2.2s ease-in-out infinite;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: none; }
-}
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-@keyframes pulse-ring {
-  0% { transform: scale(0.6); opacity: 0.7; }
-  100% { transform: scale(2.2); opacity: 0; }
-}
+@property --angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(18px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes pulse-ring { 0% { transform: scale(0.6); opacity: 0.8; } 100% { transform: scale(2.6); opacity: 0; } }
+@keyframes aurora-a { 0% { transform: translate3d(-10%, -10%, 0) scale(1); } 100% { transform: translate3d(25%, 15%, 0) scale(1.25); } }
+@keyframes aurora-b { 0% { transform: translate3d(10%, 20%, 0) scale(1.1); } 100% { transform: translate3d(-20%, -10%, 0) scale(0.9); } }
+@keyframes aurora-c { 0% { transform: translate3d(0, 0, 0) scale(0.9); } 100% { transform: translate3d(-15%, 25%, 0) scale(1.2); } }
+@keyframes spin-angle { to { --angle: 360deg; } }
+@keyframes shimmer { 0%, 70% { transform: translateX(-130%) skewX(-20deg); } 100% { transform: translateX(330%) skewX(-20deg); } }
+@keyframes gradient-pan { from { background-position: 0% 50%; } to { background-position: 200% 50%; } }
+@keyframes dash-flow { to { stroke-dashoffset: -24; } }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@keyframes draw-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 @layer base {
   html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
-  body { @apply bg-white text-ink antialiased; font-family: var(--font-sans); }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+  body { @apply text-ink antialiased; background: #f4f7fc; font-family: var(--font-sans); }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.025em; }
   ::selection { background: var(--color-gold-300); color: var(--color-navy-950); }
   :focus-visible { outline: 3px solid var(--color-gold-400); outline-offset: 2px; border-radius: 6px; }
 }
 
 @utility container-x { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
-@utility btn { @apply inline-flex whitespace-nowrap items-center justify-center gap-2 rounded-full px-6 py-3.5 text-base font-semibold transition duration-200 active:scale-[0.98]; }
-@utility btn-gold { @apply btn bg-gold-400 text-navy-950 shadow-[0_10px_30px_-10px_rgba(245,176,49,0.8)] hover:bg-gold-300 hover:shadow-[0_14px_40px_-10px_rgba(245,176,49,0.9)]; }
-@utility btn-ghost { @apply btn bg-white/10 text-white ring-1 ring-white/25 backdrop-blur hover:bg-white/20; }
-@utility btn-navy { @apply btn bg-navy-900 text-white hover:bg-navy-800; }
-@utility btn-outline { @apply btn bg-white text-navy-900 ring-1 ring-navy-100 hover:ring-navy-700; }
-@utility eyebrow { @apply inline-flex items-center gap-2 rounded-full bg-gold-400/15 px-3 py-1 text-xs font-bold tracking-widest text-gold-600 uppercase; }
-@utility eyebrow-dark { @apply inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-bold tracking-widest text-gold-300 uppercase ring-1 ring-white/15; }
+
+/* ---------- Buttons (with a subtle shimmer sweep) ---------- */
+@utility btn { @apply relative isolate inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3.5 text-base font-semibold whitespace-nowrap transition duration-300 active:scale-[0.97]; }
+@utility btn-gold {
+  @apply btn bg-gradient-to-br from-gold-300 via-gold-400 to-gold-500 text-navy-950 shadow-[0_10px_30px_-10px_rgba(245,176,49,0.9),inset_0_1px_0_rgba(255,255,255,0.6)] hover:-translate-y-0.5 hover:shadow-[0_18px_44px_-12px_rgba(245,176,49,1),inset_0_1px_0_rgba(255,255,255,0.7)];
+  &::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 35%; z-index: -1; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent); animation: shimmer 4.5s ease-in-out infinite; }
+}
+@utility btn-ghost { @apply btn bg-white/10 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] ring-1 ring-white/25 backdrop-blur-xl hover:-translate-y-0.5 hover:bg-white/20; }
+@utility btn-navy { @apply btn bg-gradient-to-br from-navy-800 to-navy-950 text-white shadow-[0_10px_30px_-12px_rgba(5,13,31,0.8),inset_0_1px_0_rgba(255,255,255,0.12)] hover:-translate-y-0.5; }
+@utility btn-outline { @apply btn bg-white/60 text-navy-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] ring-1 ring-white backdrop-blur-xl hover:-translate-y-0.5 hover:bg-white/90; }
+
+@utility eyebrow {
+  @apply inline-flex items-center gap-2 rounded-full bg-white/60 px-3.5 py-1.5 text-xs font-bold tracking-widest text-gold-600 uppercase shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] ring-1 ring-white backdrop-blur-xl;
+  &::before { content: ""; width: 6px; height: 6px; border-radius: 9999px; background: var(--color-gold-500); box-shadow: 0 0 0 4px rgba(245,176,49,0.2); animation: blink 2.2s ease-in-out infinite; }
+}
+@utility eyebrow-dark {
+  @apply inline-flex items-center gap-2 rounded-full bg-white/[0.07] px-3.5 py-1.5 text-xs font-bold tracking-widest text-gold-300 uppercase shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] ring-1 ring-white/15 backdrop-blur-xl;
+}
 @utility h-section { @apply text-3xl font-extrabold text-navy-950 sm:text-4xl lg:text-5xl; }
-@utility card { @apply rounded-3xl bg-white ring-1 ring-navy-100 shadow-[0_1px_0_rgba(10,26,54,0.04),0_20px_50px_-30px_rgba(10,26,54,0.35)]; }
-@utility glass { @apply rounded-2xl bg-white/90 shadow-2xl ring-1 ring-white/60 backdrop-blur-xl; }
-@utility input { @apply w-full rounded-xl border-0 bg-navy-50 px-4 py-3.5 text-base text-navy-950 ring-1 ring-navy-100 placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-gold-400 focus:outline-none; }
-@utility bg-grid { background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 48px 48px; }
-@utility text-gradient { @apply bg-gradient-to-r from-gold-300 via-gold-400 to-mint-400 bg-clip-text text-transparent; }
+
+/* ---------- Glass surfaces ---------- */
+/* Light frosted glass — the default card everywhere on the light canvas. */
+@utility card { @apply rounded-3xl bg-white/55 ring-1 ring-white/80 backdrop-blur-2xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(10,26,54,0.04),0_24px_60px_-28px_rgba(10,26,54,0.35)]; }
+/* Strong light glass for floating UI and forms. */
+@utility glass { @apply rounded-2xl bg-white/[0.88] ring-1 ring-white/80 backdrop-blur-2xl backdrop-saturate-150 shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_30px_60px_-20px_rgba(5,13,31,0.45)]; }
+/* Dark glass for navy sections. */
+@utility glass-dark { @apply rounded-3xl bg-white/[0.05] ring-1 ring-white/[0.12] backdrop-blur-2xl shadow-[inset_0_1px_0_rgba(255,255,255,0.10),0_30px_60px_-30px_rgba(0,0,0,0.6)]; }
+@utility input { @apply w-full rounded-xl border-0 bg-white/70 px-4 py-3.5 text-base text-navy-950 shadow-[inset_0_1px_2px_rgba(10,26,54,0.06)] ring-1 ring-navy-100/80 transition placeholder:text-slate-400 focus:bg-white focus:ring-2 focus:ring-gold-400 focus:outline-none; }
+
+/* Animated gradient border (conic, rotating). Add to any rounded element. */
+@utility glow-border {
+  position: relative;
+  &::before {
+    content: ""; position: absolute; inset: -1.5px; border-radius: inherit; padding: 1.5px; pointer-events: none; z-index: 1;
+    background: conic-gradient(from var(--angle), transparent 0deg, rgba(252,199,90,0.95) 60deg, rgba(62,224,181,0.9) 120deg, transparent 180deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+    animation: spin-angle 6s linear infinite;
+  }
+}
+
+/* Cursor spotlight — position set by <Motion /> via --mx/--my. */
+@utility spotlight {
+  position: relative;
+  &::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 0.4s;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(252,199,90,0.16), transparent 45%);
+  }
+  &:hover::after { opacity: 1; }
+}
+
+@utility bg-grid { background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 56px 56px; -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%); mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%); }
+@utility bg-grid-light { background-image: linear-gradient(rgba(10,26,54,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(10,26,54,0.045) 1px, transparent 1px); background-size: 56px 56px; -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 70%); mask-image: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 70%); }
+@utility bg-noise { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); }
+@utility text-gradient { @apply bg-gradient-to-r from-gold-300 via-mint-400 to-gold-300 bg-clip-text text-transparent; background-size: 200% auto; animation: gradient-pan 6s linear infinite; }
+@utility text-gradient-dark { @apply bg-gradient-to-r from-gold-600 via-mint-500 to-gold-600 bg-clip-text text-transparent; background-size: 200% auto; animation: gradient-pan 6s linear infinite; }
+
+/* ---------- Scroll reveal (enabled by <Motion />, which adds .motion to <html>) ---------- */
+.motion [data-reveal] {
+  opacity: 0; transform: translate3d(0, 28px, 0); filter: blur(8px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.9s;
+  transition-delay: calc(var(--d, 0) * 90ms);
+}
+.motion [data-reveal="scale"] { transform: scale(0.94); }
+.motion [data-reveal="left"] { transform: translate3d(-36px, 0, 0); }
+.motion [data-reveal="right"] { transform: translate3d(36px, 0, 0); }
+.motion [data-reveal].is-in { opacity: 1; transform: none; filter: none; }
+.motion [data-draw] { transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.2s; }
+.motion [data-draw].is-in { transform: scaleX(1); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .motion [data-reveal], .motion [data-draw] { opacity: 1; transform: none; filter: none; }
 }
 
 /* Blog article typography */
@@ -77,7 +138,7 @@
   & p { @apply my-5; }
   & a { @apply font-semibold text-gold-600 underline underline-offset-2; }
   & ul { @apply my-6 grid gap-3 sm:grid-cols-2; }
-  & ul > li { @apply relative rounded-2xl bg-navy-50 py-3 pr-4 pl-11 text-base text-slate-800; }
+  & ul > li { @apply relative rounded-2xl bg-white/60 ring-1 ring-white/80 backdrop-blur py-3 pr-4 pl-11 text-base text-slate-800; }
   & ul > li::before { content: ""; @apply absolute top-4 left-4 h-4 w-4 rounded-full bg-mint-400/80; }
   & ol { @apply my-6 list-decimal space-y-2 pl-6; }
   & blockquote { @apply my-8 rounded-3xl bg-gold-400/10 p-7 text-navy-950 ring-1 ring-gold-400/40; }

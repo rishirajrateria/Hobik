@@ -68,7 +68,7 @@ export default async function AreaPage({ params }: Props) {
           <SectionHead center={false} eyebrow="Local expertise" title={`Neighbourhoods we cover in ${a.name}`} />
           <div className="mt-8 flex flex-wrap gap-2">
             {a.neighbourhoods.map((n) => (
-              <span key={n} className="inline-flex items-center gap-1.5 rounded-full bg-navy-50 px-4 py-2 text-sm font-semibold text-navy-900 ring-1 ring-navy-100">
+              <span key={n} className="inline-flex items-center gap-1.5 rounded-full bg-white/60 px-4 py-2 text-sm font-semibold text-navy-900 ring-1 ring-white backdrop-blur-xl">
                 <Icon name="pin" className="h-4 w-4 text-gold-600" /> {n}
               </span>
             ))}
@@ -76,16 +76,16 @@ export default async function AreaPage({ params }: Props) {
           <h3 className="mt-10 text-lg font-extrabold text-navy-950">Property types</h3>
           <div className="mt-4 grid grid-cols-2 gap-3">
             {a.homeTypes.map((t) => (
-              <div key={t} className="flex items-center gap-3 rounded-2xl bg-white p-4 font-semibold text-navy-900 ring-1 ring-navy-100">
+              <div key={t} className="flex items-center gap-3 card !rounded-2xl p-4 font-semibold text-navy-900">
                 <Icon name="home" className="h-5 w-5 text-gold-600" /> {t}
               </div>
             ))}
           </div>
         </div>
-        <AreaMap highlight={a.slug} />
+        <div data-reveal="scale"><AreaMap highlight={a.slug} /></div>
       </section>
 
-      <section className="bg-navy-50 py-20">
+      <section className="relative border-y border-white/50 bg-white/20 py-20">
         <div className="container-x">
           <SectionHead eyebrow={`${a.name} appraisal services`} title={`Every appraisal type in ${a.name}.`} />
           <div className="mt-14"><ServiceGrid citySuffix={a.name} /></div>
@@ -99,7 +99,7 @@ export default async function AreaPage({ params }: Props) {
         <div className="mt-14"><Process /></div>
       </section>
 
-      <section className="bg-navy-50 py-20">
+      <section className="relative border-y border-white/50 bg-white/20 py-20">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4"><SectionHead center={false} eyebrow="FAQ" title={`${a.name} appraisal FAQs`} /></div>
           <div className="lg:col-span-8"><FaqList items={faq} /></div>

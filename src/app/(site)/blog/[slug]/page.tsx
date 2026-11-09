@@ -51,7 +51,7 @@ export default async function PostPage({ params }: Props) {
         </aside>
       </section>
       {more.length > 0 && (
-        <section className="bg-navy-50 py-16">
+        <section className="relative border-y border-white/50 bg-white/20 py-16">
           <div className="container-x">
             <h2 className="text-2xl font-extrabold text-navy-950">Keep reading</h2>
             <div className="mt-8 grid gap-6 md:grid-cols-3">{more.map((m) => <BlogCard key={m.id} p={m} />)}</div>

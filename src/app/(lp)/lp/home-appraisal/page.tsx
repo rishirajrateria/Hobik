@@ -4,6 +4,7 @@ import { getArea } from "@/lib/areas";
 import { getService, services } from "@/lib/services";
 import { faqs } from "@/lib/faqs";
 import { Icon } from "@/components/Icon";
+import { DarkAurora } from "@/components/Ambient";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Testimonials } from "@/components/Testimonials";
 import { CtaBand, FaqList, HeroCtas, Process, SectionHead, TrustStrip } from "@/components/Sections";
@@ -31,11 +32,10 @@ export default async function AdsLanding({ searchParams }: Props) {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-navy-950">
-        <div className="bg-grid absolute inset-0" aria-hidden="true" />
-        <div className="absolute -top-40 right-0 h-[30rem] w-[30rem] rounded-full bg-gold-400/20 blur-3xl" aria-hidden="true" />
+      <section data-spot className="spotlight relative overflow-hidden rounded-b-[2.5rem] bg-navy-950 pt-20 sm:pt-24">
+        <DarkAurora />
         <div className="container-x relative grid gap-10 py-10 sm:py-16 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-7">
+          <div className="animate-fade-up lg:col-span-7">
             <span className="eyebrow-dark"><Icon name="shield" className="h-4 w-4" /> AIC member appraisers</span>
             <h1 className="mt-4 text-4xl leading-[1.05] font-extrabold text-white sm:text-6xl">
               {headline} in <span className="text-gradient">{place}</span>
@@ -50,7 +50,7 @@ export default async function AdsLanding({ searchParams }: Props) {
             </ul>
             <div className="hidden lg:block"><HeroCtas location="lp_hero" /></div>
           </div>
-          <div className="lg:col-span-5">
+          <div className="animate-fade-up [animation-delay:200ms] lg:col-span-5">
             <QuoteForm compact defaultService={service?.name ?? ""} location="lp_hero_form" />
           </div>
         </div>
@@ -60,7 +60,7 @@ export default async function AdsLanding({ searchParams }: Props) {
         <SectionHead eyebrow="We appraise for" title="Any purpose. One trusted report." />
         <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-5">
           {services.map((s) => (
-            <div key={s.slug} className="card flex flex-col items-center gap-3 p-5 text-center">
+            <div key={s.slug} data-reveal style={{ "--d": services.indexOf(s) % 5 } as React.CSSProperties} className="card spotlight group flex flex-col items-center gap-3 p-5 text-center transition duration-500 hover:-translate-y-1">
               <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gold-400/15 text-gold-600"><Icon name={s.icon} className="h-6 w-6" /></span>
               <span className="text-sm font-bold text-navy-950">{s.name}</span>
             </div>
@@ -68,7 +68,7 @@ export default async function AdsLanding({ searchParams }: Props) {
         </div>
       </section>
       <Testimonials service={service?.name} />
-      <section className="bg-navy-50 py-16">
+      <section className="relative border-y border-white/50 bg-white/20 py-16">
         <div className="container-x">
           <SectionHead eyebrow="How it works" title="Quote today. Report this week." />
           <div className="mt-12"><Process /></div>
