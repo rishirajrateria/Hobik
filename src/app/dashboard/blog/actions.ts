@@ -21,6 +21,7 @@ const schema = z.object({
   status: z.enum(["draft", "published"]),
   seoTitle: z.string().trim().max(70),
   seoDescription: z.string().trim().max(170),
+  publishAt: z.string().max(40).optional(),
 });
 export type PostPayload = z.input<typeof schema>;
 
@@ -48,14 +49,18 @@ export async function savePost(id: string | null, payload: PostPayload): Promise
     updatedAt: new Date(),
   };
 
+  // Optional schedule: a future date keeps a published post hidden until then.
+  const chosen = d.publishAt ? new Date(d.publishAt) : null;
+  if (chosen && Number.isNaN(chosen.getTime())) return { error: "Invalid publish date" };
+
   let postId = id;
   if (id) {
     const [cur] = await db.select({ publishedAt: posts.publishedAt, slug: posts.slug }).from(posts).where(eq(posts.id, id));
     if (!cur) return { error: "Post not found" };
-    await db.update(posts).set({ ...values, publishedAt: d.status === "published" ? cur.publishedAt ?? new Date() : cur.publishedAt }).where(eq(posts.id, id));
+    await db.update(posts).set({ ...values, publishedAt: chosen ?? (d.status === "published" ? cur.publishedAt ?? new Date() : cur.publishedAt) }).where(eq(posts.id, id));
     if (cur.slug !== slug) revalidatePath(`/blog/${cur.slug}`);
   } else {
-    const [row] = await db.insert(posts).values({ ...values, authorId: user.id, publishedAt: d.status === "published" ? new Date() : null }).returning({ id: posts.id });
+    const [row] = await db.insert(posts).values({ ...values, authorId: user.id, publishedAt: chosen ?? (d.status === "published" ? new Date() : null) }).returning({ id: posts.id });
     postId = row.id;
   }
   revalidatePath("/blog");

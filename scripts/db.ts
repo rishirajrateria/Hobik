@@ -9,7 +9,8 @@ import { count, eq } from "drizzle-orm";
 import { db, dbUrl } from "../src/db";
 import { forms, posts, events, leads, testimonials } from "../src/db/schema";
 import { defaultBookingForm, defaultQuoteForm } from "../src/lib/defaultForms";
-import { guides } from "../src/lib/guides";
+import { readdirSync, readFileSync } from "node:fs";
+import { parseBlogFile } from "../src/lib/blogfile";
 
 async function main() {
   if (dbUrl.startsWith("file:")) mkdirSync("data", { recursive: true });
@@ -29,28 +30,46 @@ async function main() {
     console.log("[db] seeded default forms");
   }
 
-  const [{ n: postCount }] = await db.select({ n: count() }).from(posts);
-  if (postCount === 0) {
-    for (const g of guides) {
-      const md = [
-        `> **Quick answer:** ${g.tldr}`,
-        ...g.sections.map((s) => [`## ${s.h}`, s.body ?? "", ...(s.list ?? []).map((l) => `- ${l}`)].filter(Boolean).join("\n\n")),
-      ].join("\n\n");
-      await db.insert(posts).values({
-        slug: g.slug,
-        title: g.title,
-        excerpt: g.description,
-        content: md,
-        status: "published",
-        accent: ["navy", "gold", "mint"][guides.indexOf(g) % 3],
-        tags: ["Guides"],
-        publishedAt: new Date(g.updated),
-      });
-    }
-    console.log("[db] seeded blog posts from guides");
-  }
+  await seedBlog();
 
   if (process.argv.includes("--demo")) await demo();
+}
+
+/**
+ * Loads content/blog/*.md and inserts any post whose slug isn't in the DB yet.
+ * Never overwrites — once a post exists, it's edited in the dashboard.
+ * `day:` in front matter schedules it N days after BLOG_LAUNCH_DATE (default: today),
+ * so the library drips out a few posts a week instead of appearing all at once.
+ */
+async function seedBlog() {
+  const dir = "content/blog";
+  let files: string[] = [];
+  try {
+    files = readdirSync(dir).filter((f) => f.endsWith(".md")).sort();
+  } catch {
+    return;
+  }
+  const launch = process.env.BLOG_LAUNCH_DATE ? new Date(`${process.env.BLOG_LAUNCH_DATE}T08:00:00-05:00`) : new Date();
+  const existing = new Set((await db.select({ slug: posts.slug }).from(posts)).map((p) => p.slug));
+  let added = 0;
+  for (const f of files) {
+    const b = parseBlogFile(readFileSync(`${dir}/${f}`, "utf8"), f.replace(/\.md$/, ""));
+    if (existing.has(b.slug)) continue;
+    await db.insert(posts).values({
+      slug: b.slug,
+      title: b.title,
+      excerpt: b.excerpt,
+      content: b.content,
+      tags: b.tags,
+      accent: b.accent,
+      seoTitle: b.seoTitle ?? null,
+      seoDescription: b.seoDescription ?? null,
+      status: "published",
+      publishedAt: new Date(launch.getTime() + b.day * 86400000),
+    });
+    added++;
+  }
+  if (added) console.log(`[db] added ${added} blog posts from content/blog`);
 }
 
 /** SAMPLE data for local previews only — never run against production. */

@@ -57,7 +57,8 @@ export function BlogEditor({ id, initial, flash }: { id: string | null; initial:
 
   function save(status?: "draft" | "published") {
     setMsg(null);
-    const payload = { ...v, status: status ?? v.status };
+    // datetime-local is the editor's local time; send an absolute ISO timestamp.
+    const payload = { ...v, status: status ?? v.status, publishAt: v.publishAt ? new Date(v.publishAt).toISOString() : undefined };
     start(async () => {
       const r = await savePost(id, payload);
       if (r.error) return setMsg({ text: r.error });
@@ -119,6 +120,10 @@ export function BlogEditor({ id, initial, flash }: { id: string | null; initial:
               <span className="pl-3 text-sm text-slate-400">/blog/</span>
               <input id="be-slug" value={v.slug} onChange={(e) => set({ slug: e.target.value })} placeholder={slugPreview || "auto-from-title"} className="w-full rounded-xl border-0 bg-transparent px-1 py-2.5 text-sm focus:outline-none" />
             </div>
+          </div>
+          <div>
+            <label className={labelCls} htmlFor="be-when">Publish date <span className="font-normal normal-case">(future = scheduled)</span></label>
+            <input id="be-when" type="datetime-local" value={v.publishAt ?? ""} onChange={(e) => set({ publishAt: e.target.value })} className={inputCls} />
           </div>
           <div><label className={labelCls} htmlFor="be-tags">Tags (comma separated)</label><input id="be-tags" value={v.tags} onChange={(e) => set({ tags: e.target.value })} className={inputCls} /></div>
           <div><label className={labelCls} htmlFor="be-cover">Cover image URL (optional)</label><input id="be-cover" value={v.coverImage} onChange={(e) => set({ coverImage: e.target.value })} placeholder="https://…" className={inputCls} /></div>

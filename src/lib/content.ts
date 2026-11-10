@@ -1,6 +1,6 @@
 import "server-only";
 import { cache } from "react";
-import { and, asc, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq, lte } from "drizzle-orm";
 import { db } from "@/db";
 import { forms, posts, testimonials, type Post, type Testimonial } from "@/db/schema";
 import { defaultBookingForm, defaultQuoteForm, type FormConfig } from "./defaultForms";
@@ -57,12 +57,12 @@ export const getTestimonials = cache(() =>
 );
 
 export const getPublishedPosts = cache(() =>
-  safe<Post[]>(() => db.select().from(posts).where(eq(posts.status, "published")).orderBy(desc(posts.publishedAt)), []),
+  safe<Post[]>(() => db.select().from(posts).where(and(eq(posts.status, "published"), lte(posts.publishedAt, new Date()))).orderBy(desc(posts.publishedAt)), []),
 );
 
 export const getPostBySlug = cache((slug: string) =>
   safe<Post | null>(async () => {
-    const [p] = await db.select().from(posts).where(and(eq(posts.slug, slug), eq(posts.status, "published"))).limit(1);
+    const [p] = await db.select().from(posts).where(and(eq(posts.slug, slug), eq(posts.status, "published"), lte(posts.publishedAt, new Date()))).limit(1);
     return p ?? null;
   }, null),
 );

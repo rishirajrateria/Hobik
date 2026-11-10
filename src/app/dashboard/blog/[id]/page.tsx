@@ -33,6 +33,7 @@ export default async function EditPost({ params, searchParams }: { params: Promi
           status: post?.status ?? "draft",
           seoTitle: post?.seoTitle ?? "",
           seoDescription: post?.seoDescription ?? "",
+          publishAt: post?.publishedAt ? new Date(post.publishedAt.getTime() - post.publishedAt.getTimezoneOffset() * 60000).toISOString().slice(0, 16) : "",
         }}
       />
     </div>

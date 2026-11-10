@@ -11,10 +11,13 @@ export const dynamic = "force-dynamic";
 
 export default async function BlogAdmin() {
   await requireUser("blog:write");
-  const list = await db.select({ p: posts, author: users.name }).from(posts).leftJoin(users, eq(users.id, posts.authorId)).orderBy(desc(posts.updatedAt));
+  const list = await db.select({ p: posts, author: users.name }).from(posts).leftJoin(users, eq(users.id, posts.authorId)).orderBy(desc(posts.publishedAt));
+  const now = new Date();
+  const live = list.filter(({ p }) => p.status === "published" && p.publishedAt && p.publishedAt <= now).length;
+  const scheduled = list.filter(({ p }) => p.status === "published" && p.publishedAt && p.publishedAt > now).length;
   return (
     <div className="space-y-6">
-      <PageHeader title="Blog" sub="Write articles that rank on Google and get quoted by ChatGPT. Published posts go live instantly." actions={<Link href="/dashboard/blog/new" className={btnPrimary}><Icon name="plus" className="h-4 w-4" /> New post</Link>} />
+      <PageHeader title="Blog" sub={`${live} live · ${scheduled} scheduled · ${list.length - live - scheduled} drafts. Scheduled posts go live automatically on their date.`} actions={<Link href="/dashboard/blog/new" className={btnPrimary}><Icon name="plus" className="h-4 w-4" /> New post</Link>} />
       <Panel pad={false}>
         {list.length ? (
           <ul className="divide-y divide-slate-100">
@@ -28,8 +31,12 @@ export default async function BlogAdmin() {
                   <span className="block truncate font-bold text-navy-950">{p.title}</span>
                   <span className="block truncate text-xs text-slate-500">/blog/{p.slug} · {author ? `${author} · ` : ""}edited {timeAgo(p.updatedAt)}</span>
                 </Link>
-                <Badge tone={p.status === "published" ? "green" : "slate"}>{p.status === "published" ? "Published" : "Draft"}</Badge>
-                {p.status === "published" && <a href={`/blog/${p.slug}`} target="_blank" className="hidden text-sm font-bold text-blue-700 sm:block">View ↗</a>}
+                {p.status === "published" && p.publishedAt && p.publishedAt > new Date() ? (
+                  <Badge tone="blue">Scheduled · {p.publishedAt.toLocaleDateString("en-CA", { month: "short", day: "numeric" })}</Badge>
+                ) : (
+                  <Badge tone={p.status === "published" ? "green" : "slate"}>{p.status === "published" ? "Published" : "Draft"}</Badge>
+                )}
+                {p.status === "published" && (!p.publishedAt || p.publishedAt <= new Date()) && <a href={`/blog/${p.slug}`} target="_blank" className="hidden text-sm font-bold text-blue-700 sm:block">View ↗</a>}
               </li>
             ))}
           </ul>

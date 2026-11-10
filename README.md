@@ -58,6 +58,16 @@ Edit service, city and FAQ content in `src/lib/` (`site.ts`, `services.ts`, `are
 
 **Security:** passwords are hashed with scrypt; sessions are random tokens in httpOnly cookies, stored hashed and revocable; an account locks for 15 minutes after 5 failed sign-ins; every server action checks permissions; at least one owner must always remain; CSV export blocks spreadsheet formula injection; blog HTML is sanitised; the dashboard and login are `noindex` and disallowed in robots.txt.
 
+## Blog library (`content/blog/`)
+
+The site ships with **46 in-depth articles** (~19,000 words). Each follows an answer-first format for Google featured snippets and AI assistants: a quick answer, scannable sections and tables, an FAQ section (emitted as FAQPage schema), internal links to the matching service pages, and a quote CTA.
+
+- **16 go live at launch** (`day: 0`); **30 are scheduled** about two a week over the following 15 weeks (`day: 3` … `day: 105`). This steady publishing pattern is what search engines reward, rather than a one-time dump.
+- Set `BLOG_LAUNCH_DATE=YYYY-MM-DD` **before the first production build** so the schedule starts on launch day.
+- On every build, files whose slug isn't already in the database are added. Existing posts are never overwritten; once imported, edit them in *Dashboard → Blog*, where you can also change any post's publish date.
+- Articles cover high-intent searches (cost, estates, divorce, MPAC appeals, refinancing, CRA) and underserved Toronto topics (garden suites, fourplex rules, knob-and-tube wiring, heritage designation, ravine lots, former grow-ops, partition sales, power of attorney sales).
+- Tax and legal facts were checked in Nov 2026. Have the client review them before launch, and update the posts when rules change.
+
 ## SEO / AEO / LLM optimization
 
 - **JSON-LD schema:** `ProfessionalService`+`LocalBusiness` (NAP, geo, hours, areaServed, AIC membership), `WebSite`, `Service`, `FAQPage`, `BreadcrumbList`, `Article`, `ItemList`.
