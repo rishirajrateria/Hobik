@@ -6,18 +6,18 @@
 import { mkdirSync } from "node:fs";
 import { migrate } from "drizzle-orm/libsql/migrator";
 import { count, eq } from "drizzle-orm";
-import { db, dbUrl } from "../src/db";
+import { db, dbConnected, dbUrl } from "../src/db";
 import { forms, posts, events, leads, testimonials } from "../src/db/schema";
 import { defaultBookingForm, defaultQuoteForm } from "../src/lib/defaultForms";
 import { readdirSync, readFileSync } from "node:fs";
 import { parseBlogFile } from "../src/lib/blogfile";
 
 async function main() {
-  if (dbUrl.startsWith("file:")) mkdirSync("data", { recursive: true });
-  if (process.env.VERCEL && dbUrl.startsWith("file:")) {
-    console.warn("[db] No database connected on Vercel — skipping migrate. Connect Turso (Storage tab) so the dashboard works.");
+  if (!dbConnected) {
+    console.warn("[db] No database connected on Vercel — skipping migrate. Connect a Turso database and redeploy so the dashboard works.");
     return;
   }
+  if (dbUrl.startsWith("file:") && !dbUrl.includes(":memory:")) mkdirSync("data", { recursive: true });
   await migrate(db, { migrationsFolder: "./drizzle" });
   console.log(`[db] migrated (${dbUrl.replace(/\/\/.*@/, "//***@")})`);
 

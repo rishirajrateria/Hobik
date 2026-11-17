@@ -12,7 +12,20 @@ export const dynamic = "force-dynamic";
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
   if (await getCurrentUser()) redirect("/dashboard");
-  const [{ n }] = await db.select({ n: count() }).from(users);
+  let n = 0;
+  try {
+    [{ n }] = await db.select({ n: count() }).from(users);
+  } catch {
+    return (
+      <main id="main" className="grid min-h-screen place-items-center bg-navy-950 px-6 text-center">
+        <div className="max-w-md">
+          <span className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-gold-300 to-gold-500 text-navy-950"><Icon name="lock" className="h-6 w-6" /></span>
+          <h1 className="mt-6 text-2xl font-extrabold text-white">Database not connected yet</h1>
+          <p className="mt-3 text-white/60">The website is live, but the dashboard needs a database. Connect one in your hosting settings and redeploy, then reload this page.</p>
+        </div>
+      </main>
+    );
+  }
   const setup = n === 0;
   const { next } = await searchParams;
 
