@@ -4,12 +4,14 @@
  *   npx tsx scripts/db.ts --demo    also insert ~60 days of SAMPLE analytics + leads (preview databases only)
  */
 import { readdirSync, readFileSync } from "node:fs";
+import { randomBytes, scrypt } from "node:crypto";
+import { promisify } from "node:util";
 import { count, eq } from "drizzle-orm";
 import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { Pool } from "pg";
 import * as schema from "../src/db/schema";
-import { forms, posts, events, leads, testimonials } from "../src/db/schema";
+import { forms, posts, events, leads, testimonials, users } from "../src/db/schema";
 import { defaultBookingForm, defaultQuoteForm } from "../src/lib/defaultForms";
 import { parseBlogFile } from "../src/lib/blogfile";
 
@@ -44,9 +46,27 @@ async function run() {
     console.log("[db] seeded default forms");
   }
 
+  await seedOwner();
   await seedBlog();
 
   if (process.argv.includes("--demo") || process.env.SEED_DEMO === "true") await demo();
+}
+
+/**
+ * Optional: create the first owner account at build time from SEED_OWNER_EMAIL / SEED_OWNER_PASSWORD
+ * (only when no users exist yet). Meant for preview/testing logins; change the password afterwards in
+ * Dashboard → My account, and remove these variables.
+ */
+async function seedOwner() {
+  const email = process.env.SEED_OWNER_EMAIL?.trim().toLowerCase();
+  const password = process.env.SEED_OWNER_PASSWORD;
+  if (!email || !password) return;
+  const [{ n }] = await db.select({ n: count() }).from(users);
+  if (n > 0) return;
+  const salt = randomBytes(16);
+  const key = (await promisify(scrypt)(password, salt, 64)) as Buffer; // same format as src/lib/auth.ts
+  await db.insert(users).values({ email, name: "Demo Owner", passwordHash: ["scrypt", salt.toString("hex"), key.toString("hex")].join("$"), role: "owner" });
+  console.log(`[db] created owner account for ${email}`);
 }
 
 /**
