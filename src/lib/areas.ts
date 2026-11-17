@@ -26,7 +26,7 @@ export const areas: Area[] = [
     region: "Toronto",
     map: { x: 55, y: 48 },
     intro:
-      "Our office is on Gwendolen Ave in Willowdale, so North York is home turf — Yonge-Sheppard condos, Bayview Village bungalows and custom rebuilds in Lansing and Willowdale.",
+      "Our office is on Gwendolen Ave in Willowdale, so North York is home turf: Yonge-Sheppard condos, Bayview Village bungalows and custom rebuilds in Lansing and Willowdale.",
     neighbourhoods: ["Willowdale", "Bayview Village", "Lansing", "Don Mills", "York Mills", "Bedford Park", "Newtonbrook", "Downsview"],
     homeTypes: ["Custom rebuilds", "Bungalows", "High-rise condos", "Townhomes"],
   },
@@ -56,7 +56,7 @@ export const areas: Area[] = [
     region: "Toronto",
     map: { x: 61, y: 56 },
     intro:
-      "East York's compact bungalows and semis are prime candidates for renovation and second units — we capture those upgrades in your value.",
+      "East York's compact bungalows and semis are prime candidates for renovation and second units. We make sure those upgrades are reflected in your value.",
     neighbourhoods: ["Leaside", "Thorncliffe Park", "Pape Village", "Woodbine Heights", "O'Connor-Parkview"],
     homeTypes: ["Bungalows", "Semis", "Renovated homes", "Duplexes"],
   },
@@ -106,7 +106,7 @@ export const areas: Area[] = [
     region: "York",
     map: { x: 67, y: 36 },
     intro:
-      "Markham's mix of heritage Unionville homes, new builds and tech-corridor condos calls for careful comparable selection — which is exactly what we do.",
+      "Markham's mix of heritage Unionville homes, new builds and tech-corridor condos calls for careful comparable selection, which is exactly what we do.",
     neighbourhoods: ["Unionville", "Cornell", "Cathedraltown", "Berczy Village", "Markham Village", "Thornhill"],
     homeTypes: ["New builds", "Heritage homes", "Townhomes", "Condos"],
   },

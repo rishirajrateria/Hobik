@@ -31,9 +31,9 @@ export default async function TeamPage() {
                     <tr key={u.id} className={`border-t border-slate-100 ${u.active ? "" : "opacity-60"}`}>
                       <td className="px-5 py-3">
                         <div className="flex items-center gap-3">
-                          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-navy-900 text-xs font-extrabold text-gold-300">{u.name.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase()}</span>
+                          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-ink-900 text-xs font-extrabold text-brick-300">{u.name.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase()}</span>
                           <span>
-                            <span className="block font-bold text-navy-950">{u.name} {u.id === me.id && <span className="text-xs font-normal text-slate-400">(you)</span>}</span>
+                            <span className="block font-bold text-ink-950">{u.name} {u.id === me.id && <span className="text-xs font-normal text-slate-400">(you)</span>}</span>
                             <span className="block text-xs text-slate-500">{u.email}</span>
                           </span>
                           {!u.active && <Badge tone="rose">Deactivated</Badge>}

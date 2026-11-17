@@ -28,7 +28,7 @@ export default async function BlogAdmin() {
                   {p.coverImage && <img src={p.coverImage} alt="" className="h-full w-full object-cover" />}
                 </span>
                 <Link href={`/dashboard/blog/${p.id}`} className="min-w-0 flex-1">
-                  <span className="block truncate font-bold text-navy-950">{p.title}</span>
+                  <span className="block truncate font-bold text-ink-950">{p.title}</span>
                   <span className="block truncate text-xs text-slate-500">/blog/{p.slug} · {author ? `${author} · ` : ""}edited {timeAgo(p.updatedAt)}</span>
                 </Link>
                 {p.status === "published" && p.publishedAt && p.publishedAt > new Date() ? (

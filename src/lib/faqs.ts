@@ -21,7 +21,7 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "What areas do you serve?",
-    a: "We serve all of Toronto — North York, Scarborough, Etobicoke, East York and downtown — plus Mississauga, Brampton, Vaughan, Richmond Hill, Markham, Oakville, Burlington, Milton, Durham Region, Newmarket, Aurora, Hamilton and the rest of Southern Ontario.",
+    a: "We serve all of Toronto (North York, Scarborough, Etobicoke, East York and downtown) plus Mississauga, Brampton, Vaughan, Richmond Hill, Markham, Oakville, Burlington, Milton, Durham Region, Newmarket, Aurora, Hamilton and the rest of Southern Ontario.",
   },
   {
     q: "How do I prepare for a home appraisal?",
@@ -29,6 +29,6 @@ export const faqs: { q: string; a: string }[] = [
   },
   {
     q: "Will the appraiser need to come inside my home?",
-    a: "For most purposes, yes — an interior inspection gives the most accurate value. Exterior-only (drive-by) or desktop appraisals may be possible for some retrospective or lender assignments.",
+    a: "For most purposes, yes. An interior inspection gives the most accurate value. Exterior-only (drive-by) or desktop appraisals may be possible for some retrospective or lender assignments.",
   },
 ];

@@ -33,7 +33,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="dash-ui min-h-screen bg-slate-50">
       <Sidebar items={items} user={{ name: user.name, email: user.email, role: user.role }} signOut={signOut} />
       <main id="main" className="lg:pl-64">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">{children}</div>

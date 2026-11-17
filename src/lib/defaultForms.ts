@@ -41,7 +41,7 @@ export const defaultBookingForm: FormConfig = {
   slug: "book-appraisal",
   name: "Appraisal questionnaire (multi-step)",
   title: "Book your appraisal",
-  subtitle: "Answer a few quick questions — takes 60 seconds",
+  subtitle: "A few quick questions, about 60 seconds",
   submitLabel: "Send My Request",
   successTitle: "You're all set!",
   successMessage: "An appraiser will contact you to confirm your fee and inspection time.",

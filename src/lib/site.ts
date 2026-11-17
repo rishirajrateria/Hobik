@@ -12,7 +12,7 @@ export const site = {
   legalName: "Home Value Inc.",
   tagline: "Certified Home Appraisals Across Toronto & the GTA",
   description:
-    "Home Value Inc. provides certified residential property appraisals in Toronto, the GTA and Southern Ontario — for mortgages, estates, divorce, CRA capital gains, MPAC tax appeals and private sales. Fast turnaround, lender-accepted reports.",
+    "Home Value Inc. provides certified residential property appraisals in Toronto, the GTA and Southern Ontario for mortgages, estates, divorce, CRA capital gains, MPAC tax appeals and private sales. Fast turnaround, lender-accepted reports.",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.homeappraisaltoronto.ca").replace(/\/$/, ""),
   phone: "(416) 871-9224",
   phoneE164: "+14168719224",

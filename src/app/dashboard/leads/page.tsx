@@ -48,9 +48,9 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
       />
 
       <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
-        <Link href={qs({ status: undefined, p: undefined })} className={`shrink-0 rounded-xl px-3.5 py-2 text-sm font-bold ring-1 ${!status ? "bg-navy-900 text-white ring-navy-900" : "bg-white text-slate-600 ring-slate-200"}`}>All <span className="opacity-60">{all}</span></Link>
+        <Link href={qs({ status: undefined, p: undefined })} className={`shrink-0 rounded-xl px-3.5 py-2 text-sm font-bold ring-1 ${!status ? "bg-ink-900 text-white ring-ink-900" : "bg-white text-slate-600 ring-slate-200"}`}>All <span className="opacity-60">{all}</span></Link>
         {LEAD_STATUSES.map((s) => (
-          <Link key={s} href={qs({ status: s, p: undefined })} className={`flex shrink-0 items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-bold capitalize ring-1 ${status === s ? "bg-navy-900 text-white ring-navy-900" : "bg-white text-slate-600 ring-slate-200"}`}>
+          <Link key={s} href={qs({ status: s, p: undefined })} className={`flex shrink-0 items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-bold capitalize ring-1 ${status === s ? "bg-ink-900 text-white ring-ink-900" : "bg-white text-slate-600 ring-slate-200"}`}>
             <span className={`h-2 w-2 rounded-full ${STATUS_DOT[s]}`} /> {s} <span className="opacity-60">{counts.find((c) => c.status === s)?.n ?? 0}</span>
           </Link>
         ))}
@@ -64,7 +64,7 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
             <input name="q" defaultValue={q} placeholder="Search name, email, phone or service…" className={`${inputCls} pl-9`} />
           </div>
           <label className="flex items-center gap-2 text-sm font-semibold text-slate-600">
-            <input type="checkbox" name="mine" value="1" defaultChecked={!!sp.mine} className="h-4 w-4 accent-navy-900" /> Assigned to me
+            <input type="checkbox" name="mine" value="1" defaultChecked={!!sp.mine} className="h-4 w-4 accent-ink-900" /> Assigned to me
           </label>
           <button className={btnSecondary}>Filter</button>
         </form>
@@ -87,7 +87,7 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
                 {rows.map((l) => (
                   <tr key={l.id} className="border-t border-slate-100 hover:bg-slate-50/60">
                     <td className="px-5 py-3">
-                      <Link href={`/dashboard/leads/${l.id}`} className="block font-bold text-navy-950 hover:text-blue-700">{l.name || "Unnamed lead"}</Link>
+                      <Link href={`/dashboard/leads/${l.id}`} className="block font-bold text-ink-950 hover:text-blue-700">{l.name || "Unnamed lead"}</Link>
                       <span className="block text-xs text-slate-500">{[l.phone, l.email].filter(Boolean).join(" · ") || "—"}</span>
                     </td>
                     <td className="max-w-[200px] truncate px-3 py-3 text-slate-700">{l.service || l.formName || "—"}</td>

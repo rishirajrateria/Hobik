@@ -130,7 +130,7 @@ export function TrendChart({ data, series, type = "line", height = 260, title }:
           </svg>
           {hover !== null && data[hover] && (
             <div
-              className="pointer-events-none absolute top-2 z-10 min-w-36 rounded-xl bg-navy-950 px-3 py-2 text-xs text-white shadow-xl"
+              className="pointer-events-none absolute top-2 z-10 min-w-36 rounded-xl bg-ink-950 px-3 py-2 text-xs text-white shadow-xl"
               style={{ left: `${(x(hover) / W) * 100}%`, transform: `translateX(${x(hover) > W * 0.7 ? "-105%" : "8px"})` }}
             >
               <p className="mb-1 font-semibold text-white/60">{fmtBucket(String(data[hover].d))}</p>

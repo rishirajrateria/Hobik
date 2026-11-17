@@ -130,7 +130,7 @@ export default async function Analytics({ searchParams }: { searchParams: Promis
               <tbody>
                 {clicks.map((x, i) => (
                   <tr key={`${x.label}-${x.location}-${i}`} className="border-t border-slate-100">
-                    <td className="max-w-[220px] truncate px-5 py-2.5 font-semibold text-navy-950">{x.label}</td>
+                    <td className="max-w-[220px] truncate px-5 py-2.5 font-semibold text-ink-950">{x.label}</td>
                     <td className="px-3 py-2.5">{x.location ? <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-600">{x.location}</span> : <span className="text-slate-300">—</span>}</td>
                     <td className="px-3 py-2.5 text-right font-bold tabular-nums">{x.clicks.toLocaleString()}</td>
                     <td className="px-3 py-2.5 text-right tabular-nums text-slate-500">{x.visitors.toLocaleString()}</td>

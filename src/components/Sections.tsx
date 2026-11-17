@@ -5,7 +5,6 @@ import { areas, type Area } from "@/lib/areas";
 import { breadcrumbSchema } from "@/lib/schema";
 import { Icon } from "./Icon";
 import { CallLink, CtaLink } from "./Tracked";
-import { DarkAurora } from "./Ambient";
 
 export function JsonLd({ data }: { data: object | object[] }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
@@ -14,266 +13,160 @@ export function JsonLd({ data }: { data: object | object[] }) {
 const HQ = { x: 55, y: 48 };
 
 /* ------------------------------------------------------------------ */
-/* Hero visual: layered glass "appraisal" composition with 3D tilt      */
+/* Hero: elevation drawing of a Toronto bay-and-gable house             */
 /* ------------------------------------------------------------------ */
 export function HeroVisual() {
+  const ink = "var(--color-ink-950)";
+  const brick = "var(--color-brick-500)";
+  const pane = "var(--color-lake)";
   return (
-    <div className="relative mx-auto aspect-square w-full max-w-[580px] [perspective:1400px]" aria-hidden="true">
-      {/* orbit rings */}
-      <div className="absolute inset-[4%] animate-spin-slow rounded-full border border-dashed border-white/15">
-        <span className="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-gold-400 shadow-[0_0_20px_4px_rgba(252,199,90,0.7)]" />
-      </div>
-      <div className="absolute inset-[15%] animate-[spin_26s_linear_infinite_reverse] rounded-full border border-white/10">
-        <span className="absolute top-1/2 -right-1 h-2 w-2 rounded-full bg-mint-400 shadow-[0_0_16px_3px_rgba(62,224,181,0.7)]" />
-      </div>
+    <figure className="relative mx-auto w-full max-w-[520px]">
+      <svg viewBox="0 0 400 450" className="w-full" role="img" aria-label="Line drawing of a Toronto bay-and-gable house with survey dimensions">
+        <g fill="none" stroke={ink} strokeWidth="1.4" strokeLinejoin="round">
+          {/* ground */}
+          <path d="M30 400h340" strokeWidth="1.8" />
+          {/* walls */}
+          <path d="M84 196v204M316 196v204" />
+          {/* steep gable roof + eaves */}
+          <path d="M66 204 200 66l134 138" strokeWidth="1.8" />
+          <path d="M84 196 200 82l116 114" />
+          {/* bargeboard trim */}
+          <path d="M104 186 200 92l96 94" strokeDasharray="2 5" />
+          {/* attic window */}
+          <path d="M186 160v-22a14 14 0 0 1 28 0v22z" fill={pane} />
+          <path d="M200 124v36" />
+          {/* two-storey bay (left) */}
+          <path d="M96 400V226l14-14h70l14 14v174" fill="var(--color-paper-50)" />
+          <path d="M110 212v188M180 212v188" />
+          <path d="M96 314h98" />
+          {[232, 330].map((y) => (
+            <g key={y}>
+              <rect x="99" y={y} width="9" height="58" fill={pane} />
+              <rect x="117" y={y} width="56" height="62" fill={pane} />
+              <path d={`M145 ${y}v62M117 ${y + 30}h56`} />
+              <rect x="182" y={y} width="9" height="58" fill={pane} />
+            </g>
+          ))}
+          <path d="M92 226h106" strokeWidth="1.8" />
+          {/* upper window (right) */}
+          <rect x="226" y="222" width="62" height="64" fill={pane} />
+          <path d="M257 222v64M226 254h62" />
+          <path d="M220 218h74" strokeWidth="1.8" />
+          {/* porch roof + posts */}
+          <path d="M208 312h100l-10-14h-80z" fill="var(--color-paper-50)" />
+          <path d="M214 312v88M302 312v88" />
+          {/* door + transom */}
+          <rect x="236" y="328" width="44" height="72" />
+          <path d="M236 340h44" />
+          <circle cx="272" cy="366" r="1.8" fill={ink} />
+          {/* steps */}
+          <path d="M226 400v-6h64v6M232 394v-6h52v6" />
+          {/* brick coursing hints */}
+          <g stroke={brick} strokeWidth="1" opacity="0.55">
+            <path d="M296 340h14M300 350h12M296 360h14M300 370h12M296 380h14M88 250h6M88 262h6M88 274h6" />
+          </g>
+        </g>
+        {/* survey dimensions */}
+        <g stroke={brick} strokeWidth="1" fill="none">
+          <path d="M84 424h232M84 418v12M316 418v12" />
+          <path d="M352 66v334M346 66h12M346 400h12" />
+        </g>
+        <g fill={brick} fontFamily="var(--font-sans)" fontSize="10" fontWeight="600" letterSpacing="1.6">
+          <text x="200" y="442" textAnchor="middle">FRONTAGE</text>
+          <text x="368" y="233" textAnchor="middle" transform="rotate(90 368 233)">HEIGHT · 2½ STOREYS</text>
+        </g>
+      </svg>
 
-      <div data-tilt="7" className="absolute inset-0 transition-transform duration-300 ease-out [transform-style:preserve-3d]">
-        {/* main glass card */}
-        <div className="glass-dark glow-border absolute inset-x-[8%] top-[7%] bottom-[16%] overflow-hidden !rounded-[2rem]">
-          <svg viewBox="0 0 400 360" className="h-full w-full" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <linearGradient id="hv-sky" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#173a6e" stopOpacity="0.85" />
-                <stop offset="1" stopColor="#0a1a36" stopOpacity="0.9" />
-              </linearGradient>
-              <linearGradient id="hv-win" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#ffd98a" />
-                <stop offset="1" stopColor="#f5b031" />
-              </linearGradient>
-              <linearGradient id="hv-scan" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#3ee0b5" stopOpacity="0" />
-                <stop offset="0.85" stopColor="#3ee0b5" stopOpacity="0.28" />
-                <stop offset="1" stopColor="#3ee0b5" stopOpacity="0.9" />
-              </linearGradient>
-              <radialGradient id="hv-glow" cx="0.5" cy="0.5" r="0.5">
-                <stop offset="0" stopColor="#fcc75a" stopOpacity="0.55" />
-                <stop offset="1" stopColor="#fcc75a" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <rect width="400" height="360" fill="url(#hv-sky)" />
-            <g fill="#ffd98a">
-              {[[40, 40, 0], [120, 70, 0.6], [180, 30, 1.2], [300, 60, 0.3], [360, 35, 1.8], [80, 100, 0.9], [330, 110, 1.4]].map(([x, y, d]) => (
-                <circle key={`${x}-${y}`} cx={x} cy={y} r="1.6" className="animate-blink" style={{ animationDelay: `${d}s` }} />
-              ))}
-            </g>
-            <g fill="#11305f" opacity="0.95">
-              <rect x="20" y="150" width="34" height="120" rx="2" />
-              <rect x="58" y="120" width="26" height="150" rx="2" />
-              <rect x="88" y="165" width="40" height="105" rx="2" />
-              <rect x="300" y="140" width="30" height="130" rx="2" />
-              <rect x="334" y="170" width="46" height="100" rx="2" />
-              <rect x="266" y="185" width="30" height="85" rx="2" />
-              <path d="M232 270V95l4-6 4 6v175z" />
-              <ellipse cx="236" cy="128" rx="11" ry="6" />
-              <rect x="235" y="40" width="2" height="52" />
-            </g>
-            <g fill="#fcc75a" opacity="0.5">
-              {[[26, 160], [26, 180], [64, 135], [64, 160], [96, 180], [306, 150], [306, 175], [342, 185], [272, 200]].map(([x, y], i) => (
-                <rect key={i} x={x} y={y} width="5" height="7" rx="1" className="animate-blink" style={{ animationDelay: `${i * 0.37}s` }} />
-              ))}
-            </g>
-            <circle cx="236" cy="38" r="3" fill="#ff6b6b" className="animate-blink" />
-            <path d="M0 268h400v92H0z" fill="#061430" />
-            <circle cx="200" cy="215" r="110" fill="url(#hv-glow)" />
-            <g>
-              <path d="M120 270V190l80-62 80 62v80z" fill="#f3f6fb" />
-              <path d="M104 196 200 120l96 76" fill="none" stroke="#f5b031" strokeWidth="10" strokeLinejoin="round" strokeLinecap="round" />
-              <rect x="248" y="130" width="16" height="36" fill="#e6ecf6" />
-              <rect x="142" y="200" width="36" height="32" rx="3" fill="url(#hv-win)" />
-              <rect x="222" y="200" width="36" height="32" rx="3" fill="url(#hv-win)" />
-              <path d="M160 200v32M142 216h36M240 200v32M222 216h36" stroke="#d9921a" strokeWidth="2" />
-              <rect x="186" y="226" width="28" height="44" rx="3" fill="#173a6e" />
-              <circle cx="208" cy="250" r="2" fill="#f5b031" />
-              <circle cx="200" cy="168" r="10" fill="url(#hv-win)" />
-            </g>
-            <g fill="#14c79a" opacity="0.9">
-              <circle cx="92" cy="246" r="18" /><rect x="90" y="252" width="4" height="18" fill="#0e8f70" />
-              <circle cx="312" cy="242" r="22" /><rect x="310" y="252" width="4" height="18" fill="#0e8f70" />
-            </g>
-            {/* animated measurement */}
-            <g stroke="#3ee0b5" strokeWidth="1.5" strokeDasharray="4 4" className="animate-dash">
-              <path d="M120 290h160" /><path d="M300 270V128" />
-            </g>
-            <path d="M120 284v12M280 284v12M294 270h12M294 128h12" stroke="#3ee0b5" strokeWidth="1.5" />
-            <text x="200" y="312" fill="#3ee0b5" fontSize="12" fontFamily="sans-serif" textAnchor="middle" fontWeight="700" letterSpacing="1">2,140 SQ FT</text>
-            {/* scanning beam */}
-            <rect x="0" y="-80" width="400" height="80" fill="url(#hv-scan)">
-              <animate attributeName="y" values="-80;300;-80" dur="7s" repeatCount="indefinite" />
-            </rect>
-          </svg>
+      {/* report excerpt */}
+      <div className="absolute bottom-10 -left-2 w-[230px] border border-ink-950 bg-paper-50 text-[13px] sm:-left-8">
+        <div className="flex items-center justify-between border-b border-ink-950 px-4 py-2">
+          <span className="font-semibold tracking-[0.12em] uppercase">Appraisal summary</span>
+          <span className="text-[11px] text-ink-700">Sample</span>
         </div>
-
-        {/* floating: valuation card */}
-        <div className="glass absolute bottom-[3%] -left-1 w-[62%] max-w-64 animate-float p-4 [transform:translateZ(60px)] sm:-left-4">
-          <div className="flex items-center justify-between">
-            <p className="text-[11px] font-bold tracking-widest text-slate-500 uppercase">Market value</p>
-            <span className="rounded-full bg-mint-400/15 px-2 py-0.5 text-[10px] font-extrabold text-mint-500">SAMPLE</span>
+        <dl className="divide-y divide-ink-100 px-4">
+          <div className="flex justify-between py-2"><dt className="text-ink-700">Comparables</dt><dd className="font-semibold">6 sales</dd></div>
+          <div className="flex justify-between py-2"><dt className="text-ink-700">Effective date</dt><dd className="font-semibold">Any date</dd></div>
+          <div className="py-2.5">
+            <dt className="text-ink-700">Market value</dt>
+            <dd className="font-display text-[28px] leading-tight font-medium text-ink-950">$1,248,000</dd>
           </div>
-          <p className="mt-1 font-display text-3xl font-extrabold text-navy-950">$1,248,000</p>
-          <svg viewBox="0 0 200 48" className="mt-2 h-10 w-full">
-            <defs>
-              <linearGradient id="hv-spark" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#14c79a" stopOpacity="0.35" />
-                <stop offset="1" stopColor="#14c79a" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <path d="M0 40 C30 36 40 30 60 32 S100 20 120 22 160 8 200 6 V48 H0Z" fill="url(#hv-spark)" />
-            <path d="M0 40 C30 36 40 30 60 32 S100 20 120 22 160 8 200 6" fill="none" stroke="#14c79a" strokeWidth="2.5" strokeDasharray="320" strokeDashoffset="320">
-              <animate attributeName="stroke-dashoffset" from="320" to="0" dur="2.4s" fill="freeze" begin="0.6s" />
-            </path>
-            <circle cx="200" cy="6" r="3.5" fill="#14c79a"><animate attributeName="r" values="3.5;6;3.5" dur="2s" repeatCount="indefinite" /></circle>
-          </svg>
-          <p className="mt-1 text-xs font-semibold text-mint-500">6 comparable sales analysed</p>
-        </div>
-
-        {/* floating: delivered */}
-        <div className="glass absolute top-0 -right-1 flex animate-float-slow items-center gap-3 p-3 pr-5 [transform:translateZ(80px)] sm:-right-4">
-          <span className="relative grid h-10 w-10 place-items-center rounded-xl bg-mint-400/15 text-mint-500">
-            <span className="absolute inset-0 animate-pulse-ring rounded-xl bg-mint-400/30" />
-            <Icon name="doc" className="relative h-5 w-5" />
-          </span>
-          <span>
-            <span className="block text-sm font-extrabold text-navy-950">Report delivered</span>
-            <span className="block text-xs text-slate-500">Lender-ready PDF</span>
-          </span>
-        </div>
-
-        {/* floating: certified badge */}
-        <div className="absolute right-[3%] bottom-[22%] grid h-24 w-24 animate-float place-items-center rounded-full bg-gradient-to-br from-gold-300 to-gold-500 text-center text-navy-950 shadow-[0_20px_50px_-10px_rgba(245,176,49,0.8),inset_0_2px_0_rgba(255,255,255,0.6)] ring-8 ring-white/10 backdrop-blur [animation-delay:1.5s] [transform:translateZ(100px)]">
-          <span className="text-[10px] leading-tight font-extrabold tracking-wider uppercase">
-            <Icon name="shield" className="mx-auto mb-1 h-6 w-6" />
-            AIC<br />Member
-          </span>
-        </div>
+        </dl>
       </div>
-    </div>
+      <figcaption className="mt-3 text-right text-[12px] text-ink-700 italic">Bay-and-gable house, a Toronto staple since the 1870s.</figcaption>
+    </figure>
   );
 }
 
 /* ------------------------------------------------------------------ */
+/** A plain ruled row of facts (replaces badges and stat counters). */
 export function TrustStrip() {
   const items = [
-    { icon: "shield", label: "AIC member appraisers" },
-    { icon: "clock", label: `${site.turnaround} turnaround` },
-    { icon: "bank", label: "Lender-ready reports" },
-    { icon: "calendar", label: "Retrospective dates" },
-    { icon: "gavel", label: "Court testimony" },
-    { icon: "pin", label: "All of the GTA" },
-    { icon: "doc", label: "CUSPAP-compliant" },
-    { icon: "bolt", label: "Rush service" },
+    ["Credentials", "Appraisal Institute of Canada members"],
+    ["Turnaround", `Most reports in ${site.turnaround}`],
+    ["Dates", "Current or any past date"],
+    ["Coverage", "Toronto, the GTA and Southern Ontario"],
   ];
-  const row = [...items, ...items];
   return (
-    <div className="relative overflow-hidden border-y border-white/70 bg-white/40 py-5 backdrop-blur-xl">
-      <div className="flex w-max animate-marquee gap-4 pr-4 hover:[animation-play-state:paused]">
-        {row.map((it, i) => (
-          <span key={i} className="flex items-center gap-2.5 rounded-full bg-white/60 px-4 py-2 text-sm font-bold whitespace-nowrap text-navy-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] ring-1 ring-white" aria-hidden={i >= items.length}>
-            <Icon name={it.icon} className="h-4 w-4 text-gold-600" /> {it.label}
-          </span>
+    <div className="border-y border-ink-950">
+      <dl className="container-x grid sm:grid-cols-2 lg:grid-cols-4">
+        {items.map(([k, v], i) => (
+          <div key={k} className={`py-5 sm:px-6 ${i > 0 ? "border-t border-ink-100 sm:border-t-0" : ""} ${i % 2 ? "sm:border-l sm:border-ink-100" : ""} ${i === 2 ? "lg:border-l lg:border-ink-100" : ""} ${i === 0 ? "sm:pl-0" : ""}`}>
+            <dt className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{k}</dt>
+            <dd className="mt-1.5 text-[15px] text-ink-950">{v}</dd>
+          </div>
         ))}
-      </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#f4f7fc]" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#f4f7fc]" />
+      </dl>
     </div>
   );
 }
 
-/* ------------------------------------------------------------------ */
-export function StatsBand() {
+/** Key facts as a simple definition list. */
+export function StatsBand({ dark = false }: { dark?: boolean }) {
   const stats = [
-    { v: site.yearsExperience, l: "Years appraising", icon: "calendar" },
-    { v: "20+", l: "GTA cities served", icon: "pin" },
-    { v: "48h", l: "Typical delivery", icon: "clock" },
-    { v: "10", l: "Appraisal specialties", icon: "doc" },
+    [site.yearsExperience, "years appraising homes"],
+    ["20+", "GTA cities and towns served"],
+    [site.turnaround, "typical report delivery"],
+    ["10", "types of appraisal"],
   ];
   return (
-    <div className="glass-dark grid grid-cols-2 overflow-hidden lg:grid-cols-4">
-      {stats.map((s, i) => (
-        <div key={s.l} data-spot className={`spotlight group relative p-6 text-center sm:p-8 ${i % 2 ? "border-l border-white/10" : ""} ${i > 1 ? "border-t border-white/10 lg:border-t-0" : ""} ${i === 2 ? "lg:border-l" : ""}`}>
-          <Icon name={s.icon} className="mx-auto mb-2 h-5 w-5 text-white/30 transition group-hover:-translate-y-0.5 group-hover:text-gold-300" />
-          <p className="font-display text-4xl font-extrabold text-gradient tabular-nums sm:text-5xl" data-count={s.v}>{s.v}</p>
-          <p className="mt-1 text-sm font-semibold text-white/60">{s.l}</p>
+    <dl className={`grid grid-cols-2 gap-px lg:grid-cols-4 ${dark ? "bg-white/15" : "bg-ink-100"}`}>
+      {stats.map(([v, l]) => (
+        <div key={l} className={`flex flex-col-reverse p-6 ${dark ? "bg-ink-950" : "bg-paper"}`}>
+          <dt className={`mt-2 text-[14px] ${dark ? "text-white/60" : "text-ink-700"}`}>{l}</dt>
+          <dd className={`font-display text-[34px] leading-none font-medium ${dark ? "text-paper" : "text-ink-950"}`}>{v}</dd>
         </div>
       ))}
-    </div>
+    </dl>
   );
 }
 
 /* ------------------------------------------------------------------ */
-export function SectionHead({ eyebrow, title, sub, center = true, dark = false }: { eyebrow: string; title: React.ReactNode; sub?: string; center?: boolean; dark?: boolean }) {
+export function SectionHead({ eyebrow, title, sub, center = false, dark = false }: { eyebrow: string; title: React.ReactNode; sub?: string; center?: boolean; dark?: boolean }) {
   return (
-    <div className={`${center ? "mx-auto text-center" : ""} max-w-3xl`} data-reveal>
+    <div className={`${center ? "mx-auto text-center" : ""} max-w-2xl`} data-reveal>
       <span className={dark ? "eyebrow-dark" : "eyebrow"}>{eyebrow}</span>
-      <h2 className={`mt-5 text-3xl leading-[1.08] font-extrabold sm:text-4xl lg:text-5xl ${dark ? "text-white" : "text-navy-950"}`}>{title}</h2>
-      {sub && <p className={`mt-4 text-lg ${dark ? "text-white/65" : "text-slate-600"}`}>{sub}</p>}
+      <h2 className={`mt-5 text-[34px] leading-[1.1] font-medium sm:text-[44px] ${dark ? "text-paper" : "text-ink-950"}`}>{title}</h2>
+      {sub && <p className={`mt-4 text-[17px] leading-relaxed ${dark ? "text-white/65" : "text-ink-700"}`}>{sub}</p>}
     </div>
   );
 }
 
+/** Services as an editorial index (numbered rows), not icon cards. */
 export function ServiceGrid({ citySuffix }: { citySuffix?: string }) {
   return (
-    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {services.map((s, i) => {
-        const feat = i === 0;
-        return (
-          <Link
-            key={s.slug}
-            href={`/services/${s.slug}`}
-            data-reveal
-            style={{ "--d": i % 6 } as React.CSSProperties}
-            className={`group spotlight relative flex flex-col overflow-hidden p-7 transition duration-500 hover:-translate-y-1.5 ${
-              feat ? "glass-dark glow-border !bg-navy-950 text-white lg:row-span-2" : "card hover:bg-white/75 hover:shadow-[inset_0_1px_0_rgba(255,255,255,1),0_30px_60px_-25px_rgba(10,26,54,0.45)]"
-            } ${i === services.length - 1 ? "lg:col-span-2" : ""}`}
-          >
-            {feat && <DarkAurora />}
-            <span className={`relative grid h-14 w-14 place-items-center rounded-2xl transition duration-500 group-hover:scale-110 group-hover:-rotate-6 ${feat ? "bg-gradient-to-br from-gold-300 to-gold-500 text-navy-950 shadow-[0_10px_30px_-8px_rgba(245,176,49,0.8)]" : "bg-white/80 text-navy-800 shadow-[inset_0_1px_0_#fff,0_8px_20px_-10px_rgba(10,26,54,0.4)] ring-1 ring-white group-hover:bg-gradient-to-br group-hover:from-gold-300 group-hover:to-gold-500 group-hover:text-navy-950"}`}>
-              <Icon name={s.icon} className="h-7 w-7" />
+    <ol className="grid border-t border-ink-950 lg:grid-cols-2 lg:gap-x-12">
+      {services.map((s, i) => (
+        <li key={s.slug} className="border-b border-ink-100" data-reveal style={{ "--d": i % 4 } as React.CSSProperties}>
+          <Link href={`/services/${s.slug}`} className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-3 py-6">
+            <span className="text-[13px] font-semibold text-brick-600 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+            <span>
+              <span className="block font-display text-[22px] leading-snug font-medium text-ink-950 decoration-brick-500 decoration-1 underline-offset-4 group-hover:underline">
+                {s.name}{citySuffix ? <span className="sr-only"> in {citySuffix}</span> : null}
+              </span>
+              <span className="mt-1.5 block text-[15px] leading-relaxed text-ink-700">{s.short}</span>
             </span>
-            <h3 className={`relative mt-5 text-xl font-extrabold ${feat ? "lg:text-3xl" : "text-navy-950"}`}>
-              {s.name}{citySuffix ? <span className="sr-only"> in {citySuffix}</span> : null}
-            </h3>
-            <p className={`relative mt-2 text-[15px] ${feat ? "text-white/70" : "text-slate-600"}`}>{s.short}</p>
-            {feat && (
-              <ul className="relative mt-6 hidden space-y-3 lg:block">
-                {s.bullets.map((b) => (
-                  <li key={b} className="flex gap-3 text-sm text-white/85"><Icon name="check" className="h-5 w-5 shrink-0 text-gold-400" />{b}</li>
-                ))}
-              </ul>
-            )}
-            <span className={`relative mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-bold ${feat ? "text-gold-300" : "text-gold-600"}`}>
-              Learn more <Icon name="arrow" className="h-4 w-4 transition duration-300 group-hover:translate-x-1.5" />
-            </span>
+            <Icon name="arrow" className="h-4 w-4 self-center text-ink-950 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
-        );
-      })}
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-export function Process() {
-  const steps = [
-    { icon: "phone", t: "Request a quote", d: "Call or send the form — get your fee upfront." },
-    { icon: "calendar", t: "Book the visit", d: "Pick a time that works, often within days." },
-    { icon: "search", t: "Inspection", d: "30–60 minutes on site, measuring and photographing." },
-    { icon: "doc", t: "Get your report", d: `Signed PDF report, typically in ${site.turnaround}.` },
-  ];
-  return (
-    <ol className="relative grid gap-6 md:grid-cols-4">
-      <div className="absolute top-10 right-[12%] left-[12%] hidden h-0.5 overflow-hidden rounded-full bg-white/60 md:block" aria-hidden="true">
-        <div data-draw className="h-full w-full bg-gradient-to-r from-gold-400 via-mint-400 to-gold-400" />
-      </div>
-      {steps.map((s, i) => (
-        <li key={s.t} className="group relative text-center" data-reveal style={{ "--d": i + 1 } as React.CSSProperties}>
-          <span className="relative mx-auto grid h-20 w-20 place-items-center rounded-full bg-gradient-to-br from-navy-800 to-navy-950 text-gold-400 shadow-[0_20px_40px_-15px_rgba(5,13,31,0.7),inset_0_1px_0_rgba(255,255,255,0.15)] ring-8 ring-white/70 backdrop-blur transition duration-500 group-hover:-translate-y-1 group-hover:scale-105">
-            <span className="absolute inset-0 animate-pulse-ring rounded-full bg-gold-400/20" style={{ animationDelay: `${i * 0.6}s` }} />
-            <Icon name={s.icon} className="relative h-8 w-8" />
-            <span className="absolute -top-1 -right-1 grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-gold-300 to-gold-500 text-xs font-extrabold text-navy-950 shadow-lg">{i + 1}</span>
-          </span>
-          <div className="card mx-auto mt-5 max-w-[17rem] px-4 py-4">
-            <h3 className="text-lg font-extrabold text-navy-950">{s.t}</h3>
-            <p className="mt-1 text-sm text-slate-600">{s.d}</p>
-          </div>
         </li>
       ))}
     </ol>
@@ -281,90 +174,88 @@ export function Process() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Stylised GTA map: glass, animated routes from the office to each city */
+export function Process() {
+  const steps = [
+    { t: "Request a quote", d: "Call or send the form. You get a firm fee before anything is booked." },
+    { t: "Book the visit", d: "Choose a time that suits you, usually within a few days." },
+    { t: "Inspection", d: "30 to 60 minutes on site, measuring and photographing." },
+    { t: "Your report", d: `A signed PDF report, typically within ${site.turnaround}.` },
+  ];
+  return (
+    <ol className="grid border-t border-ink-950 sm:grid-cols-2 lg:grid-cols-4">
+      {steps.map((s, i) => (
+        <li key={s.t} data-reveal style={{ "--d": i } as React.CSSProperties} className={`py-7 ${i > 0 ? "border-t border-ink-100" : ""} ${i === 1 ? "sm:border-t-0 sm:border-l sm:pl-7" : ""} ${i === 2 ? "lg:border-t-0 lg:border-l lg:pl-7" : ""} ${i === 3 ? "sm:border-l sm:pl-7 lg:border-t-0" : ""}`}>
+          <span className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">Step {i + 1}</span>
+          <h3 className="mt-3 text-[22px] font-medium text-ink-950">{s.t}</h3>
+          <p className="mt-2 text-[15px] leading-relaxed text-ink-700">{s.d}</p>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Service-area map, drawn like a plan                                  */
 /* ------------------------------------------------------------------ */
 export function AreaMap({ highlight }: { highlight?: string }) {
   return (
-    <div data-spot className="glass-dark spotlight relative overflow-hidden !rounded-[2rem] !bg-navy-950">
-      <DarkAurora />
-      <svg viewBox="0 0 100 100" className="relative block aspect-[4/3] w-full sm:aspect-[16/10]" role="img" aria-label="Map of GTA service areas">
-        <defs>
-          <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#1d4ed8" stopOpacity="0.45" />
-            <stop offset="1" stopColor="#173a6e" stopOpacity="0.15" />
-          </linearGradient>
-        </defs>
-        <path d="M0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 V100 H0Z" fill="url(#lake)" />
-        <path d="M0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44" fill="none" stroke="#3ee0b5" strokeOpacity="0.35" strokeWidth="0.3" />
-        <text x="62" y="86" fontSize="3" fill="#3ee0b5" opacity="0.6" fontWeight="700" letterSpacing="0.4">LAKE ONTARIO</text>
-        {/* routes */}
-        <g fill="none" strokeWidth="0.25" strokeDasharray="1 1.4">
-          {areas.map((a) => (
-            <path key={a.slug} d={`M${HQ.x} ${HQ.y} Q ${(HQ.x + a.map.x) / 2} ${Math.min(HQ.y, a.map.y) - 6} ${a.map.x} ${a.map.y}`} stroke={highlight === a.slug ? "#fcc75a" : "#3ee0b5"} strokeOpacity={highlight === a.slug ? 0.9 : 0.35} className="animate-dash" />
-          ))}
-        </g>
-        {areas.map((a, i) => {
+    <figure className="border border-ink-100 bg-paper-50">
+      <svg viewBox="0 0 100 100" className="block aspect-[4/3] w-full sm:aspect-[16/10]" role="img" aria-label="Map of the Greater Toronto Area showing the cities we serve">
+        <path d="M0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 V100 H0Z" fill="var(--color-lake)" />
+        <path d="M0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44" fill="none" stroke="var(--color-ink-700)" strokeWidth="0.25" />
+        <text x="64" y="86" fontSize="2.6" fill="var(--color-ink-700)" letterSpacing="0.6" fontStyle="italic" fontFamily="var(--font-display)">Lake Ontario</text>
+        {areas.map((a) => {
           const on = highlight === a.slug;
           return (
             <a key={a.slug} href={`/areas/${a.slug}`} aria-label={`Home appraisal in ${a.name}`} className="group">
-              <circle cx={a.map.x} cy={a.map.y} r={on ? 1.8 : 1.2} fill="none" stroke={on ? "#fcc75a" : "#3ee0b5"} strokeWidth="0.3">
-                <animate attributeName="r" values={`${on ? 1.8 : 1.2};${on ? 5 : 3.2}`} dur="2.6s" begin={`${(i % 7) * 0.37}s`} repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.9;0" dur="2.6s" begin={`${(i % 7) * 0.37}s`} repeatCount="indefinite" />
-              </circle>
-              <circle cx={a.map.x} cy={a.map.y} r={on ? 1.8 : 1.2} fill={on ? "#fcc75a" : "#3ee0b5"} className="transition group-hover:fill-[#fcc75a]" />
-              <text x={a.map.x} y={a.map.y - 2.6} fontSize={on ? 3 : 2.3} fill={on ? "#ffd98a" : "#e6ecf6"} textAnchor="middle" fontWeight="700" className="transition group-hover:fill-[#ffd98a]">
+              <circle cx={a.map.x} cy={a.map.y} r={on ? 1.5 : 0.9} fill={on ? "var(--color-brick-500)" : "var(--color-ink-950)"} className="transition-colors group-hover:fill-[var(--color-brick-500)]" />
+              <text x={a.map.x + 1.8} y={a.map.y + 0.9} fontSize={on ? 2.8 : 2.2} fill={on ? "var(--color-brick-600)" : "var(--color-ink-800)"} fontWeight={on ? 600 : 400} className="transition-colors group-hover:fill-[var(--color-brick-600)]">
                 {a.name}
               </text>
             </a>
           );
         })}
-        <g>
-          <circle cx={HQ.x} cy={HQ.y} r="2.4" fill="#fcc75a" opacity="0.25">
-            <animate attributeName="r" values="2.4;7;2.4" dur="3s" repeatCount="indefinite" />
-            <animate attributeName="opacity" values="0.35;0;0.35" dur="3s" repeatCount="indefinite" />
-          </circle>
-          <circle cx={HQ.x} cy={HQ.y} r="1.5" fill="#fcc75a" stroke="#fff" strokeWidth="0.4" />
-        </g>
+        <rect x={HQ.x - 1.4} y={HQ.y - 1.4} width="2.8" height="2.8" fill="none" stroke="var(--color-brick-500)" strokeWidth="0.4" />
       </svg>
-      <div className="absolute top-4 left-4 flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white ring-1 ring-white/15 backdrop-blur-xl">
-        <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-400 opacity-75" /><span className="relative inline-flex h-2 w-2 rounded-full bg-gold-400" /></span>
-        Office · North York
-      </div>
-    </div>
+      <figcaption className="flex items-center justify-between border-t border-ink-100 px-4 py-2.5 text-[12px] text-ink-700">
+        <span>Greater Toronto Area</span>
+        <span className="flex items-center gap-2"><span className="inline-block h-2 w-2 border border-brick-500" /> Office, North York</span>
+      </figcaption>
+    </figure>
   );
 }
 
 export function AreaChips({ exclude }: { exclude?: string }) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <ul className="columns-2 gap-8 sm:columns-3">
       {areas.filter((a) => a.slug !== exclude).map((a: Area) => (
-        <Link key={a.slug} href={`/areas/${a.slug}`} className="group inline-flex items-center gap-1.5 rounded-full bg-white/55 px-4 py-2 text-sm font-semibold text-navy-900 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] ring-1 ring-white backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:bg-gradient-to-br hover:from-gold-300 hover:to-gold-400 hover:shadow-[0_10px_24px_-10px_rgba(245,176,49,0.9)]">
-          <Icon name="pin" className="h-4 w-4 text-gold-600 transition group-hover:text-navy-950" /> {a.name}
-        </Link>
+        <li key={a.slug} className="break-inside-avoid border-b border-ink-100">
+          <Link href={`/areas/${a.slug}`} className="group flex items-center justify-between py-2.5 text-[15px] text-ink-950">
+            <span className="decoration-brick-500 underline-offset-4 group-hover:underline">{a.name}</span>
+            <Icon name="arrow" className="h-3.5 w-3.5 text-ink-700 opacity-0 transition-opacity group-hover:opacity-100" />
+          </Link>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
 /* ------------------------------------------------------------------ */
 export function WhyUs() {
   const items = [
-    { icon: "shield", t: "Certified & independent", d: "AIC-member appraisers following CUSPAP — no sales commission, no bias." },
-    { icon: "bolt", t: "Fast turnaround", d: `Most reports in ${site.turnaround}. Rush available for tight deadlines.` },
-    { icon: "chart", t: "Hyper-local data", d: "Street-level comparable sales, not city-wide averages." },
-    { icon: "calendar", t: "Any valuation date", d: "Current or retrospective — date of death, separation or change of use." },
-    { icon: "gavel", t: "Built to hold up", d: "Reports trusted by lenders, lawyers, accountants and the courts." },
-    { icon: "phone", t: "Real people", d: "Talk directly to an appraiser — clear quotes, no surprises." },
+    { t: "Certified and independent", d: "Appraisal Institute of Canada members who follow CUSPAP. We earn no commission, so we have no reason to lean either way." },
+    { t: "Reports when you need them", d: `Most reports are ready in ${site.turnaround}, and rush service is available for tight deadlines.` },
+    { t: "Street-level knowledge", d: "We compare your home with sales on nearby streets, not city-wide averages." },
+    { t: "Any valuation date", d: "Today, or a past date such as a date of death, separation or change of use." },
+    { t: "Built to be relied on", d: "Lenders, lawyers, accountants and courts rely on our reports." },
+    { t: "You talk to the appraiser", d: "Clear quotes from the person doing the work, with no call centre in between." },
   ];
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-x-10 sm:grid-cols-2">
       {items.map((it, i) => (
-        <div key={it.t} data-reveal style={{ "--d": i } as React.CSSProperties} className="glass-dark spotlight group p-6 transition duration-500 hover:-translate-y-1 hover:bg-white/[0.09]">
-          <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gold-400/15 text-gold-300 ring-1 ring-gold-400/20 transition duration-500 group-hover:scale-110 group-hover:bg-gradient-to-br group-hover:from-gold-300 group-hover:to-gold-500 group-hover:text-navy-950">
-            <Icon name={it.icon} className="h-6 w-6" />
-          </span>
-          <h3 className="mt-4 text-lg font-extrabold text-white">{it.t}</h3>
-          <p className="mt-1 text-sm text-white/60">{it.d}</p>
+        <div key={it.t} data-reveal style={{ "--d": i % 2 } as React.CSSProperties} className="border-t border-white/15 py-6">
+          <h3 className="text-[20px] font-medium text-paper">{it.t}</h3>
+          <p className="mt-2 text-[15px] leading-relaxed text-white/60">{it.d}</p>
         </div>
       ))}
     </div>
@@ -374,16 +265,17 @@ export function WhyUs() {
 /* ------------------------------------------------------------------ */
 export function FaqList({ items }: { items: { q: string; a: string }[] }) {
   return (
-    <div className="card divide-y divide-white/70 overflow-hidden" data-reveal>
+    <div className="border-t border-ink-950" data-reveal>
       {items.map((f, i) => (
-        <details key={f.q} className="group transition-colors open:bg-white/50" open={i === 0}>
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-left text-lg font-bold text-navy-950 transition hover:bg-white/50 [&::-webkit-details-marker]:hidden">
-            <h3 className="text-base sm:text-lg">{f.q}</h3>
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/80 text-navy-800 shadow-[inset_0_1px_0_#fff] ring-1 ring-white transition duration-300 group-open:rotate-45 group-open:bg-gradient-to-br group-open:from-gold-300 group-open:to-gold-500">
-              <Icon name="plus" className="h-4 w-4" />
+        <details key={f.q} className="group border-b border-ink-100" open={i === 0}>
+          <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
+            <h3 className="text-[19px] leading-snug font-medium text-ink-950">{f.q}</h3>
+            <span className="relative mt-2 h-3 w-3 shrink-0" aria-hidden="true">
+              <span className="absolute top-1/2 left-0 h-px w-3 bg-ink-950" />
+              <span className="absolute top-0 left-1/2 h-3 w-px bg-ink-950 transition-transform duration-300 group-open:scale-y-0" />
             </span>
           </summary>
-          <p className="animate-fade-up px-6 pb-6 text-slate-600">{f.a}</p>
+          <p className="max-w-2xl pb-6 text-[16px] leading-relaxed text-ink-700">{f.a}</p>
         </details>
       ))}
     </div>
@@ -391,22 +283,17 @@ export function FaqList({ items }: { items: { q: string; a: string }[] }) {
 }
 
 /* ------------------------------------------------------------------ */
-export function CtaBand({ title = "Need an appraisal? Get your quote in minutes.", location = "cta_band" }: { title?: string; location?: string }) {
+export function CtaBand({ title = "Need an appraisal? Get a firm quote today.", location = "cta_band" }: { title?: string; location?: string }) {
   return (
-    <section className="container-x py-16 sm:py-24">
-      <div data-reveal="scale" data-spot className="glow-border spotlight relative overflow-hidden rounded-[2.5rem] bg-navy-950 px-6 py-16 text-center shadow-[0_40px_100px_-40px_rgba(5,13,31,0.8)] sm:px-12 sm:py-24">
-        <DarkAurora />
-        {[[12, 22, 0], [85, 30, 1.2], [20, 78, 2.1], [78, 75, 0.6], [50, 12, 1.6]].map(([x, y, d], i) => (
-          <span key={i} aria-hidden="true" className="absolute h-2 w-2 animate-float rounded-full bg-gold-300/70 shadow-[0_0_14px_3px_rgba(252,199,90,0.6)]" style={{ left: `${x}%`, top: `${y}%`, animationDelay: `${d}s` }} />
-        ))}
-        <div className="relative">
-          <span className="eyebrow-dark">Free quote · No obligation</span>
-          <h2 className="mx-auto mt-5 max-w-3xl text-3xl leading-[1.08] font-extrabold text-white sm:text-5xl">{title}</h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-white/65">Certified, independent and fast — anywhere in Toronto &amp; the GTA.</p>
-          <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
-            <CtaLink href="/get-a-quote" location={location} className="btn-gold text-lg">Get a Free Quote <Icon name="arrow" className="h-5 w-5" /></CtaLink>
-            <CallLink href={telHref} location={location} className="btn-ghost text-lg"><Icon name="phone" className="h-5 w-5" /> {site.phone}</CallLink>
-          </div>
+    <section className="bg-brick-500 text-white">
+      <div className="container-x grid gap-8 py-16 lg:grid-cols-12 lg:items-end lg:py-20" data-reveal>
+        <div className="lg:col-span-8">
+          <h2 className="text-[34px] leading-[1.1] font-medium sm:text-[46px]">{title}</h2>
+          <p className="mt-4 max-w-xl text-[17px] text-white/80">Certified, independent appraisals anywhere in Toronto and the GTA.</p>
+        </div>
+        <div className="flex flex-col gap-3 sm:flex-row lg:col-span-4 lg:justify-end">
+          <CtaLink href="/get-a-quote" location={location} className="btn bg-paper text-ink-950 hover:bg-white">Get a free quote</CtaLink>
+          <CallLink href={telHref} location={location} className="btn-ghost">{site.phone}</CallLink>
         </div>
       </div>
     </section>
@@ -414,17 +301,17 @@ export function CtaBand({ title = "Need an appraisal? Get your quote in minutes.
 }
 
 /* ------------------------------------------------------------------ */
-export function Breadcrumbs({ items }: { items: { name: string; path: string }[] }) {
+export function Breadcrumbs({ items, dark = false }: { items: { name: string; path: string }[]; dark?: boolean }) {
   const all = [{ name: "Home", path: "/" }, ...items];
   return (
     <>
       <JsonLd data={breadcrumbSchema(all)} />
-      <nav aria-label="Breadcrumb" className="inline-flex rounded-full bg-white/[0.06] px-3 py-1 text-sm text-white/60 ring-1 ring-white/10 backdrop-blur-xl">
-        <ol className="flex flex-wrap items-center gap-1.5">
+      <nav aria-label="Breadcrumb" className={`text-[13px] ${dark ? "text-white/55" : "text-ink-700"}`}>
+        <ol className="flex flex-wrap items-center gap-2">
           {all.map((b, i) => (
-            <li key={b.path} className="flex items-center gap-1.5">
-              {i > 0 && <span aria-hidden="true" className="text-white/30">/</span>}
-              {i < all.length - 1 ? <Link href={b.path} className="hover:text-gold-300">{b.name}</Link> : <span className="max-w-[16rem] truncate text-white/90" aria-current="page">{b.name}</span>}
+            <li key={b.path} className="flex items-center gap-2">
+              {i > 0 && <span aria-hidden="true">/</span>}
+              {i < all.length - 1 ? <Link href={b.path} className="hover:underline">{b.name}</Link> : <span className={`max-w-[18rem] truncate ${dark ? "text-paper" : "text-ink-950"}`} aria-current="page">{b.name}</span>}
             </li>
           ))}
         </ol>
@@ -433,7 +320,7 @@ export function Breadcrumbs({ items }: { items: { name: string; path: string }[]
   );
 }
 
-/** Dark aurora hero for inner pages (clears the floating header). */
+/** Inner-page header on paper, with an optional aside (usually the quote form). */
 export function PageHero({
   crumbs,
   eyebrow,
@@ -450,17 +337,16 @@ export function PageHero({
   aside?: React.ReactNode;
 }) {
   return (
-    <section data-spot className="spotlight relative overflow-hidden rounded-b-[2.5rem] bg-navy-950 pt-24 sm:pt-28">
-      <DarkAurora />
-      <div className={`container-x relative grid gap-12 pt-8 pb-16 sm:pb-24 ${aside ? "lg:grid-cols-12 lg:items-center" : ""}`}>
-        <div className={aside ? "lg:col-span-7" : "max-w-4xl"}>
-          <div className="animate-fade-up"><Breadcrumbs items={crumbs} /></div>
-          <div className="mt-6 animate-fade-up [animation-delay:80ms]"><span className="eyebrow-dark">{eyebrow}</span></div>
-          <h1 className="mt-5 animate-fade-up text-4xl leading-[1.04] font-extrabold text-white [animation-delay:160ms] sm:text-5xl lg:text-6xl">{title}</h1>
-          {answer && <p className="mt-6 max-w-2xl animate-fade-up text-lg leading-relaxed text-white/70 [animation-delay:240ms]">{answer}</p>}
-          {children && <div className="animate-fade-up [animation-delay:320ms]">{children}</div>}
+    <section className="border-b border-ink-100">
+      <div className={`container-x grid gap-12 pt-10 pb-16 sm:pb-20 ${aside ? "lg:grid-cols-12 lg:items-start" : ""}`}>
+        <div className={aside ? "lg:col-span-7" : "max-w-3xl"}>
+          <Breadcrumbs items={crumbs} />
+          <div className="mt-8 animate-fade-up"><span className="eyebrow">{eyebrow}</span></div>
+          <h1 className="mt-5 animate-fade-up text-[40px] leading-[1.06] font-medium text-ink-950 [animation-delay:60ms] sm:text-[54px] lg:text-[62px]">{title}</h1>
+          {answer && <p className="mt-6 max-w-2xl animate-fade-up text-[18px] leading-relaxed text-ink-700 [animation-delay:120ms]">{answer}</p>}
+          {children && <div className="animate-fade-up [animation-delay:180ms]">{children}</div>}
         </div>
-        {aside && <div className="animate-fade-up [animation-delay:300ms] lg:col-span-5">{aside}</div>}
+        {aside && <div className="animate-fade-up [animation-delay:160ms] lg:col-span-5">{aside}</div>}
       </div>
     </section>
   );
@@ -468,9 +354,11 @@ export function PageHero({
 
 export function HeroCtas({ location }: { location: string }) {
   return (
-    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-      <CtaLink href="/get-a-quote" location={location} className="btn-gold text-lg">Get a Free Quote <Icon name="arrow" className="h-5 w-5" /></CtaLink>
-      <CallLink href={telHref} location={location} className="btn-ghost text-lg"><Icon name="phone" className="h-5 w-5" /> {site.phone}</CallLink>
+    <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+      <CtaLink href="/get-a-quote" location={location} className="btn-primary px-6 py-3.5 text-base">Get a free quote <Icon name="arrow" className="h-4 w-4" /></CtaLink>
+      <span className="text-[15px] text-ink-700">
+        or call <CallLink href={telHref} location={location} className="font-semibold text-ink-950 underline decoration-ink-950/25 underline-offset-4 hover:decoration-brick-500">{site.phone}</CallLink>
+      </span>
     </div>
   );
 }

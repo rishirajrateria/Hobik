@@ -16,7 +16,7 @@ export function RangeTabs({ base, days, extra = {} }: { base: string; days: numb
         const qs = new URLSearchParams({ ...Object.fromEntries(Object.entries(extra).filter(([, x]) => x)) as Record<string, string>, range: v });
         const on = String(days) === v;
         return (
-          <Link key={v} href={`${base}?${qs}`} role="tab" aria-selected={on} className={`rounded-lg px-3 py-1.5 text-sm font-bold transition ${on ? "bg-navy-900 text-white" : "text-slate-500 hover:text-navy-900"}`}>
+          <Link key={v} href={`${base}?${qs}`} role="tab" aria-selected={on} className={`rounded-lg px-3 py-1.5 text-sm font-bold transition ${on ? "bg-ink-900 text-white" : "text-slate-500 hover:text-ink-900"}`}>
             {l}
           </Link>
         );

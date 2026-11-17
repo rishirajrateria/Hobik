@@ -4,7 +4,6 @@ import { getTestimonials } from "@/lib/content";
 import { JsonLd } from "./Sections";
 import { Tracker } from "./Tracker";
 import { Motion } from "./Motion";
-import { Ambient } from "./Ambient";
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
@@ -23,7 +22,6 @@ export async function PublicChrome() {
           </noscript>
         </>
       )}
-      <Ambient />
       <Motion />
       <Tracker />
       <JsonLd data={[businessSchema(testimonials), websiteSchema()]} />

@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Newsreader, Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import { indexable, site } from "@/lib/site";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", weight: ["600", "700", "800"], display: "swap" });
+const sans = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-sans-src", display: "swap" });
+const serif = Newsreader({ subsets: ["latin"], variable: "--font-serif-src", style: ["normal", "italic"], axes: ["opsz"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -38,14 +38,14 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050d1f",
+  themeColor: "#f4f0e8",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-CA" className={`${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
+    <html lang="en-CA" className={`${sans.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site summary" />
         {/* Enable scroll-reveal before first paint; auto-disable if JS never boots. */}

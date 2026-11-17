@@ -4,7 +4,7 @@ import { count } from "drizzle-orm";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { getCurrentUser } from "@/lib/auth";
-import { Icon } from "@/components/Icon";
+import { Logo } from "@/components/Layout";
 import { LoginForm } from "./LoginForm";
 
 export const metadata: Metadata = { title: "Sign in", robots: { index: false, follow: false } };
@@ -17,11 +17,11 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
     [{ n }] = await db.select({ n: count() }).from(users);
   } catch {
     return (
-      <main id="main" className="grid min-h-screen place-items-center bg-navy-950 px-6 text-center">
+      <main id="main" className="grid min-h-screen place-items-center bg-paper px-6 text-center">
         <div className="max-w-md">
-          <span className="mx-auto grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-gold-300 to-gold-500 text-navy-950"><Icon name="lock" className="h-6 w-6" /></span>
-          <h1 className="mt-6 text-2xl font-extrabold text-white">Database not connected yet</h1>
-          <p className="mt-3 text-white/60">The website is live, but the dashboard needs a database. Connect one in your hosting settings and redeploy, then reload this page.</p>
+          <span className="eyebrow">Dashboard</span>
+          <h1 className="mt-5 text-[34px] font-medium text-ink-950">Database not connected yet</h1>
+          <p className="mt-3 text-ink-700">The website is live, but the dashboard needs a database. Connect one in your hosting settings and redeploy, then reload this page.</p>
         </div>
       </main>
     );
@@ -30,38 +30,33 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const { next } = await searchParams;
 
   return (
-    <main id="main" className="grid min-h-screen lg:grid-cols-2">
-      <div className="relative flex flex-col justify-center overflow-hidden bg-navy-950 px-6 py-16 sm:px-16">
-        <div className="bg-grid absolute inset-0" aria-hidden="true" />
-        <div className="absolute -top-32 -left-24 h-96 w-96 rounded-full bg-gold-400/20 blur-3xl" aria-hidden="true" />
-        <div className="relative mx-auto w-full max-w-sm">
-          <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-gold-300 to-gold-500 text-navy-950">
-            <Icon name="lock" className="h-6 w-6" />
-          </span>
-          <h1 className="mt-6 text-3xl font-extrabold text-white">{setup ? "Set up your workspace" : "Welcome back"}</h1>
-          <p className="mt-2 text-white/60">{setup ? "Create the owner account. You can invite your team after." : "Sign in to the Home Value dashboard."}</p>
-          <div className="mt-8"><LoginForm setup={setup} next={next} /></div>
-          {!setup && <p className="mt-6 text-sm text-white/40">Forgot your password? Ask a workspace owner or admin to reset it.</p>}
-        </div>
+    <main id="main" className="min-h-screen bg-paper">
+      <div className="border-b border-ink-100">
+        <div className="container-x flex h-[72px] items-center"><Logo /></div>
       </div>
-      <div className="relative hidden overflow-hidden bg-gradient-to-br from-navy-800 to-navy-950 lg:block">
-        <div className="bg-grid absolute inset-0 opacity-50" aria-hidden="true" />
-        <div className="absolute right-0 bottom-0 h-[30rem] w-[30rem] rounded-full bg-mint-400/15 blur-3xl" aria-hidden="true" />
-        <div className="relative flex h-full flex-col justify-center gap-4 p-16">
-          {[
-            ["chart", "Live traffic", "Visitors by country, province, page and source."],
-            ["cursor", "Every click counted", "See which buttons convert — site-wide and per page."],
-            ["inbox", "Lead pipeline", "New → contacted → quoted → booked, with notes."],
-            ["form", "Form builder", "Choose the questions your website asks."],
-          ].map(([icon, t, d], i) => (
-            <div key={t} className="glass flex max-w-md items-center gap-4 p-5" style={{ marginLeft: `${i * 28}px` }}>
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-navy-900 text-gold-400"><Icon name={icon} className="h-6 w-6" /></span>
-              <span>
-                <span className="block font-extrabold text-navy-950">{t}</span>
-                <span className="block text-sm text-slate-600">{d}</span>
-              </span>
-            </div>
-          ))}
+      <div className="container-x grid gap-16 py-16 lg:grid-cols-12 lg:py-24">
+        <div className="lg:col-span-5">
+          <span className="eyebrow">{setup ? "First-time setup" : "Team sign-in"}</span>
+          <h1 className="mt-5 text-[40px] leading-[1.08] font-medium text-ink-950">{setup ? "Set up your workspace" : "Welcome back"}</h1>
+          <p className="mt-3 text-[17px] text-ink-700">{setup ? "Create the owner account. You can invite your team afterwards." : "Sign in to the Home Value dashboard."}</p>
+          <div className="mt-10 border border-ink-950 bg-paper-50 p-6 sm:p-8"><LoginForm setup={setup} next={next} /></div>
+          {!setup && <p className="mt-5 text-[14px] text-ink-700">Forgot your password? Ask a workspace owner or admin to reset it.</p>}
+        </div>
+        <div className="hidden lg:col-span-6 lg:col-start-7 lg:block">
+          <p className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">Inside the dashboard</p>
+          <dl className="mt-5 border-t border-ink-950">
+            {[
+              ["Traffic", "Visitors by country, province, city, page and source."],
+              ["Clicks", "Which buttons people press, across the site and on each page."],
+              ["Leads", "Every enquiry, from new to booked, with notes and owners."],
+              ["Content", "Forms, blog posts and testimonials, edited without a developer."],
+            ].map(([t, d]) => (
+              <div key={t} className="grid grid-cols-[8rem_1fr] gap-6 border-b border-ink-100 py-5">
+                <dt className="font-display text-[22px] text-ink-950">{t}</dt>
+                <dd className="text-[16px] leading-relaxed text-ink-700">{d}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </main>

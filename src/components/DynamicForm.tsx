@@ -71,14 +71,14 @@ export function DynamicForm({
 
   if (status === "done") {
     return (
-      <div className="glass glow-border animate-fade-up !rounded-3xl p-8 text-center" role="status">
-        <div className="relative mx-auto grid h-16 w-16 place-items-center rounded-full bg-mint-400/15 text-mint-500"><span className="absolute inset-0 animate-pulse-ring rounded-full bg-mint-400/30" /><Icon name="check" className="relative h-8 w-8" /></div>
-        <h3 className="mt-5 text-2xl font-extrabold text-navy-950">{form.successTitle}</h3>
-        <p className="mt-2 text-slate-600">{form.successMessage}</p>
-        <a href={telHref} data-cta={`${location}_success`} onClick={() => track("phone_click", { cta_location: `${location}_success` })} className="btn-navy mt-6">
+      <div className="animate-fade-up border border-ink-950 bg-paper-50 p-8 text-ink-950" role="status">
+        <span className="eyebrow !text-sage-500">Received</span>
+        <h3 className="mt-4 text-[28px] leading-tight font-medium">{form.successTitle}</h3>
+        <p className="mt-2 text-[16px] text-ink-700">{form.successMessage}</p>
+        <a href={telHref} data-cta={`${location}_success`} onClick={() => track("phone_click", { cta_location: `${location}_success` })} className="btn-ink mt-6">
           <Icon name="phone" className="h-4 w-4" /> Call {site.phone}
         </a>
-        {preview && <button type="button" onClick={() => setStatus("idle")} className="mt-4 block w-full text-sm font-semibold text-slate-500 underline">Reset preview</button>}
+        {preview && <button type="button" onClick={() => setStatus("idle")} className="mt-4 block text-sm font-semibold text-ink-700 underline">Reset preview</button>}
       </div>
     );
   }
@@ -86,8 +86,8 @@ export function DynamicForm({
   const header = (
     <div className="flex items-center justify-between gap-3">
       <div>
-        {form.subtitle && <p className="text-xs font-bold tracking-widest text-gold-600 uppercase">{form.subtitle}</p>}
-        <h2 className="mt-1 text-2xl font-extrabold text-navy-950">{form.title}</h2>
+        {form.subtitle && <p className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{form.subtitle}</p>}
+        <h2 className="mt-2 text-[28px] leading-tight font-medium text-ink-950">{form.title}</h2>
       </div>
     </div>
   );
@@ -98,7 +98,7 @@ export function DynamicForm({
           {error || <>Something went wrong. Please call <a className="underline" href={telHref}>{site.phone}</a>.</>}
         </p>
       )}
-      <p className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500"><Icon name="shield" className="h-4 w-4" /> Your details are private and never shared.</p>
+      <p className="mt-4 text-[13px] text-ink-700">Your details stay private. We only use them to reply to you.</p>
       <input id={`${uid}-hp`} type="text" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
     </>
   );
@@ -115,13 +115,13 @@ export function DynamicForm({
       else setStep(step + 1);
     };
     return (
-      <form onSubmit={(e) => { e.preventDefault(); next(); }} className="glass glow-border !bg-white/[0.94] relative overflow-hidden !rounded-3xl p-6 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
-        <div className="absolute inset-x-0 top-0 h-1.5 bg-white/60">
-          <div className="h-full bg-gradient-to-r from-gold-400 to-mint-400 transition-all duration-500" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
+      <form onSubmit={(e) => { e.preventDefault(); next(); }} className="relative overflow-hidden border border-ink-950 bg-paper-50 p-6 text-ink-950 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
+        <div className="absolute inset-x-0 top-0 h-[3px] bg-ink-100">
+          <div className="h-full bg-brick-500 transition-all duration-500" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
         </div>
         <div className="flex items-center justify-between">
           {header}
-          <span className="shrink-0 rounded-full bg-white/80 px-3 py-1 text-xs font-bold text-navy-800 ring-1 ring-white">{step + 1} / {steps.length}</span>
+          <span className="shrink-0 text-[13px] text-ink-700 tabular-nums">{step + 1} of {steps.length}</span>
         </div>
         <div key={step} className="mt-6 grid animate-fade-up gap-4 sm:grid-cols-2">
           {cur.map((f) => (
@@ -134,7 +134,7 @@ export function DynamicForm({
         </div>
         <div className="mt-6 flex gap-3">
           {step > 0 && <button type="button" onClick={() => { setError(""); setStep(step - 1); }} className="btn-outline !px-5">Back</button>}
-          <button type="submit" disabled={status === "sending"} className="btn-gold flex-1 text-lg disabled:opacity-70">
+          <button type="submit" disabled={status === "sending"} className="btn-primary flex-1 text-lg disabled:opacity-70">
             {last ? (status === "sending" ? "Sending…" : form.submitLabel) : "Continue"} <Icon name="arrow" className="h-5 w-5" />
           </button>
         </div>
@@ -145,12 +145,12 @@ export function DynamicForm({
 
   /* ---------------- single card ---------------- */
   return (
-    <form onSubmit={(e) => { e.preventDefault(); submit(); }} className="glass glow-border !bg-white/[0.94] relative !rounded-3xl p-6 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
+    <form onSubmit={(e) => { e.preventDefault(); submit(); }} className="relative border border-ink-950 bg-paper-50 p-6 text-ink-950 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
       {header}
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {form.fields.map((f) => <Field key={f.id} f={f} uid={uid} value={values[f.key]} onChange={(v) => set(f.key, v)} />)}
       </div>
-      <button type="submit" disabled={status === "sending"} className="btn-gold mt-5 w-full text-lg disabled:opacity-70">
+      <button type="submit" disabled={status === "sending"} className="btn-primary mt-5 w-full text-lg disabled:opacity-70">
         {status === "sending" ? "Sending…" : form.submitLabel} <Icon name="arrow" className="h-5 w-5" />
       </button>
       {footer}
@@ -176,30 +176,30 @@ function Field({ f, uid, value, onChange, big = false }: { f: FormField; uid: st
   const id = `${uid}-${f.key}`;
   const span = f.width === "full" || ["textarea", "radio", "checkbox"].includes(f.type) ? "sm:col-span-2" : "";
   const label = (
-    <label htmlFor={id} className={big ? "mb-2 block text-lg font-extrabold text-navy-950" : "sr-only"}>
-      {f.label}{f.required && big ? <span className="text-gold-600"> *</span> : null}
+    <label htmlFor={id} className={big ? "mb-2 block font-display text-[20px] font-medium text-ink-950" : "mb-1.5 block text-[13px] font-semibold text-ink-800"}>
+      {f.label}{f.required && big ? <span className="text-brick-600"> *</span> : null}
     </label>
   );
-  const help = f.help ? <p className="mt-1 text-xs text-slate-500">{f.help}</p> : null;
+  const help = f.help ? <p className="mt-1 text-xs text-ink-700">{f.help}</p> : null;
   const str = typeof value === "string" ? value : "";
 
   if (f.type === "radio" || f.type === "checkbox") {
     const arr = Array.isArray(value) ? value : [];
     return (
       <fieldset className={span}>
-        <legend className={big ? "mb-3 text-lg font-extrabold text-navy-950" : "mb-2 text-sm font-semibold text-navy-900"}>{f.label}{f.required && <span className="text-gold-600"> *</span>}</legend>
+        <legend className={big ? "mb-3 font-display text-[20px] font-medium text-ink-950" : "mb-1.5 text-[13px] font-semibold text-ink-800"}>{f.label}{f.required && <span className="text-brick-600"> *</span>}</legend>
         <div className="grid gap-2 sm:grid-cols-2">
           {(f.options ?? []).map((o) => {
             const on = f.type === "radio" ? str === o : arr.includes(o);
             return (
-              <label key={o} className={`flex cursor-pointer items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold ring-1 transition ${on ? "bg-gold-300/30 text-navy-950 ring-2 ring-gold-400 shadow-[0_8px_24px_-10px_rgba(245,176,49,0.8)]" : "bg-white/60 text-navy-900 ring-white hover:-translate-y-0.5 hover:bg-white hover:ring-gold-300"}`}>
+              <label key={o} className={`flex cursor-pointer items-center gap-3 rounded-[3px] border px-4 py-3 text-[15px] transition-colors ${on ? "border-ink-950 bg-white font-semibold text-ink-950" : "border-ink-100 bg-white text-ink-800 hover:border-ink-700"}`}>
                 <input
                   type={f.type}
                   name={id}
                   value={o}
                   checked={on}
                   onChange={() => onChange(f.type === "radio" ? o : on ? arr.filter((x) => x !== o) : [...arr, o])}
-                  className="h-4 w-4 accent-gold-500"
+                  className="h-4 w-4 accent-brick-500"
                 />
                 {o}
               </label>
@@ -215,7 +215,7 @@ function Field({ f, uid, value, onChange, big = false }: { f: FormField; uid: st
       <div className={span}>
         {label}
         <select id={id} value={str} onChange={(e) => onChange(e.target.value)} className="input" required={f.required}>
-          <option value="" disabled>{f.placeholder || f.label}</option>
+          <option value="" disabled>Choose one</option>
           {(f.options ?? []).map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
         {help}
@@ -226,7 +226,7 @@ function Field({ f, uid, value, onChange, big = false }: { f: FormField; uid: st
     return (
       <div className={span}>
         {label}
-        <textarea id={id} rows={3} value={str} onChange={(e) => onChange(e.target.value)} placeholder={f.placeholder || f.label} className="input" required={f.required} />
+        <textarea id={id} rows={3} value={str} onChange={(e) => onChange(e.target.value)} placeholder={f.placeholder && f.placeholder !== f.label ? f.placeholder : undefined} className="input" required={f.required} />
         {help}
       </div>
     );
@@ -240,7 +240,7 @@ function Field({ f, uid, value, onChange, big = false }: { f: FormField; uid: st
         type={f.type}
         value={str}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={f.placeholder || f.label}
+        placeholder={f.placeholder && f.placeholder !== f.label ? f.placeholder : undefined}
         autoComplete={auto[f.key]}
         className="input"
         required={f.required}

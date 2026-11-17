@@ -89,7 +89,7 @@ export async function POST(req: Request) {
           from: LEAD_FROM_EMAIL || `Website Leads <leads@${new URL(site.url).hostname.replace(/^www\./, "")}>`,
           to: LEAD_TO_EMAIL.split(",").map((s) => s.trim()),
           reply_to: lead.email || undefined,
-          subject: `New lead: ${lead.service || form.name} — ${lead.name || "website"}`,
+          subject: `New lead: ${lead.service || form.name} (${lead.name || "website"})`,
           html: `<h2>New lead</h2><table>${rows}</table><p style="color:#64748b">Page: ${esc(lead.page ?? "")} · Source: ${esc(lead.utmSource ?? "")}</p><p><a href="${site.url}/dashboard/leads">Open in dashboard →</a></p>`,
         }),
       }),

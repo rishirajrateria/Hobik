@@ -4,7 +4,6 @@ import { getArea } from "@/lib/areas";
 import { getService, services } from "@/lib/services";
 import { faqs } from "@/lib/faqs";
 import { Icon } from "@/components/Icon";
-import { DarkAurora } from "@/components/Ambient";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Testimonials } from "@/components/Testimonials";
 import { CtaBand, FaqList, HeroCtas, Process, SectionHead, TrustStrip } from "@/components/Sections";
@@ -15,7 +14,7 @@ import { CtaBand, FaqList, HeroCtas, Process, SectionHead, TrustStrip } from "@/
  *   /lp/home-appraisal?city=mississauga&s=estate-probate-appraisal&gclid=...
  */
 export const metadata = pageMeta({
-  title: "Certified Home Appraisal — Free Quote",
+  title: "Certified Home Appraisal | Free Quote",
   description: `Certified home appraisals across Toronto & the GTA. Reports in ${site.turnaround}. Call ${site.phone}.`,
   path: "/lp/home-appraisal",
   noindex: true,
@@ -32,45 +31,41 @@ export default async function AdsLanding({ searchParams }: Props) {
 
   return (
     <>
-      <section data-spot className="spotlight relative overflow-hidden rounded-b-[2.5rem] bg-navy-950 pt-20 sm:pt-24">
-        <DarkAurora />
-        <div className="container-x relative grid gap-10 py-10 sm:py-16 lg:grid-cols-12 lg:items-center">
+      <section className="border-b border-ink-100">
+        <div className="container-x grid gap-12 py-12 sm:py-16 lg:grid-cols-12 lg:items-start">
           <div className="animate-fade-up lg:col-span-7">
-            <span className="eyebrow-dark"><Icon name="shield" className="h-4 w-4" /> AIC member appraisers</span>
-            <h1 className="mt-4 text-4xl leading-[1.05] font-extrabold text-white sm:text-6xl">
-              {headline} in <span className="text-gradient">{place}</span>
+            <span className="eyebrow">Appraisal Institute of Canada members</span>
+            <h1 className="mt-5 text-[42px] leading-[1.05] font-medium text-ink-950 sm:text-[60px]">
+              {headline} in {place}
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-white/75 sm:text-xl">
+            <p className="mt-6 max-w-xl text-[19px] leading-relaxed text-ink-700">
               {service ? service.short : "Independent, lender-ready appraisals for mortgages, estates, divorce, CRA and tax appeals."} Reports in {site.turnaround}.
             </p>
-            <ul className="mt-6 grid max-w-lg gap-3 text-white/90 sm:grid-cols-2">
-              {["Free, no-obligation quote", "Fee confirmed upfront", "Rush service available", "Retrospective dates"].map((t) => (
-                <li key={t} className="flex items-center gap-2 font-semibold"><Icon name="check" className="h-5 w-5 text-mint-400" /> {t}</li>
+            <ul className="mt-8 grid max-w-lg border-t border-ink-950 sm:grid-cols-2 sm:gap-x-8">
+              {["Free, no-obligation quote", "Fee confirmed before booking", "Rush service available", "Current or past valuation dates"].map((t) => (
+                <li key={t} className="border-b border-ink-100 py-3 text-[15px] text-ink-950">{t}</li>
               ))}
             </ul>
             <div className="hidden lg:block"><HeroCtas location="lp_hero" /></div>
           </div>
-          <div className="animate-fade-up [animation-delay:200ms] lg:col-span-5">
+          <div className="animate-fade-up [animation-delay:150ms] lg:col-span-5">
             <QuoteForm compact defaultService={service?.name ?? ""} location="lp_hero_form" />
           </div>
         </div>
       </section>
       <TrustStrip />
-      <section className="container-x py-16">
-        <SectionHead eyebrow="We appraise for" title="Any purpose. One trusted report." />
-        <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-5">
+      <section className="container-x py-20">
+        <SectionHead eyebrow="We appraise for" title="Whatever the purpose, one independent report" />
+        <ul className="mt-10 grid border-t border-ink-950 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3">
           {services.map((s) => (
-            <div key={s.slug} data-reveal style={{ "--d": services.indexOf(s) % 5 } as React.CSSProperties} className="card spotlight group flex flex-col items-center gap-3 p-5 text-center transition duration-500 hover:-translate-y-1">
-              <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gold-400/15 text-gold-600"><Icon name={s.icon} className="h-6 w-6" /></span>
-              <span className="text-sm font-bold text-navy-950">{s.name}</span>
-            </div>
+            <li key={s.slug} className="border-b border-ink-100 py-4 font-display text-[19px] text-ink-950">{s.name}</li>
           ))}
-        </div>
+        </ul>
       </section>
       <Testimonials service={service?.name} />
-      <section className="relative border-y border-white/50 bg-white/20 py-16">
+      <section className="border-t border-ink-100 bg-paper-50 py-20">
         <div className="container-x">
-          <SectionHead eyebrow="How it works" title="Quote today. Report this week." />
+          <SectionHead eyebrow="How it works" title="Quote today, report this week" />
           <div className="mt-12"><Process /></div>
         </div>
       </section>

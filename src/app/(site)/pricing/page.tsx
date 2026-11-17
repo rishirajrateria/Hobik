@@ -34,52 +34,49 @@ export default function PricingPage() {
       <PageHero
         crumbs={[{ name: "Pricing", path: "/pricing" }]}
         eyebrow="Transparent pricing"
-        title={<>Clear fees. <span className="text-gradient">No surprises.</span></>}
-        answer="Every home is different, so we quote each appraisal individually — and confirm the exact fee before we book. Tell us about the property and you'll have a firm price fast."
+        title={<>Clear fees. No surprises</>}
+        answer="Every home is different, so we quote each appraisal individually and confirm the exact fee before we book. Tell us about the property and you'll have a firm price fast."
         aside={<QuoteForm compact location="pricing_hero" />}
       >
         {site.startingPrice && (
-          <div className="mt-8 inline-flex items-baseline gap-2 rounded-2xl bg-white/10 px-6 py-4 ring-1 ring-white/15">
-            <span className="text-sm font-semibold text-white/70">Reports from</span>
-            <span className="font-display text-4xl font-extrabold text-gold-300">{site.startingPrice}</span>
-            <span className="text-sm text-white/60">+ HST</span>
+          <div className="mt-8 inline-flex items-baseline gap-2 border-y border-ink-950 py-4">
+            <span className="text-sm font-semibold text-ink-700">Reports from</span>
+            <span className="font-display text-4xl font-medium text-ink-950">{site.startingPrice}</span>
+            <span className="text-sm text-ink-700">+ HST</span>
           </div>
         )}
       </PageHero>
 
       <section className="container-x py-20">
-        <SectionHead eyebrow="What affects the price" title="Six things that set your fee." />
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {factors.map((f) => (
-            <div key={f.t} className="card flex gap-4 p-6">
-              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-gold-400/15 text-gold-600"><Icon name={f.icon} className="h-6 w-6" /></span>
-              <div>
-                <h3 className="font-extrabold text-navy-950">{f.t}</h3>
-                <p className="text-sm text-slate-600">{f.d}</p>
-              </div>
+        <SectionHead eyebrow="What affects the price" title="Six things that set your fee" />
+        <dl className="mt-12 grid border-t border-ink-950 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3">
+          {factors.map((f, i) => (
+            <div key={f.t} className="border-b border-ink-100 py-6" data-reveal style={{ "--d": i % 3 } as React.CSSProperties}>
+              <dt className="font-display text-[22px] font-medium text-ink-950">{f.t}</dt>
+              <dd className="mt-1.5 text-[15px] text-ink-700">{f.d}</dd>
             </div>
           ))}
-        </div>
+        </dl>
       </section>
 
-      <section className="relative border-y border-white/50 bg-white/20 py-20">
+      <section className="border-t border-ink-100 bg-paper-50 py-20">
         <div className="container-x">
-          <SectionHead eyebrow="Included in every report" title="What you always get." />
-          <div className="mx-auto mt-12 grid max-w-4xl gap-3 sm:grid-cols-2">
-            {["On-site inspection & measurements", "Photos of interior & exterior", "Comparable sales analysis", "Market value conclusion", "Signed PDF report", "Follow-up questions answered", "CUSPAP-compliant format", `Typical delivery in ${site.turnaround}`].map((t) => (
-              <div key={t} className="flex items-center gap-3 card !rounded-2xl p-4 font-semibold text-navy-900">
-                <Icon name="check" className="h-5 w-5 text-mint-500" /> {t}
-              </div>
+          <SectionHead eyebrow="Included in every report" title="What you always get" />
+          <ul className="mt-12 grid max-w-4xl border-t border-ink-950 sm:grid-cols-2 sm:gap-x-10">
+            {["On-site inspection and measurements", "Photos of the interior and exterior", "Comparable sales analysis", "Market value conclusion", "Signed PDF report", "Follow-up questions answered", "CUSPAP-compliant format", `Typical delivery in ${site.turnaround}`].map((t) => (
+              <li key={t} className="flex gap-4 border-b border-ink-100 py-3.5 text-[16px] text-ink-950">
+                <span className="mt-[0.6em] h-[5px] w-[5px] shrink-0 bg-brick-500" aria-hidden="true" />{t}
+              </li>
             ))}
-          </div>
-          <p className="mt-10 text-center text-sm text-slate-500">Quotes available for: {services.map((s) => s.name).join(" · ")}</p>
+          </ul>
+          <p className="mt-10 text-[14px] text-ink-700">Quotes available for: {services.map((s) => s.name).join(", ")}.</p>
         </div>
       </section>
 
       <section className="container-x py-20">
         <div className="mx-auto max-w-3xl"><FaqList items={faq} /></div>
       </section>
-      <CtaBand title="Get your exact fee in minutes." location="pricing_bottom" />
+      <CtaBand title="Get your exact fee in minutes" location="pricing_bottom" />
     </>
   );
 }

@@ -18,16 +18,16 @@ export default function QuotePage() {
       <PageHero
         crumbs={[{ name: "Get a Quote", path: "/get-a-quote" }]}
         eyebrow="Free quote"
-        title={<>Your appraisal quote, <span className="text-gradient">fast.</span></>}
+        title={<>Your appraisal quote, fast</>}
         answer="Tell us about the property and why you need the appraisal. We'll confirm your fee and the earliest inspection time."
         aside={<QuoteForm location="quote_page" />}
       >
-        <ul className="mt-8 space-y-3 text-white/85">
+        <ul className="mt-8 max-w-lg border-t border-ink-950">
           {["Free & no obligation", "Fee confirmed before booking", `Report typically in ${site.turnaround}`, "AIC member appraisers"].map((t) => (
-            <li key={t} className="flex items-center gap-3 text-lg font-semibold"><Icon name="check" className="h-6 w-6 text-mint-400" /> {t}</li>
+            <li key={t} className="border-b border-ink-100 py-3 text-[16px] text-ink-950">{t}</li>
           ))}
         </ul>
-        <CallLink href={telHref} location="quote_page" className="btn-ghost mt-8 text-lg"><Icon name="phone" className="h-5 w-5" /> Prefer to talk? {site.phone}</CallLink>
+        <p className="mt-8 text-[16px] text-ink-700">Prefer to talk? Call <CallLink href={telHref} location="quote_page" className="font-semibold text-ink-950 underline decoration-ink-950/25 underline-offset-4 hover:decoration-brick-500">{site.phone}</CallLink></p>
       </PageHero>
       <Testimonials />
       <section className="container-x py-20"><Process /></section>

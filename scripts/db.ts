@@ -166,8 +166,8 @@ async function demo() {
   const [{ n: tn }] = await db.select({ n: count() }).from(testimonials).where(eq(testimonials.status, "published"));
   if (tn === 0) {
     await db.insert(testimonials).values([
-      { name: "Sample Client", location: "North York", rating: 5, body: "DEMO testimonial — replace with a real client review in the dashboard.", service: "Estate & Probate Appraisal", featured: true },
-      { name: "Sample Lawyer", location: "Toronto", rating: 5, body: "DEMO testimonial — replace with a real client review in the dashboard.", service: "Divorce & Separation Appraisal" },
+      { name: "Sample Client", location: "North York", rating: 5, body: "Demo testimonial. Replace it with a real client review in the dashboard.", service: "Estate & Probate Appraisal", featured: true },
+      { name: "Sample Lawyer", location: "Toronto", rating: 5, body: "Demo testimonial. Replace it with a real client review in the dashboard.", service: "Divorce & Separation Appraisal" },
     ]);
   }
   console.log(`[db] inserted ${rows.length} DEMO events`);

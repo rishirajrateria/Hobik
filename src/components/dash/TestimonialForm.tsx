@@ -29,7 +29,7 @@ export function TestimonialForm({ t, services }: { t?: Testimonial; services: st
           <input type="hidden" name="rating" value={rating} />
           <div className="flex gap-1" role="radiogroup" aria-label="Rating">
             {[1, 2, 3, 4, 5].map((n) => (
-              <button type="button" key={n} role="radio" aria-checked={rating === n} aria-label={`${n} stars`} onClick={() => setRating(n)} className={n <= rating ? "text-gold-500" : "text-slate-200"}>
+              <button type="button" key={n} role="radio" aria-checked={rating === n} aria-label={`${n} stars`} onClick={() => setRating(n)} className={n <= rating ? "text-brick-500" : "text-slate-200"}>
                 <Icon name="star" className="h-7 w-7" />
               </button>
             ))}
@@ -44,7 +44,7 @@ export function TestimonialForm({ t, services }: { t?: Testimonial; services: st
             <option value="hidden">Hidden</option>
           </select>
         </label>
-        <label className="flex items-center gap-2 text-sm font-semibold text-slate-700"><input type="checkbox" name="featured" defaultChecked={t?.featured} className="h-4 w-4 accent-navy-900" /> Featured (shown first, highlighted)</label>
+        <label className="flex items-center gap-2 text-sm font-semibold text-slate-700"><input type="checkbox" name="featured" defaultChecked={t?.featured} className="h-4 w-4 accent-ink-900" /> Featured (shown first, highlighted)</label>
       </div>
       {state.error && <p className="text-sm font-semibold text-rose-700" role="alert">{state.error}</p>}
       <div className="flex gap-2">

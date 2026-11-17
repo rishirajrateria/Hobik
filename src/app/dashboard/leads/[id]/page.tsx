@@ -29,13 +29,13 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
 
   return (
     <div className="space-y-6">
-      <Link href="/dashboard/leads" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-navy-900">← All leads</Link>
+      <Link href="/dashboard/leads" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-ink-900">← All leads</Link>
 
       <div className="flex flex-col gap-4 rounded-2xl bg-white p-6 ring-1 ring-slate-200 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center gap-4">
-          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-navy-900 font-display text-xl font-extrabold text-gold-300">{(lead.name || "?").slice(0, 1).toUpperCase()}</span>
+          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-ink-900 font-display text-xl font-extrabold text-brick-300">{(lead.name || "?").slice(0, 1).toUpperCase()}</span>
           <div>
-            <h1 className="text-2xl font-extrabold text-navy-950">{lead.name || "Unnamed lead"}</h1>
+            <h1 className="text-2xl font-extrabold text-ink-950">{lead.name || "Unnamed lead"}</h1>
             <p className="text-sm text-slate-500">{lead.service || lead.formName} · received {fmtDate(lead.createdAt, true)}</p>
           </div>
         </div>
@@ -52,10 +52,10 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
             const done = stage >= LEAD_STATUSES.indexOf(s) && lead.status !== "lost" && lead.status !== "spam";
             return (
               <li key={s} className="flex flex-1 items-center">
-                <span className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-bold capitalize ${done ? "bg-navy-900 text-white" : "bg-slate-100 text-slate-500"}`}>
-                  <span className={`h-2 w-2 rounded-full ${done ? "bg-gold-400" : STATUS_DOT[s]}`} /> {s}
+                <span className={`flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-bold capitalize ${done ? "bg-ink-900 text-white" : "bg-slate-100 text-slate-500"}`}>
+                  <span className={`h-2 w-2 rounded-full ${done ? "bg-brick-400" : STATUS_DOT[s]}`} /> {s}
                 </span>
-                {i < pipeline.length - 1 && <span className={`mx-2 h-0.5 flex-1 rounded ${done ? "bg-navy-900" : "bg-slate-200"}`} />}
+                {i < pipeline.length - 1 && <span className={`mx-2 h-0.5 flex-1 rounded ${done ? "bg-ink-900" : "bg-slate-200"}`} />}
               </li>
             );
           })}
@@ -70,7 +70,7 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
               {lead.answers.map((a) => (
                 <div key={a.key} className={a.value.length > 60 ? "sm:col-span-2" : ""}>
                   <dt className="text-xs font-bold tracking-wide text-slate-500 uppercase">{a.label}</dt>
-                  <dd className="mt-1 whitespace-pre-wrap text-[15px] font-semibold text-navy-950">{a.value}</dd>
+                  <dd className="mt-1 whitespace-pre-wrap text-[15px] font-semibold text-ink-950">{a.value}</dd>
                 </div>
               ))}
             </dl>
@@ -80,7 +80,7 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
             <ol className="relative space-y-5 border-l-2 border-slate-100 pl-6">
               {activity.map(({ a, by }) => (
                 <li key={a.id} className="relative">
-                  <span className={`absolute top-1 -left-[31px] grid h-4 w-4 place-items-center rounded-full ring-4 ring-white ${a.type === "note" ? "bg-gold-400" : a.type === "created" ? "bg-emerald-500" : "bg-blue-500"}`} />
+                  <span className={`absolute top-1 -left-[31px] grid h-4 w-4 place-items-center rounded-full ring-4 ring-white ${a.type === "note" ? "bg-brick-400" : a.type === "created" ? "bg-emerald-500" : "bg-blue-500"}`} />
                   <p className="text-xs text-slate-400">{by ?? "Website"} · {timeAgo(a.createdAt)}</p>
                   <p className={`mt-1 text-sm ${a.type === "note" ? "rounded-xl bg-amber-50 p-3 whitespace-pre-wrap text-slate-800 ring-1 ring-amber-100" : "font-semibold text-slate-700"}`}>{a.body}</p>
                 </li>
@@ -125,7 +125,7 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
               ].filter(([, v]) => v).map(([k, v]) => (
                 <div key={k} className="flex justify-between gap-4">
                   <dt className="shrink-0 text-slate-500">{k}</dt>
-                  <dd className="truncate text-right font-semibold text-navy-950" title={String(v)}>{v}</dd>
+                  <dd className="truncate text-right font-semibold text-ink-950" title={String(v)}>{v}</dd>
                 </div>
               ))}
             </dl>

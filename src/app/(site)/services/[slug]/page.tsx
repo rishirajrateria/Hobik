@@ -4,9 +4,7 @@ import { pageMeta } from "@/lib/seo";
 import { getService, services } from "@/lib/services";
 import { faqs as generalFaqs } from "@/lib/faqs";
 import { faqSchema, serviceSchema } from "@/lib/schema";
-import { Icon } from "@/components/Icon";
 import { QuoteForm } from "@/components/QuoteForm";
-import { DarkAurora } from "@/components/Ambient";
 import { Testimonials } from "@/components/Testimonials";
 import { AreaChips, CtaBand, FaqList, HeroCtas, JsonLd, PageHero, Process, SectionHead } from "@/components/Sections";
 
@@ -36,82 +34,84 @@ export default async function ServicePage({ params }: Props) {
       <PageHero
         crumbs={[{ name: "Services", path: "/services" }, { name: s.name, path: `/services/${s.slug}` }]}
         eyebrow="Toronto & GTA"
-        title={<>{s.name} <span className="text-gradient">in Toronto</span></>}
+        title={<>{s.name} in Toronto</>}
         answer={s.answer}
         aside={<QuoteForm compact defaultService={s.name} location={`service_${s.slug}`} />}
       >
         <HeroCtas location={`service_${s.slug}_hero`} />
       </PageHero>
 
-      {/* highlights */}
-      <section className="container-x -mt-px py-16">
-        <div className="grid gap-4 sm:grid-cols-3">
-          {s.highlights.map((h) => (
-            <div key={h.label} className="card p-6">
-              <p className="text-xs font-bold tracking-widest text-slate-500 uppercase">{h.label}</p>
-              <p className="mt-2 font-display text-2xl font-extrabold text-navy-950">{h.value}</p>
+      {/* key facts */}
+      <section className="container-x py-14">
+        <dl className="grid border-y border-ink-950 sm:grid-cols-3">
+          {s.highlights.map((h, i) => (
+            <div key={h.label} className={`py-6 ${i > 0 ? "border-t border-ink-100 sm:border-t-0 sm:border-l sm:pl-6" : ""}`}>
+              <dt className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{h.label}</dt>
+              <dd className="mt-2 font-display text-[24px] leading-snug font-medium text-ink-950">{h.value}</dd>
             </div>
           ))}
-        </div>
+        </dl>
       </section>
 
       {/* what you get + who it's for */}
-      <section className="container-x grid gap-8 pb-20 lg:grid-cols-2">
-        <div className="card p-8 sm:p-10">
-          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-gold-300 to-gold-500 text-navy-950 shadow-[0_10px_30px_-8px_rgba(245,176,49,0.8)]"><Icon name={s.icon} className="h-7 w-7" /></span>
-          <h2 className="mt-6 text-3xl font-extrabold text-navy-950">What you get</h2>
-          <ul className="mt-6 space-y-4">
+      <section className="container-x grid gap-14 pb-20 lg:grid-cols-12">
+        <div className="lg:col-span-7" data-reveal>
+          <h2 className="text-[32px] font-medium text-ink-950">What you get</h2>
+          <ul className="mt-6 border-t border-ink-950">
             {s.bullets.map((b) => (
-              <li key={b} className="flex gap-3 text-lg text-slate-700"><Icon name="check" className="mt-1 h-5 w-5 shrink-0 text-mint-500" />{b}</li>
+              <li key={b} className="flex gap-4 border-b border-ink-100 py-4 text-[17px] text-ink-800">
+                <span className="mt-[0.6em] h-[5px] w-[5px] shrink-0 bg-brick-500" aria-hidden="true" />
+                {b}
+              </li>
             ))}
           </ul>
         </div>
-        <div data-reveal="right" className="glow-border relative overflow-hidden rounded-3xl bg-navy-950 p-8 text-white sm:p-10">
-          <DarkAurora />
-          <div className="relative">
-            <h2 className="text-3xl font-extrabold">Who it&apos;s for</h2>
-            <div className="mt-6 grid gap-3">
-              {s.forWho.map((w) => (
-                <div key={w} className="flex items-center gap-4 rounded-2xl bg-white/[0.06] p-4 ring-1 ring-white/10 backdrop-blur-xl transition hover:translate-x-1 hover:bg-white/10">
-                  <span className="grid h-10 w-10 place-items-center rounded-xl bg-gold-400/15 text-gold-300"><Icon name="check" className="h-5 w-5" /></span>
-                  <span className="text-lg font-bold">{w}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="lg:col-span-5" data-reveal>
+          <h2 className="text-[32px] font-medium text-ink-950">Who it&apos;s for</h2>
+          <ul className="mt-6 border-t border-ink-950">
+            {s.forWho.map((w) => (
+              <li key={w} className="border-b border-ink-100 py-4 font-display text-[20px] text-ink-950">{w}</li>
+            ))}
+          </ul>
         </div>
       </section>
 
       <Testimonials service={s.name} dark />
 
-      <section className="relative border-y border-white/50 bg-white/20 py-20">
+      <section className="py-20 sm:py-24">
         <div className="container-x">
-          <SectionHead eyebrow="The process" title="Booked, inspected, delivered." />
-          <div className="mt-14"><Process /></div>
+          <SectionHead eyebrow="The process" title="Booked, inspected, delivered" />
+          <div className="mt-12"><Process /></div>
         </div>
       </section>
 
-      <section className="container-x py-20">
-        <div className="grid gap-12 lg:grid-cols-12">
+      <section className="border-t border-ink-100 bg-paper-50 py-20">
+        <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <SectionHead center={false} eyebrow="FAQ" title={`${s.name}: FAQs`} />
+            <SectionHead eyebrow="FAQ" title={`${s.name} questions`} />
           </div>
           <div className="lg:col-span-8"><FaqList items={faq} /></div>
         </div>
       </section>
 
-      <section className="relative border-y border-white/50 bg-white/20 py-20">
-        <div className="container-x">
-          <SectionHead eyebrow="Where we work" title={`${s.name} across the GTA`} />
-          <div className="mt-10 flex justify-center"><AreaChips /></div>
-          <h2 className="mt-20 text-center text-2xl font-extrabold text-navy-950">Related services</h2>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {related.map((r) => (
-              <Link key={r.slug} href={`/services/${r.slug}`} className="card group flex items-center gap-4 p-5 hover:ring-gold-400">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/80 text-navy-800 ring-1 ring-white transition group-hover:bg-gold-400"><Icon name={r.icon} className="h-6 w-6" /></span>
-                <span className="font-bold text-navy-950">{r.name}</span>
-              </Link>
-            ))}
+      <section className="border-t border-ink-100 py-20">
+        <div className="container-x grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <SectionHead eyebrow="Where we work" title={`${s.name} across the GTA`} />
+            <div className="mt-10"><AreaChips /></div>
+          </div>
+          <div className="lg:col-span-5">
+            <h2 className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">Related services</h2>
+            <ul className="mt-5 border-t border-ink-950">
+              {related.map((r) => (
+                <li key={r.slug} className="border-b border-ink-100">
+                  <Link href={`/services/${r.slug}`} className="group block py-4">
+                    <span className="font-display text-[20px] text-ink-950 decoration-brick-500 underline-offset-4 group-hover:underline">{r.name}</span>
+                    <span className="mt-1 block text-[14px] text-ink-700">{r.short}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

@@ -1,64 +1,59 @@
 import { getTestimonials } from "@/lib/content";
-import { Icon } from "./Icon";
 import { SectionHead } from "./Sections";
-import { DarkAurora } from "./Ambient";
 
-function Stars({ n, onGold = false }: { n: number; onGold?: boolean }) {
+function Rating({ n, dark }: { n: number; dark?: boolean }) {
   return (
-    <span className={`flex gap-0.5 ${onGold ? "text-navy-950" : "text-gold-400"}`} aria-label={`${n} out of 5 stars`}>
-      {Array.from({ length: 5 }, (_, i) => <Icon key={i} name="star" className={`h-5 w-5 ${i < n ? "" : "opacity-20"}`} />)}
+    <span className={`text-[13px] tracking-[0.2em] ${dark ? "text-brick-300" : "text-brick-500"}`} aria-label={`${n} out of 5 stars`}>
+      {"★".repeat(n)}
+      <span className={dark ? "text-white/20" : "text-ink-100"}>{"★".repeat(5 - n)}</span>
     </span>
   );
 }
 
-/** Published testimonials from the dashboard. Renders nothing until at least one exists. */
-export async function Testimonials({ service, dark = false, title = "What our clients say." }: { service?: string; dark?: boolean; title?: string }) {
+/** Published testimonials from the dashboard, set as pull quotes. Renders nothing until one exists. */
+export async function Testimonials({ service, dark = false, title = "What our clients say" }: { service?: string; dark?: boolean; title?: string }) {
   const all = await getTestimonials();
   if (!all.length) return null;
   // Prefer testimonials for this service, then the rest.
   const list = service ? [...all.filter((t) => t.service === service), ...all.filter((t) => t.service !== service)] : all;
-  const shown = list.slice(0, 6);
+  const [lead, ...rest] = list.slice(0, 4);
   const avg = all.reduce((s, t) => s + t.rating, 0) / all.length;
+  const muted = dark ? "text-white/60" : "text-ink-700";
 
   return (
-    <section className={`relative overflow-hidden py-20 sm:py-28 ${dark ? "rounded-[2.5rem] bg-navy-950" : ""}`} data-section="testimonials">
-      {dark && <DarkAurora />}
-      <div className="container-x relative">
-        <SectionHead dark={dark} eyebrow="Client reviews" title={title} />
-        <div data-reveal className={`mx-auto mt-6 flex w-fit items-center gap-3 rounded-full px-5 py-2 ring-1 backdrop-blur-xl ${dark ? "bg-white/5 ring-white/15" : "bg-white/60 ring-white"}`}>
-          <Stars n={Math.round(avg)} />
-          <span className={`text-sm font-bold ${dark ? "text-white" : "text-navy-950"}`}>{avg.toFixed(1)} average · {all.length} review{all.length === 1 ? "" : "s"}</span>
+    <section className={`py-20 sm:py-28 ${dark ? "bg-ink-950" : "border-t border-ink-100"}`} data-section="testimonials">
+      <div className="container-x">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <SectionHead dark={dark} eyebrow="Client reviews" title={title} />
+          <p className={`text-[15px] ${muted}`} data-reveal>
+            {avg.toFixed(1)} out of 5 from {all.length} review{all.length === 1 ? "" : "s"}
+          </p>
         </div>
-        <div className="-mx-4 mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-4 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 lg:grid-cols-3">
-          {shown.map((t, i) => (
-            <figure
-              key={t.id}
-              data-reveal
-              style={{ "--d": i } as React.CSSProperties}
-              className={`spotlight relative flex w-[85%] shrink-0 snap-center flex-col rounded-3xl p-7 transition duration-500 hover:-translate-y-1.5 md:w-auto ${
-                i === 0 && t.featured ? "bg-gradient-to-br from-gold-300 via-gold-400 to-gold-500 text-navy-950 shadow-[0_30px_60px_-25px_rgba(245,176,49,0.9),inset_0_1px_0_rgba(255,255,255,0.6)]" : dark ? "glass-dark text-white" : "card"
-              }`}
-            >
-              <svg viewBox="0 0 32 32" className={`absolute top-6 right-6 h-10 w-10 ${i === 0 && t.featured ? "text-navy-950/15" : "text-gold-400/30"}`} fill="currentColor" aria-hidden="true">
-                <path d="M9 6C5 8 3 12 3 17v9h10v-9H8c0-4 2-6 4-7zm16 0c-4 2-6 6-6 11v9h10v-9h-5c0-4 2-6 4-7z" />
-              </svg>
-              <Stars n={t.rating} onGold={i === 0 && t.featured} />
-              <blockquote className={`mt-4 flex-1 text-[17px] leading-relaxed ${i === 0 && t.featured ? "font-semibold" : dark ? "text-white/85" : "text-slate-700"}`}>“{t.body}”</blockquote>
-              <figcaption className="mt-6 flex items-center gap-3">
-                <span className={`grid h-11 w-11 place-items-center rounded-full font-display text-lg font-extrabold ${i === 0 && t.featured ? "bg-navy-950 text-gold-300" : "bg-navy-900 text-gold-300"}`}>
-                  {t.name.split(" ").map((p) => p[0]).slice(0, 2).join("")}
-                </span>
-                <span>
-                  <span className="block font-extrabold">{t.name}</span>
-                  <span className={`block text-sm ${i === 0 && t.featured ? "text-navy-950/70" : dark ? "text-white/60" : "text-slate-500"}`}>
-                    {[t.role, t.location, t.service].filter(Boolean).join(" · ")}
-                    {t.source ? ` · via ${t.source}` : ""}
-                  </span>
-                </span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
+
+        <figure className={`mt-12 border-t pt-10 ${dark ? "border-white/20" : "border-ink-950"}`} data-reveal>
+          <Rating n={lead.rating} dark={dark} />
+          <blockquote className={`mt-5 max-w-4xl font-display text-[26px] leading-[1.35] sm:text-[34px] ${dark ? "text-paper" : "text-ink-950"}`}>“{lead.body}”</blockquote>
+          <figcaption className={`mt-6 text-[15px] ${muted}`}>
+            <span className={`font-semibold ${dark ? "text-paper" : "text-ink-950"}`}>{lead.name}</span>
+            {[lead.role, lead.location, lead.service].filter(Boolean).map((x) => ` · ${x}`)}
+            {lead.source ? ` · via ${lead.source}` : ""}
+          </figcaption>
+        </figure>
+
+        {rest.length > 0 && (
+          <div className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-3">
+            {rest.map((t, i) => (
+              <figure key={t.id} data-reveal style={{ "--d": i } as React.CSSProperties} className={`border-t pt-6 ${dark ? "border-white/15" : "border-ink-100"}`}>
+                <Rating n={t.rating} dark={dark} />
+                <blockquote className={`mt-3 text-[17px] leading-relaxed ${dark ? "text-white/85" : "text-ink-800"}`}>“{t.body}”</blockquote>
+                <figcaption className={`mt-4 text-[14px] ${muted}`}>
+                  <span className={`font-semibold ${dark ? "text-paper" : "text-ink-950"}`}>{t.name}</span>
+                  {[t.location, t.service].filter(Boolean).map((x) => ` · ${x}`)}
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

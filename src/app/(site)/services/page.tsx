@@ -23,15 +23,15 @@ export default function ServicesPage() {
       <PageHero
         crumbs={[{ name: "Services", path: "/services" }]}
         eyebrow="Our services"
-        title={<>Appraisals for <span className="text-gradient">every purpose.</span></>}
+        title={<>Appraisals for every purpose</>}
         answer="Home Value Inc. prepares independent residential appraisals across Toronto and the GTA for lenders, executors, family lawyers, accountants, the CRA, MPAC and the courts."
       >
         <HeroCtas location="services_hero" />
       </PageHero>
       <section className="container-x py-20"><ServiceGrid /></section>
-      <section className="relative border-y border-white/50 bg-white/20 py-20">
+      <section className="border-t border-ink-100 bg-paper-50 py-20">
         <div className="container-x">
-          <SectionHead eyebrow="How it works" title="Simple from start to finish." />
+          <SectionHead eyebrow="How it works" title="Simple from start to finish" />
           <div className="mt-14"><Process /></div>
         </div>
       </section>

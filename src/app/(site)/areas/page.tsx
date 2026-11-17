@@ -18,7 +18,7 @@ export default function AreasPage() {
       <PageHero
         crumbs={[{ name: "Service Areas", path: "/areas" }]}
         eyebrow="Service areas"
-        title={<>Appraising homes <span className="text-gradient">across the GTA.</span></>}
+        title={<>Appraising homes across the GTA</>}
         answer="Home Value Inc. is based in North York and appraises residential properties throughout Toronto, Peel, York, Halton and Durham regions and Hamilton."
         aside={<AreaMap />}
       >
@@ -28,12 +28,12 @@ export default function AreasPage() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {regions.map((r) => (
             <div key={r} className="card p-7">
-              <h2 className="text-xl font-extrabold text-navy-950">{r === "Toronto" ? "City of Toronto" : r === "Hamilton" ? "Hamilton" : `${r} Region`}</h2>
+              <h2 className="text-xl font-medium text-ink-950">{r === "Toronto" ? "City of Toronto" : r === "Hamilton" ? "Hamilton" : `${r} Region`}</h2>
               <ul className="mt-4 space-y-1">
                 {areas.filter((a) => a.region === r).map((a) => (
                   <li key={a.slug}>
-                    <Link href={`/areas/${a.slug}`} className="group flex items-center justify-between rounded-xl px-3 py-2.5 font-semibold text-navy-900 hover:bg-white/70">
-                      <span className="flex items-center gap-2"><Icon name="pin" className="h-4 w-4 text-gold-600" /> {a.name}</span>
+                    <Link href={`/areas/${a.slug}`} className="group flex items-center justify-between border-b border-ink-100 py-2.5 text-[16px] text-ink-950 hover:text-brick-600">
+                      <span className="flex items-center gap-2"><Icon name="pin" className="h-4 w-4 text-brick-600" /> {a.name}</span>
                       <Icon name="arrow" className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
                     </Link>
                   </li>

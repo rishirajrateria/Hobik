@@ -170,20 +170,20 @@ export const services: Service[] = [
   {
     slug: "pre-listing-fsbo-appraisal",
     name: "Pre-Listing & FSBO Appraisal",
-    short: "Price your home right before you list — with or without an agent.",
+    short: "Price your home right before you list, with or without an agent.",
     icon: "tag",
     answer:
       "A pre-listing appraisal gives sellers an independent market value before setting a list price. It's especially useful for For Sale By Owner (FSBO) sellers in Toronto who don't have an agent's comparative market analysis.",
     keywords: ["pre-listing appraisal Toronto", "FSBO appraisal Toronto", "home value before selling"],
     highlights: [
       { label: "Best for", value: "FSBO & private sales" },
-      { label: "Bias", value: "None — no commission" },
+      { label: "Bias", value: "None (no commission)" },
       { label: "Turnaround", value: "Fast" },
     ],
     bullets: [
       "Independent value with no commission motive",
       "Shows buyers documented support for your asking price",
-      "Avoid underpricing — or sitting unsold",
+      "Avoid underpricing, or sitting unsold",
     ],
     forWho: ["FSBO sellers", "Downsizers", "Family sales"],
     faqs: [
@@ -267,7 +267,7 @@ export const services: Service[] = [
     faqs: [
       {
         q: "Can the report be addressed to my private lender?",
-        a: "Yes — tell us the lender's name when you book and the report will be addressed to them as the intended user.",
+        a: "Yes. Tell us the lender's name when you book and the report will be addressed to them as the intended user.",
       },
     ],
   },

@@ -69,7 +69,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
                       <li key={st}>
                         <Link href={`/dashboard/leads?status=${st}`} className="flex items-center justify-between rounded-lg px-2 py-1.5 text-sm hover:bg-slate-50">
                           <span className="flex items-center gap-2 font-semibold text-slate-700 capitalize"><span className={`h-2.5 w-2.5 rounded-full ${STATUS_DOT[st as LeadStatus]}`} /> {st}</span>
-                          <span className="font-bold text-navy-950 tabular-nums">{n}</span>
+                          <span className="font-bold text-ink-950 tabular-nums">{n}</span>
                         </Link>
                       </li>
                     );
@@ -91,9 +91,9 @@ export default async function Overview({ searchParams }: { searchParams: Promise
                 {recent.map((l) => (
                   <li key={l.id}>
                     <Link href={`/dashboard/leads/${l.id}`} className="flex items-center gap-4 px-5 py-3.5 hover:bg-slate-50">
-                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-navy-50 text-sm font-extrabold text-navy-800">{(l.name || "?").slice(0, 1).toUpperCase()}</span>
+                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-ink-50 text-sm font-extrabold text-ink-800">{(l.name || "?").slice(0, 1).toUpperCase()}</span>
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate font-bold text-navy-950">{l.name || "Unnamed"}</span>
+                        <span className="block truncate font-bold text-ink-950">{l.name || "Unnamed"}</span>
                         <span className="block truncate text-xs text-slate-500">{l.service || l.formName} · {l.city || l.page || "website"}</span>
                       </span>
                       <StatusBadge status={l.status} />

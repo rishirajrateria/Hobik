@@ -6,7 +6,7 @@ export function PageHeader({ title, sub, actions }: { title: string; sub?: strin
   return (
     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div>
-        <h1 className="text-2xl font-extrabold text-navy-950 sm:text-3xl">{title}</h1>
+        <h1 className="text-2xl font-extrabold text-ink-950 sm:text-3xl">{title}</h1>
         {sub && <p className="mt-1 text-sm text-slate-500">{sub}</p>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
@@ -20,7 +20,7 @@ export function Panel({ title, sub, actions, children, className = "", pad = tru
       {(title || actions) && (
         <header className="flex items-center justify-between gap-3 border-b border-slate-100 px-5 py-4">
           <div>
-            {title && <h2 className="text-[15px] font-bold text-navy-950">{title}</h2>}
+            {title && <h2 className="text-[15px] font-bold text-ink-950">{title}</h2>}
             {sub && <p className="text-xs text-slate-500">{sub}</p>}
           </div>
           {actions}
@@ -47,9 +47,9 @@ export function Stat({ label, value, cur, prev, icon, hint }: { label: string; v
     <div className="rounded-2xl bg-white p-5 ring-1 ring-slate-200">
       <div className="flex items-center justify-between">
         <p className="text-sm font-semibold text-slate-500">{label}</p>
-        <span className="grid h-9 w-9 place-items-center rounded-xl bg-navy-50 text-navy-800"><Icon name={icon} className="h-[18px] w-[18px]" /></span>
+        <span className="grid h-9 w-9 place-items-center rounded-xl bg-ink-50 text-ink-800"><Icon name={icon} className="h-[18px] w-[18px]" /></span>
       </div>
-      <p className="mt-2 font-display text-3xl font-extrabold text-navy-950 tabular-nums">{value}</p>
+      <p className="mt-2 font-display text-3xl font-extrabold text-ink-950 tabular-nums">{value}</p>
       <div className="mt-1 flex items-center gap-2 text-xs text-slate-400">
         {cur !== undefined && prev !== undefined && <Delta cur={cur} prev={prev} />}
         {hint ?? "vs previous period"}
@@ -81,15 +81,15 @@ export function StatusBadge({ status }: { status: LeadStatus }) {
 }
 
 export function Badge({ children, tone = "slate" }: { children: React.ReactNode; tone?: "slate" | "green" | "amber" | "blue" | "rose" | "navy" }) {
-  const t = { slate: "bg-slate-100 text-slate-700", green: "bg-emerald-50 text-emerald-700", amber: "bg-amber-50 text-amber-800", blue: "bg-blue-50 text-blue-700", rose: "bg-rose-50 text-rose-700", navy: "bg-navy-900 text-white" }[tone];
+  const t = { slate: "bg-slate-100 text-slate-700", green: "bg-emerald-50 text-emerald-700", amber: "bg-amber-50 text-amber-800", blue: "bg-blue-50 text-blue-700", rose: "bg-rose-50 text-rose-700", navy: "bg-ink-900 text-white" }[tone];
   return <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold ${t}`}>{children}</span>;
 }
 
 export function Empty({ icon = "sparkle", title, sub, action }: { icon?: string; title: string; sub?: string; action?: React.ReactNode }) {
   return (
     <div className="grid place-items-center px-6 py-14 text-center">
-      <span className="grid h-14 w-14 place-items-center rounded-2xl bg-navy-50 text-navy-700"><Icon name={icon} className="h-7 w-7" /></span>
-      <p className="mt-4 font-bold text-navy-950">{title}</p>
+      <span className="grid h-14 w-14 place-items-center rounded-2xl bg-ink-50 text-ink-700"><Icon name={icon} className="h-7 w-7" /></span>
+      <p className="mt-4 font-bold text-ink-950">{title}</p>
       {sub && <p className="mt-1 max-w-sm text-sm text-slate-500">{sub}</p>}
       {action && <div className="mt-5">{action}</div>}
     </div>
@@ -107,7 +107,7 @@ export function BarList({ rows, valueLabel = "", color = "bg-blue-600/15", hrefF
           <>
             <span className={`absolute inset-y-0 left-0 rounded-lg ${color}`} style={{ width: `${(r.value / max) * 100}%` }} aria-hidden="true" />
             <span className="relative flex min-w-0 items-center gap-2 truncate">{r.label}</span>
-            <span className="relative shrink-0 font-semibold text-navy-950 tabular-nums">
+            <span className="relative shrink-0 font-semibold text-ink-950 tabular-nums">
               {r.value.toLocaleString()} <span className="text-xs font-normal text-slate-400">{valueLabel}</span>
               {r.sub && <span className="ml-2 text-xs font-normal text-slate-400">{r.sub}</span>}
             </span>
@@ -124,12 +124,12 @@ export function BarList({ rows, valueLabel = "", color = "bg-blue-600/15", hrefF
   );
 }
 
-export const inputCls = "w-full rounded-xl border-0 bg-white px-3.5 py-2.5 text-sm text-navy-950 ring-1 ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-600 focus:outline-none";
+export const inputCls = "w-full rounded-xl border-0 bg-white px-3.5 py-2.5 text-sm text-ink-950 ring-1 ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-600 focus:outline-none";
 export const labelCls = "mb-1.5 block text-xs font-bold tracking-wide text-slate-600 uppercase";
-export const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-xl bg-navy-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-navy-800 disabled:opacity-60";
-export const btnSecondary = "inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-navy-900 ring-1 ring-slate-200 transition hover:bg-slate-50 disabled:opacity-60";
+export const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-xl bg-ink-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-ink-800 disabled:opacity-60";
+export const btnSecondary = "inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-ink-900 ring-1 ring-slate-200 transition hover:bg-slate-50 disabled:opacity-60";
 export const btnDanger = "inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-rose-700 ring-1 ring-rose-200 transition hover:bg-rose-50 disabled:opacity-60";
-export const btnGold = "inline-flex items-center justify-center gap-2 rounded-xl bg-gold-400 px-4 py-2.5 text-sm font-bold text-navy-950 transition hover:bg-gold-300 disabled:opacity-60";
+export const btnGold = "inline-flex items-center justify-center gap-2 rounded-xl bg-brick-400 px-4 py-2.5 text-sm font-bold text-ink-950 transition hover:bg-brick-300 disabled:opacity-60";
 
 export function fmtDate(d: Date | number | null | undefined, withTime = false) {
   if (!d) return "—";

@@ -25,16 +25,16 @@ export default async function FormsPage() {
       />
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {list.map((f) => (
-          <div key={f.id} className={`flex flex-col rounded-2xl bg-white p-5 ring-1 ${f.isPrimary ? "ring-2 ring-gold-400" : "ring-slate-200"}`}>
+          <div key={f.id} className={`flex flex-col rounded-2xl bg-white p-5 ring-1 ${f.isPrimary ? "ring-2 ring-brick-400" : "ring-slate-200"}`}>
             <div className="flex items-start justify-between gap-3">
-              <span className="grid h-11 w-11 place-items-center rounded-xl bg-navy-50 text-navy-800"><Icon name="form" className="h-5 w-5" /></span>
+              <span className="grid h-11 w-11 place-items-center rounded-xl bg-ink-50 text-ink-800"><Icon name="form" className="h-5 w-5" /></span>
               <div className="flex flex-wrap justify-end gap-1.5">
                 {f.isPrimary && <Badge tone="amber">★ Primary · site-wide</Badge>}
                 <Badge tone={f.published ? "green" : "slate"}>{f.published ? "Live" : "Draft"}</Badge>
                 <Badge tone="blue">{f.style === "steps" ? "Multi-step" : "Card"}</Badge>
               </div>
             </div>
-            <h2 className="mt-4 text-lg font-extrabold text-navy-950">{f.name}</h2>
+            <h2 className="mt-4 text-lg font-extrabold text-ink-950">{f.name}</h2>
             <p className="text-sm text-slate-500">{f.fields.length} questions · {subs.find((s) => s.formId === f.id)?.n ?? 0} submissions · edited {timeAgo(f.updatedAt)}</p>
             <p className="mt-3 truncate rounded-lg bg-slate-50 px-3 py-2 font-mono text-xs text-slate-600">
               {f.slug === "book-appraisal" ? "/book-appraisal" : `/forms/${f.slug}`}{f.isPrimary ? " + all quote boxes" : ""}

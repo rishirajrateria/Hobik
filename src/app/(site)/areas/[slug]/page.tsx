@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props) {
   if (!a) return {};
   return pageMeta({
     title: `Home Appraisal ${a.name} | Certified ${a.name} Appraisers`,
-    description: `Certified home appraisals in ${a.name}, Ontario — ${a.neighbourhoods.slice(0, 3).join(", ")} & more. Mortgage, estate, divorce, CRA & tax appeal reports in ${site.turnaround}. Free quote.`,
+    description: `Certified home appraisals in ${a.name}, Ontario, including ${a.neighbourhoods.slice(0, 3).join(", ")} and more. Mortgage, estate, divorce, CRA & tax appeal reports in ${site.turnaround}. Free quote.`,
     path: `/areas/${a.slug}`,
   });
 }
@@ -56,36 +56,28 @@ export default async function AreaPage({ params }: Props) {
       <PageHero
         crumbs={[{ name: "Areas", path: "/areas" }, { name: a.name, path: `/areas/${a.slug}` }]}
         eyebrow={`${a.name}, Ontario`}
-        title={<>Home Appraisal in <span className="text-gradient">{a.name}</span></>}
+        title={<>Home Appraisal in {a.name}</>}
         answer={a.intro}
         aside={<QuoteForm compact location={`area_${a.slug}`} />}
       >
         <HeroCtas location={`area_${a.slug}_hero`} />
       </PageHero>
 
-      <section className="container-x grid gap-8 py-20 lg:grid-cols-2 lg:items-center">
+      <section className="container-x grid gap-14 py-20 lg:grid-cols-2 lg:items-start">
         <div>
           <SectionHead center={false} eyebrow="Local expertise" title={`Neighbourhoods we cover in ${a.name}`} />
-          <div className="mt-8 flex flex-wrap gap-2">
+          <ul className="mt-8 columns-2 gap-8 border-t border-ink-950">
             {a.neighbourhoods.map((n) => (
-              <span key={n} className="inline-flex items-center gap-1.5 rounded-full bg-white/60 px-4 py-2 text-sm font-semibold text-navy-900 ring-1 ring-white backdrop-blur-xl">
-                <Icon name="pin" className="h-4 w-4 text-gold-600" /> {n}
-              </span>
+              <li key={n} className="break-inside-avoid border-b border-ink-100 py-2.5 text-[16px] text-ink-950">{n}</li>
             ))}
-          </div>
-          <h3 className="mt-10 text-lg font-extrabold text-navy-950">Property types</h3>
-          <div className="mt-4 grid grid-cols-2 gap-3">
-            {a.homeTypes.map((t) => (
-              <div key={t} className="flex items-center gap-3 card !rounded-2xl p-4 font-semibold text-navy-900">
-                <Icon name="home" className="h-5 w-5 text-gold-600" /> {t}
-              </div>
-            ))}
-          </div>
+          </ul>
+          <h3 className="mt-10 text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">Property types we see most</h3>
+          <p className="mt-3 font-display text-[22px] leading-snug text-ink-950">{a.homeTypes.join(", ")}</p>
         </div>
         <div data-reveal="scale"><AreaMap highlight={a.slug} /></div>
       </section>
 
-      <section className="relative border-y border-white/50 bg-white/20 py-20">
+      <section className="border-t border-ink-100 bg-paper-50 py-20">
         <div className="container-x">
           <SectionHead eyebrow={`${a.name} appraisal services`} title={`Every appraisal type in ${a.name}.`} />
           <div className="mt-14"><ServiceGrid citySuffix={a.name} /></div>
@@ -95,11 +87,11 @@ export default async function AreaPage({ params }: Props) {
       <Testimonials title={`Trusted by homeowners across the GTA.`} />
 
       <section className="container-x py-20">
-        <SectionHead eyebrow="How it works" title="Four steps. Zero hassle." />
+        <SectionHead eyebrow="How it works" title="Four steps. Zero hassle" />
         <div className="mt-14"><Process /></div>
       </section>
 
-      <section className="relative border-y border-white/50 bg-white/20 py-20">
+      <section className="border-t border-ink-100 bg-paper-50 py-20">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4"><SectionHead center={false} eyebrow="FAQ" title={`${a.name} appraisal FAQs`} /></div>
           <div className="lg:col-span-8"><FaqList items={faq} /></div>
@@ -107,7 +99,7 @@ export default async function AreaPage({ params }: Props) {
       </section>
 
       <section className="container-x py-16">
-        <h2 className="text-center text-2xl font-extrabold text-navy-950">Nearby areas we serve</h2>
+        <h2 className="text-center text-2xl font-medium text-ink-950">Nearby areas we serve</h2>
         <div className="mt-8 flex justify-center"><AreaChips exclude={a.slug} /></div>
       </section>
 

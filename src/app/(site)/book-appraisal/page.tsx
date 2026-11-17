@@ -21,13 +21,13 @@ export default async function BookPage() {
       <PageHero
         crumbs={[{ name: "Book an Appraisal", path: "/book-appraisal" }]}
         eyebrow="Book online"
-        title={<>Book in <span className="text-gradient">60 seconds.</span></>}
-        answer="Tell us a little about the property. An appraiser will confirm your fee and inspection time — no obligation."
+        title={<>Book in 60 seconds</>}
+        answer="Tell us a little about the property. An appraiser will confirm your fee and inspection time, with no obligation."
         aside={<DynamicForm form={form} location="book_page" />}
       >
-        <ul className="mt-8 space-y-3 text-white/85">
+        <ul className="mt-8 max-w-lg border-t border-ink-950">
           {["One question at a time", "Fee confirmed before booking", `Report typically in ${site.turnaround}`].map((t) => (
-            <li key={t} className="flex items-center gap-3 text-lg font-semibold"><Icon name="check" className="h-6 w-6 text-mint-400" /> {t}</li>
+            <li key={t} className="border-b border-ink-100 py-3 text-[16px] text-ink-950">{t}</li>
           ))}
         </ul>
       </PageHero>

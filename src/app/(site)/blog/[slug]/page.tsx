@@ -45,21 +45,21 @@ export default async function PostPage({ params }: Props) {
         <article className="prose-hv lg:col-span-8">
           {p.coverImage && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={p.coverImage} alt="" className="mb-10 aspect-[16/9] w-full rounded-3xl object-cover" />
+            <img src={p.coverImage} alt="" className="mb-10 aspect-[16/9] w-full object-cover" />
           )}
           <div dangerouslySetInnerHTML={{ __html: renderMarkdown(p.content) }} />
-          <p className="mt-12 border-t border-navy-100 pt-6 text-sm text-slate-500">
-            Written by the appraisal team at {site.name}, Toronto. General information only — not a valuation of your property. <Link href="/get-a-quote" className="font-semibold text-gold-600 underline">Get a quote</Link>.
+          <p className="mt-12 border-t border-ink-100 pt-6 text-sm text-ink-700">
+            Written by the appraisal team at {site.name}, Toronto. General information only, not a valuation of your property. <Link href="/get-a-quote" className="font-semibold text-brick-600 underline">Get a quote</Link>.
           </p>
         </article>
         <aside className="lg:col-span-4">
           <div className="space-y-6 lg:sticky lg:top-28">
             {toc.length > 2 && (
               <nav aria-label="On this page" className="card hidden p-5 lg:block">
-                <p className="text-xs font-bold tracking-widest text-gold-600 uppercase">On this page</p>
+                <p className="text-xs font-bold tracking-widest text-brick-600 uppercase">On this page</p>
                 <ol className="mt-3 space-y-1.5 text-sm">
                   {toc.map((t) => (
-                    <li key={t.id}><a href={`#${t.id}`} className="block rounded-lg px-2 py-1 text-slate-600 transition hover:bg-white/70 hover:text-navy-950">{t.text}</a></li>
+                    <li key={t.id}><a href={`#${t.id}`} className="block border-l border-ink-100 py-1 pl-3 text-ink-700 transition-colors hover:border-brick-500 hover:text-ink-950">{t.text}</a></li>
                   ))}
                 </ol>
               </nav>
@@ -69,9 +69,9 @@ export default async function PostPage({ params }: Props) {
         </aside>
       </section>
       {more.length > 0 && (
-        <section className="relative border-y border-white/50 bg-white/20 py-16">
+        <section className="border-t border-ink-100 bg-paper-50 py-16">
           <div className="container-x">
-            <h2 className="text-2xl font-extrabold text-navy-950">Keep reading</h2>
+            <h2 className="text-2xl font-medium text-ink-950">Keep reading</h2>
             <div className="mt-8 grid gap-6 md:grid-cols-3">{more.map((m) => <BlogCard key={m.id} p={m} />)}</div>
           </div>
         </section>

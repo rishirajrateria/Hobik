@@ -1,39 +1,30 @@
 import Link from "next/link";
 import type { Post } from "@/db/schema";
 import { readingMinutes } from "@/lib/markdown";
-import { Icon } from "./Icon";
 
+/** Flat colour keys kept for posts' "card colour" setting (used in the dashboard). */
 export const ACCENTS: Record<string, string> = {
-  navy: "bg-gradient-to-br from-navy-900 to-navy-700",
-  gold: "bg-gradient-to-br from-gold-400 to-gold-600",
-  mint: "bg-gradient-to-br from-mint-500 to-navy-700",
-  sky: "bg-gradient-to-br from-sky-500 to-navy-800",
-  rose: "bg-gradient-to-br from-rose-500 to-navy-800",
+  navy: "bg-ink-900",
+  gold: "bg-brick-500",
+  mint: "bg-sage-500",
+  sky: "bg-[#5b7a8c]",
+  rose: "bg-[#8e5563]",
 };
 
+/** Article teaser: rule, category, serif title, excerpt. Cover image only if one was uploaded. */
 export function BlogCard({ p }: { p: Post }) {
   return (
-    <Link href={`/blog/${p.slug}`} className="group card spotlight flex w-full flex-col overflow-hidden transition duration-500 hover:-translate-y-1.5 hover:bg-white/75">
-      <div className={`relative m-2 h-44 overflow-hidden rounded-2xl ${ACCENTS[p.accent] ?? ACCENTS.navy}`}>
-        {p.coverImage ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={p.coverImage} alt="" loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-        ) : (
-          <>
-            <div className="bg-grid absolute inset-0 opacity-60" aria-hidden="true" />
-            <div className="absolute -top-10 -right-10 h-40 w-40 rounded-full bg-white/25 blur-2xl transition duration-700 group-hover:scale-150" aria-hidden="true" />
-            <p className={`absolute inset-x-6 bottom-5 line-clamp-2 font-display text-xl font-extrabold ${p.accent === "gold" ? "text-navy-950" : "text-white"}`}>{p.tags[0] ?? "Guide"}</p>
-          </>
-        )}
-      </div>
-      <div className="flex flex-1 flex-col p-6">
-        <p className="text-xs font-bold tracking-widest text-gold-600 uppercase">
-          {readingMinutes(p.content)} min read{p.publishedAt ? ` · ${p.publishedAt.toLocaleDateString("en-CA", { month: "short", year: "numeric" })}` : ""}
-        </p>
-        <h3 className="mt-2 text-lg font-extrabold text-navy-950">{p.title}</h3>
-        <p className="mt-2 line-clamp-2 text-sm text-slate-600">{p.excerpt}</p>
-        <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-bold text-gold-600">Read <Icon name="arrow" className="h-4 w-4 transition group-hover:translate-x-1" /></span>
-      </div>
+    <Link href={`/blog/${p.slug}`} className="group flex w-full flex-col border-t border-ink-950 pt-5">
+      {p.coverImage && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={p.coverImage} alt="" loading="lazy" className="mb-5 aspect-[3/2] w-full object-cover" />
+      )}
+      <p className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{p.tags[0] ?? "Guide"}</p>
+      <h3 className="mt-3 font-display text-[23px] leading-snug font-medium text-ink-950 decoration-brick-500 decoration-1 underline-offset-4 group-hover:underline">{p.title}</h3>
+      <p className="mt-3 line-clamp-3 text-[15px] leading-relaxed text-ink-700">{p.excerpt}</p>
+      <p className="mt-auto pt-5 text-[13px] text-ink-700">
+        {readingMinutes(p.content)} min read{p.publishedAt ? ` · ${p.publishedAt.toLocaleDateString("en-CA", { month: "long", year: "numeric" })}` : ""}
+      </p>
     </Link>
   );
 }

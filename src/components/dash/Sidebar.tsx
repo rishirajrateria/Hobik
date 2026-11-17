@@ -15,12 +15,12 @@ export function Sidebar({ items, user, signOut }: { items: NavItem[]; user: { na
   const nav = (
     <nav className="flex h-full flex-col">
       <Link href="/dashboard" className="flex items-center gap-2.5 px-5 py-5">
-        <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-gold-300 to-gold-500 text-navy-950">
+        <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-brick-300 to-brick-500 text-ink-950">
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m3 11 9-8 9 8" /><path d="M5 10v10h14V10" /><path d="m9 15 2 2 4-4" /></svg>
         </span>
         <span className="leading-tight">
           <span className="block font-display text-[15px] font-extrabold text-white">Home Value</span>
-          <span className="block text-[10px] font-bold tracking-[0.2em] text-gold-300 uppercase">Workspace</span>
+          <span className="block text-[10px] font-bold tracking-[0.2em] text-brick-300 uppercase">Workspace</span>
         </span>
       </Link>
       <ul className="mt-2 flex-1 space-y-0.5 px-3">
@@ -34,7 +34,7 @@ export function Sidebar({ items, user, signOut }: { items: NavItem[]; user: { na
             >
               <Icon name={it.icon} className="h-[18px] w-[18px]" />
               <span className="flex-1">{it.label}</span>
-              {!!it.badge && <span className="rounded-full bg-gold-400 px-2 py-0.5 text-[11px] font-extrabold text-navy-950">{it.badge}</span>}
+              {!!it.badge && <span className="rounded-full bg-brick-400 px-2 py-0.5 text-[11px] font-extrabold text-ink-950">{it.badge}</span>}
             </Link>
           </li>
         ))}
@@ -44,7 +44,7 @@ export function Sidebar({ items, user, signOut }: { items: NavItem[]; user: { na
           <Icon name="external" className="h-[18px] w-[18px]" /> View website
         </Link>
         <div className="mt-2 flex items-center gap-3 rounded-xl bg-white/5 p-3">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold-400 text-sm font-extrabold text-navy-950">
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-brick-400 text-sm font-extrabold text-ink-950">
             {user.name.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase()}
           </span>
           <Link href="/dashboard/account" className="min-w-0 flex-1">
@@ -67,14 +67,14 @@ export function Sidebar({ items, user, signOut }: { items: NavItem[]; user: { na
         <button onClick={() => setOpen(true)} className="grid h-10 w-10 place-items-center rounded-xl ring-1 ring-slate-200" aria-label="Open navigation">
           <Icon name="menu" className="h-5 w-5" />
         </button>
-        <span className="font-display font-extrabold text-navy-950">Home Value</span>
+        <span className="font-display font-extrabold text-ink-950">Home Value</span>
         <span className="w-10" />
       </div>
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 bg-navy-950 lg:block">{nav}</aside>
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 bg-ink-950 lg:block">{nav}</aside>
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <button className="absolute inset-0 bg-navy-950/60" onClick={() => setOpen(false)} aria-label="Close navigation" />
-          <aside className="absolute inset-y-0 left-0 w-72 bg-navy-950 shadow-2xl">{nav}</aside>
+          <button className="absolute inset-0 bg-ink-950/60" onClick={() => setOpen(false)} aria-label="Close navigation" />
+          <aside className="absolute inset-y-0 left-0 w-72 bg-ink-950 shadow-2xl">{nav}</aside>
         </div>
       )}
     </>

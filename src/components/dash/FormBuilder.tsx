@@ -68,7 +68,7 @@ export function FormBuilder({ initial, isPrimary }: { initial: FormConfig & { pu
       <div className="space-y-6">
         {/* settings */}
         <section className="rounded-2xl bg-white p-5 ring-1 ring-slate-200">
-          <h2 className="font-bold text-navy-950">Form settings</h2>
+          <h2 className="font-bold text-ink-950">Form settings</h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div><label className={labelCls} htmlFor="fb-name">Internal name</label><input id="fb-name" className={inputCls} value={meta.name} onChange={(e) => setM({ name: e.target.value })} /></div>
             <div>
@@ -85,7 +85,7 @@ export function FormBuilder({ initial, isPrimary }: { initial: FormConfig & { pu
               <span className={labelCls}>Layout</span>
               <div className="grid grid-cols-2 gap-2">
                 {(["card", "steps"] as const).map((s) => (
-                  <button type="button" key={s} onClick={() => setM({ style: s })} className={`rounded-xl px-3 py-2.5 text-sm font-bold ring-1 ${meta.style === s ? "bg-navy-900 text-white ring-navy-900" : "bg-white text-slate-600 ring-slate-200"}`}>
+                  <button type="button" key={s} onClick={() => setM({ style: s })} className={`rounded-xl px-3 py-2.5 text-sm font-bold ring-1 ${meta.style === s ? "bg-ink-900 text-white ring-ink-900" : "bg-white text-slate-600 ring-slate-200"}`}>
                     {s === "card" ? "All on one card" : "One step at a time"}
                   </button>
                 ))}
@@ -95,7 +95,7 @@ export function FormBuilder({ initial, isPrimary }: { initial: FormConfig & { pu
             <div><label className={labelCls} htmlFor="fb-sm">Thank-you message</label><input id="fb-sm" className={inputCls} value={meta.successMessage} onChange={(e) => setM({ successMessage: e.target.value })} /></div>
           </div>
           <label className="mt-4 flex items-center gap-3 text-sm font-semibold text-slate-700">
-            <input type="checkbox" className="h-4 w-4 accent-navy-900" checked={meta.published} disabled={isPrimary} onChange={(e) => setM({ published: e.target.checked })} />
+            <input type="checkbox" className="h-4 w-4 accent-ink-900" checked={meta.published} disabled={isPrimary} onChange={(e) => setM({ published: e.target.checked })} />
             Published {isPrimary && <span className="text-xs font-normal text-slate-400">(primary form is always live)</span>}
           </label>
         </section>
@@ -103,7 +103,7 @@ export function FormBuilder({ initial, isPrimary }: { initial: FormConfig & { pu
         {/* questions */}
         <section className="rounded-2xl bg-white p-5 ring-1 ring-slate-200">
           <div className="flex items-center justify-between">
-            <h2 className="font-bold text-navy-950">Questions <span className="text-slate-400">({fields.length})</span></h2>
+            <h2 className="font-bold text-ink-950">Questions <span className="text-slate-400">({fields.length})</span></h2>
           </div>
           <ol className="mt-4 space-y-2">
             {fields.map((f, i) => {
@@ -113,7 +113,7 @@ export function FormBuilder({ initial, isPrimary }: { initial: FormConfig & { pu
                   <div className="flex items-center gap-2 px-3 py-2.5">
                     <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-slate-100 text-xs font-bold text-slate-500">{i + 1}</span>
                     <button type="button" onClick={() => setOpen(isOpen ? null : f.id)} className="min-w-0 flex-1 text-left">
-                      <span className="block truncate text-sm font-bold text-navy-950">{f.label || "Untitled question"}{f.required && <span className="text-gold-600"> *</span>}</span>
+                      <span className="block truncate text-sm font-bold text-ink-950">{f.label || "Untitled question"}{f.required && <span className="text-brick-600"> *</span>}</span>
                       <span className="block text-xs text-slate-400">{TYPE_LABEL[f.type]} · {f.key}</span>
                     </button>
                     <button type="button" aria-label="Move up" onClick={() => move(i, -1)} disabled={i === 0} className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:bg-slate-100 disabled:opacity-30"><Icon name="up" className="h-4 w-4" /></button>
@@ -147,8 +147,8 @@ export function FormBuilder({ initial, isPrimary }: { initial: FormConfig & { pu
                         </div>
                       )}
                       <div className="flex flex-wrap items-center gap-5 sm:col-span-2">
-                        <label className="flex items-center gap-2 text-sm font-semibold text-slate-700"><input type="checkbox" className="h-4 w-4 accent-navy-900" checked={f.required} onChange={(e) => upd(f.id, { required: e.target.checked })} /> Required</label>
-                        <label className="flex items-center gap-2 text-sm font-semibold text-slate-700"><input type="checkbox" className="h-4 w-4 accent-navy-900" checked={f.width === "half"} onChange={(e) => upd(f.id, { width: e.target.checked ? "half" : "full" })} /> Half width (side by side)</label>
+                        <label className="flex items-center gap-2 text-sm font-semibold text-slate-700"><input type="checkbox" className="h-4 w-4 accent-ink-900" checked={f.required} onChange={(e) => upd(f.id, { required: e.target.checked })} /> Required</label>
+                        <label className="flex items-center gap-2 text-sm font-semibold text-slate-700"><input type="checkbox" className="h-4 w-4 accent-ink-900" checked={f.width === "half"} onChange={(e) => upd(f.id, { width: e.target.checked ? "half" : "full" })} /> Half width (side by side)</label>
                       </div>
                     </div>
                   )}
@@ -161,7 +161,7 @@ export function FormBuilder({ initial, isPrimary }: { initial: FormConfig & { pu
             <p className="text-xs font-bold tracking-wide text-slate-500 uppercase">Add a question</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {PRESETS.map((p) => (
-                <button type="button" key={p.label} onClick={() => add(p.f)} className="rounded-lg bg-white px-3 py-1.5 text-sm font-semibold text-navy-900 ring-1 ring-slate-200 hover:ring-navy-700">+ {p.label}</button>
+                <button type="button" key={p.label} onClick={() => add(p.f)} className="rounded-lg bg-white px-3 py-1.5 text-sm font-semibold text-ink-900 ring-1 ring-slate-200 hover:ring-ink-700">+ {p.label}</button>
               ))}
               {(["text", "radio", "select", "checkbox", "textarea"] as FieldType[]).map((t) => (
                 <button type="button" key={t} onClick={() => add({ key: "question", type: t, label: "New question", required: false, width: "full", ...(["select", "radio", "checkbox"].includes(t) ? { options: ["Option 1", "Option 2"] } : {}) })} className="rounded-lg bg-white px-3 py-1.5 text-sm font-semibold text-blue-700 ring-1 ring-blue-200 hover:ring-blue-600">
@@ -183,7 +183,7 @@ export function FormBuilder({ initial, isPrimary }: { initial: FormConfig & { pu
           </div>
         </div>
         <p className="mb-2 flex items-center gap-2 text-xs font-bold tracking-wide text-slate-500 uppercase"><Icon name="eye" className="h-4 w-4" /> Live preview</p>
-        <div className="rounded-3xl bg-navy-950 p-4 sm:p-6">
+        <div className="rounded-3xl bg-ink-950 p-4 sm:p-6">
           <DynamicForm key={JSON.stringify(previewCfg)} form={previewCfg} location="preview" preview />
         </div>
       </div>

@@ -7,7 +7,7 @@ import { deletePost, savePost, type PostPayload } from "@/app/dashboard/blog/act
 import { Icon } from "@/components/Icon";
 import { btnDanger, btnGold, btnSecondary, inputCls, labelCls } from "./ui";
 
-const ACCENT_SWATCH: Record<string, string> = { navy: "bg-navy-800", gold: "bg-gold-400", mint: "bg-mint-500", sky: "bg-sky-500", rose: "bg-rose-500" };
+const ACCENT_SWATCH: Record<string, string> = { navy: "bg-ink-800", gold: "bg-brick-400", mint: "bg-sage-500", sky: "bg-sky-500", rose: "bg-rose-500" };
 
 type Tool = { label: string; icon?: string; text?: string; wrap?: [string, string]; line?: string };
 const TOOLS: Tool[] = [
@@ -72,14 +72,14 @@ export function BlogEditor({ id, initial, flash }: { id: string | null; initial:
   return (
     <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
       <div className="space-y-4">
-        <input aria-label="Title" value={v.title} onChange={(e) => set({ title: e.target.value })} placeholder="Post title" className="w-full rounded-2xl border-0 bg-white px-5 py-4 font-display text-2xl font-extrabold text-navy-950 ring-1 ring-slate-200 placeholder:text-slate-300 focus:ring-2 focus:ring-blue-600 focus:outline-none sm:text-3xl" />
+        <input aria-label="Title" value={v.title} onChange={(e) => set({ title: e.target.value })} placeholder="Post title" className="w-full rounded-2xl border-0 bg-white px-5 py-4 font-display text-2xl font-extrabold text-ink-950 ring-1 ring-slate-200 placeholder:text-slate-300 focus:ring-2 focus:ring-blue-600 focus:outline-none sm:text-3xl" />
         <textarea aria-label="Excerpt" value={v.excerpt} onChange={(e) => set({ excerpt: e.target.value })} rows={2} placeholder="Short summary shown on cards and under the title (1–2 sentences)" className={inputCls} />
 
         <div className="overflow-hidden rounded-2xl bg-white ring-1 ring-slate-200">
           <div className="flex flex-wrap items-center gap-1 border-b border-slate-100 px-3 py-2">
             <div className="mr-2 inline-flex rounded-lg bg-slate-100 p-0.5">
               {(["write", "preview"] as const).map((t) => (
-                <button type="button" key={t} onClick={() => setTab(t)} className={`rounded-md px-3 py-1 text-sm font-bold capitalize ${tab === t ? "bg-white text-navy-950 shadow-sm" : "text-slate-500"}`}>{t}</button>
+                <button type="button" key={t} onClick={() => setTab(t)} className={`rounded-md px-3 py-1 text-sm font-bold capitalize ${tab === t ? "bg-white text-ink-950 shadow-sm" : "text-slate-500"}`}>{t}</button>
               ))}
             </div>
             {tab === "write" && TOOLS.map((t) => (
@@ -138,7 +138,7 @@ export function BlogEditor({ id, initial, flash }: { id: string | null; initial:
         </div>
 
         <div className="space-y-4 rounded-2xl bg-white p-4 ring-1 ring-slate-200">
-          <p className="text-sm font-bold text-navy-950">Search & AI preview</p>
+          <p className="text-sm font-bold text-ink-950">Search & AI preview</p>
           <div className="rounded-xl bg-slate-50 p-3">
             <p className="truncate text-xs text-slate-500">homeappraisaltoronto.ca › blog › {slugPreview || "…"}</p>
             <p className="mt-0.5 line-clamp-1 text-[17px] text-[#1a0dab]">{seoTitle} | Home Value Inc.</p>

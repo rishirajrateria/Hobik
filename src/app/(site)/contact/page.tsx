@@ -24,30 +24,27 @@ export default function ContactPage() {
       <PageHero
         crumbs={[{ name: "Contact", path: "/contact" }]}
         eyebrow="Contact"
-        title={<>Let&apos;s value <span className="text-gradient">your home.</span></>}
+        title={<>Let&apos;s value your home</>}
         answer="Call for the fastest answer, or send the form and we'll get back to you with a quote."
         aside={<QuoteForm location="contact" />}
       >
-        <div className="mt-10 grid gap-3 sm:grid-cols-2">
-          {cards.map((c) => {
-            const inner = (
-              <>
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gold-400 text-navy-950"><Icon name={c.icon} className="h-5 w-5" /></span>
-                <span className="min-w-0">
-                  <span className="block text-xs font-bold tracking-widest text-white/50 uppercase">{c.t}</span>
-                  <span className="block font-semibold break-words text-white">{c.v}</span>
-                </span>
-              </>
-            );
-            const cls = "flex items-start gap-4 rounded-2xl bg-white/5 p-4 ring-1 ring-white/10 transition hover:bg-white/10";
-            if (!c.href) return <div key={c.t} className={cls}>{inner}</div>;
-            if (c.call) return <CallLink key={c.t} href={c.href} location="contact_card" className={cls}>{inner}</CallLink>;
-            return <a key={c.t} href={c.href} className={cls} {...(c.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}>{inner}</a>;
-          })}
-        </div>
+        <dl className="mt-10 grid max-w-2xl border-t border-ink-950 sm:grid-cols-2 sm:gap-x-10">
+          {cards.map((c) => (
+            <div key={c.t} className="border-b border-ink-100 py-4">
+              <dt className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{c.t}</dt>
+              <dd className="mt-1.5 text-[16px] break-words text-ink-950">
+                {!c.href ? c.v : c.call ? (
+                  <CallLink href={c.href} location="contact_card" className="font-display text-[22px] hover:text-brick-600">{c.v}</CallLink>
+                ) : (
+                  <a href={c.href} className="underline decoration-ink-950/25 underline-offset-4 hover:decoration-brick-500" {...(c.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}>{c.v}</a>
+                )}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </PageHero>
       <section className="container-x py-16">
-        <div className="overflow-hidden rounded-3xl ring-1 ring-navy-100">
+        <div className="overflow-hidden border border-ink-100">
           <iframe
             title={`Map to ${site.name}`}
             src={`https://www.google.com/maps?q=${mapQ}&output=embed`}

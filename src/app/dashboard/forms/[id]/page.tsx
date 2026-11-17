@@ -19,10 +19,10 @@ export default async function EditForm({ params }: { params: Promise<{ id: strin
 
   return (
     <div className="space-y-6">
-      <Link href="/dashboard/forms" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-navy-900">← All forms</Link>
+      <Link href="/dashboard/forms" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-ink-900">← All forms</Link>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="text-2xl font-extrabold text-navy-950 sm:text-3xl">{f.name}</h1>
+          <h1 className="text-2xl font-extrabold text-ink-950 sm:text-3xl">{f.name}</h1>
           {f.isPrimary && <Badge tone="amber">★ Primary · shown in every quote box</Badge>}
         </div>
         {!f.isPrimary && (

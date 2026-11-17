@@ -61,7 +61,7 @@ ${s.answer}
 ${areas.map((a) => `### ${a.name}\n${a.intro}\nNeighbourhoods: ${a.neighbourhoods.join(", ")}. Property types: ${a.homeTypes.join(", ")}.`).join("\n\n")}
 
 ## Client testimonials
-${testimonials.length ? testimonials.map((t) => `- "${t.body}" — ${t.name}${t.location ? `, ${t.location}` : ""} (${t.rating}/5)`).join("\n") : "- None published yet."}
+${testimonials.length ? testimonials.map((t) => `- "${t.body}", ${t.name}${t.location ? `, ${t.location}` : ""} (${t.rating}/5)`).join("\n") : "- None published yet."}
 
 ## Frequently asked questions
 ${allFaqs.map((f) => `### ${f.q}\n${f.a}`).join("\n\n")}

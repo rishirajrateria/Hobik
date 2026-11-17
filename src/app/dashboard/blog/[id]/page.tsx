@@ -18,7 +18,7 @@ export default async function EditPost({ params, searchParams }: { params: Promi
   }
   return (
     <div className="space-y-6">
-      <Link href="/dashboard/blog" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-navy-900">← All posts</Link>
+      <Link href="/dashboard/blog" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-ink-900">← All posts</Link>
       <BlogEditor
         flash={(await searchParams).saved}
         id={post?.id ?? null}

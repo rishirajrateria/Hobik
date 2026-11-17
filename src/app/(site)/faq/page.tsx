@@ -16,17 +16,17 @@ export default function FaqPage() {
   return (
     <>
       <JsonLd data={faqSchema(all)} />
-      <PageHero crumbs={[{ name: "FAQ", path: "/faq" }]} eyebrow="FAQ" title={<>Appraisal questions, <span className="text-gradient">answered.</span></>}>
+      <PageHero crumbs={[{ name: "FAQ", path: "/faq" }]} eyebrow="FAQ" title={<>Appraisal questions, answered</>}>
         <HeroCtas location="faq_hero" />
       </PageHero>
       <section className="container-x py-20">
         <div className="mx-auto max-w-3xl space-y-12">
           <div>
-            <h2 className="mb-6 text-2xl font-extrabold text-navy-950">General</h2>
+            <h2 className="mb-6 text-2xl font-medium text-ink-950">General</h2>
             <FaqList items={faqs} />
           </div>
           <div>
-            <h2 className="mb-6 text-2xl font-extrabold text-navy-950">By appraisal type</h2>
+            <h2 className="mb-6 text-2xl font-medium text-ink-950">By appraisal type</h2>
             <FaqList items={serviceFaqs} />
           </div>
         </div>
