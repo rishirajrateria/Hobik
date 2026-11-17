@@ -14,12 +14,12 @@ export function LoginForm({ setup, next }: { setup: boolean; next?: string }) {
       {setup && (
         <div>
           <label htmlFor="name" className="mb-1.5 block text-sm font-semibold text-white/70">Your name</label>
-          <input id="name" name="name" required autoComplete="name" className={input} placeholder="Jane Appraiser" />
+          <input id="name" name="name" required autoComplete="name" defaultValue={state.name} className={input} placeholder="Jane Appraiser" />
         </div>
       )}
       <div>
         <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-white/70">Email</label>
-        <input id="email" name="email" type="email" required autoComplete="email" className={input} placeholder="you@homeappraisaltoronto.ca" />
+        <input id="email" name="email" type="email" required autoComplete="email" defaultValue={state.email} className={input} placeholder="you@homeappraisaltoronto.ca" />
       </div>
       <div>
         <label htmlFor="password" className="mb-1.5 block text-sm font-semibold text-white/70">Password</label>

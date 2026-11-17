@@ -15,7 +15,7 @@ import { parseBlogFile } from "../src/lib/blogfile";
 async function main() {
   if (dbUrl.startsWith("file:")) mkdirSync("data", { recursive: true });
   if (process.env.VERCEL && dbUrl.startsWith("file:")) {
-    console.warn("[db] DATABASE_URL not set on Vercel — skipping migrate. The dashboard needs a persistent database (Turso).");
+    console.warn("[db] No database connected on Vercel — skipping migrate. Connect Turso (Storage tab) so the dashboard works.");
     return;
   }
   await migrate(db, { migrationsFolder: "./drizzle" });
@@ -32,7 +32,7 @@ async function main() {
 
   await seedBlog();
 
-  if (process.argv.includes("--demo")) await demo();
+  if (process.argv.includes("--demo") || process.env.SEED_DEMO === "true") await demo();
 }
 
 /**

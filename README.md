@@ -19,11 +19,18 @@ Then open `/login`. The **first visit creates the owner account**; after that, t
 
 To preview the dashboard with sample charts locally, run `npm run db:demo`. It inserts ~60 days of clearly labelled **demo** traffic and leads into your local DB only. Never run it against production.
 
-### Deploy (Vercel + Turso)
+### Deploy to Vercel (step by step)
 
-1. Create a free Turso database and set `DATABASE_URL` (`libsql://…`) and `DATABASE_AUTH_TOKEN` in Vercel.
-2. Deploy. `npm run build` applies migrations and seeds the default forms and blog posts automatically.
-3. Visit `/login` to create the owner account.
+1. **Import:** at vercel.com, *Add New → Project*, then import the `Hobik` GitHub repo. Next.js is detected automatically.
+2. **Environment variables** (before clicking Deploy):
+   - `OWNER_EMAIL` = your email (only this address can create the owner account)
+   - `SEED_DEMO` = `true` *(optional, preview only: fills the dashboard with labelled sample data)*
+3. **Deploy.** The website works immediately; the dashboard needs step 4.
+4. **Database:** in the project's *Storage* tab, *Create Database → Turso → Connect* to this project (all environments). This sets `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`.
+5. **Redeploy:** *Deployments → … → Redeploy*. The build migrates the database and imports the forms and blog posts.
+6. Open `https://<your-project>.vercel.app/login` and create the owner account with your `OWNER_EMAIL`.
+
+Until `NEXT_PUBLIC_SITE_URL` is set, Vercel deployments are **hidden from search engines** (robots `noindex`), so a preview never competes with the real domain. At launch: add the custom domain, set `NEXT_PUBLIC_SITE_URL=https://www.homeappraisaltoronto.ca` and `BLOG_LAUNCH_DATE`, use a fresh database **without** `SEED_DEMO`, and redeploy.
 
 Visitor country, province/state and city come from Vercel's (or Cloudflare's) geo headers. No IP addresses are stored, and analytics uses no cookies.
 

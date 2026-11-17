@@ -44,5 +44,11 @@ export const site = {
 
 export type Site = typeof site;
 
+/**
+ * Search engines may index the site only once it's launched on its real domain.
+ * On Vercel, a deployment stays noindex until NEXT_PUBLIC_SITE_URL is set.
+ */
+export const indexable = !process.env.VERCEL || !!process.env.NEXT_PUBLIC_SITE_URL;
+
 export const absUrl = (path = "/") => `${site.url}${path.startsWith("/") ? path : `/${path}`}`;
 export const telHref = `tel:${site.phoneE164}`;

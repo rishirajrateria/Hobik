@@ -2,11 +2,12 @@ import { createClient } from "@libsql/client";
 import { drizzle } from "drizzle-orm/libsql";
 import * as schema from "./schema";
 
-export const dbUrl = process.env.DATABASE_URL || "file:./data/app.db";
+export const dbUrl = process.env.DATABASE_URL || process.env.TURSO_DATABASE_URL || "file:./data/app.db";
+const dbToken = process.env.DATABASE_AUTH_TOKEN || process.env.TURSO_AUTH_TOKEN || undefined;
 
 const g = globalThis as unknown as { __db?: ReturnType<typeof make> };
 function make() {
-  const client = createClient({ url: dbUrl, authToken: process.env.DATABASE_AUTH_TOKEN || undefined });
+  const client = createClient({ url: dbUrl, authToken: dbToken });
   return drizzle(client, { schema });
 }
 

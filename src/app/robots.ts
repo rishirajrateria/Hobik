@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { absUrl, site } from "@/lib/site";
+import { absUrl, indexable, site } from "@/lib/site";
 
 // Explicitly welcome search + AI answer-engine crawlers so the business can be cited
 // in ChatGPT, Perplexity, Claude, Gemini, Copilot and Google AI Overviews.
@@ -12,6 +12,7 @@ const aiBots = [
 ];
 
 export default function robots(): MetadataRoute.Robots {
+  if (!indexable) return { rules: [{ userAgent: "*", disallow: "/" }] };
   return {
     rules: [
       { userAgent: "*", allow: "/", disallow: ["/api/", "/lp/", "/dashboard", "/login", "/forms/"] },
