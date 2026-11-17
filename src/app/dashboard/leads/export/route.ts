@@ -1,4 +1,4 @@
-import { and, desc, eq, like, or, type SQL } from "drizzle-orm";
+import { and, desc, eq, ilike, or, type SQL } from "drizzle-orm";
 import { db } from "@/db";
 import { LEAD_STATUSES, leads, type LeadStatus } from "@/db/schema";
 import { getCurrentUser } from "@/lib/auth";
@@ -18,7 +18,7 @@ export async function GET(req: Request) {
   const st = sp.get("status");
   if (st && LEAD_STATUSES.includes(st as LeadStatus)) conds.push(eq(leads.status, st as LeadStatus));
   const q = sp.get("q");
-  if (q) conds.push(or(like(leads.name, `%${q}%`), like(leads.email, `%${q}%`), like(leads.phone, `%${q}%`))!);
+  if (q) conds.push(or(ilike(leads.name, `%${q}%`), ilike(leads.email, `%${q}%`), ilike(leads.phone, `%${q}%`))!);
   const rows = await db.select().from(leads).where(conds.length ? and(...conds) : undefined).orderBy(desc(leads.createdAt));
 
   const head = ["Received", "Status", "Name", "Phone", "Email", "Service", "Form", "Answers", "Value", "Page", "Landing page", "Source", "Medium", "Campaign", "Keyword", "GCLID", "Country", "Region", "City"];

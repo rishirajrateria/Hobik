@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   images: { formats: ["image/avif", "image/webp"] },
-  serverExternalPackages: ["@libsql/client", "libsql"],
+  serverExternalPackages: ["pg"],
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },

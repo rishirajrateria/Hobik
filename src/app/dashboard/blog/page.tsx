@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { desc, eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { posts, users } from "@/db/schema";
 import { requireUser } from "@/lib/auth";
@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 export default async function BlogAdmin() {
   await requireUser("blog:write");
-  const list = await db.select({ p: posts, author: users.name }).from(posts).leftJoin(users, eq(users.id, posts.authorId)).orderBy(desc(posts.publishedAt));
+  const list = await db.select({ p: posts, author: users.name }).from(posts).leftJoin(users, eq(users.id, posts.authorId)).orderBy(sql`${posts.publishedAt} desc nulls last`);
   const now = new Date();
   const live = list.filter(({ p }) => p.status === "published" && p.publishedAt && p.publishedAt <= now).length;
   const scheduled = list.filter(({ p }) => p.status === "published" && p.publishedAt && p.publishedAt > now).length;

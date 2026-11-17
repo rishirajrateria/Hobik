@@ -1,21 +1,34 @@
-import { createClient } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
+import { neon } from "@neondatabase/serverless";
+import { drizzle as drizzleNeon, type NeonHttpDatabase } from "drizzle-orm/neon-http";
+import { drizzle as drizzlePg } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 import * as schema from "./schema";
 
-const configured = process.env.DATABASE_URL || process.env.TURSO_DATABASE_URL;
-/** True when a real database is configured (or we're running locally with the default file). */
-export const dbConnected = !!configured || !process.env.VERCEL;
-// On Vercel with no database yet, use a throw-away in-memory DB so the site still builds and
-// serves (public pages fall back to built-in content; the dashboard shows "not connected").
-export const dbUrl = configured || (process.env.VERCEL ? "file::memory:" : "file:./data/app.db");
-const dbToken = process.env.DATABASE_AUTH_TOKEN || process.env.TURSO_AUTH_TOKEN || undefined;
+export type DB = NeonHttpDatabase<typeof schema>;
 
-const g = globalThis as unknown as { __db?: ReturnType<typeof make> };
-function make() {
-  const client = createClient({ url: dbUrl, authToken: dbToken });
-  return drizzle(client, { schema });
+/** Neon's Vercel integration sets DATABASE_URL; POSTGRES_URL is its alias. */
+export const dbUrl = process.env.DATABASE_URL || process.env.POSTGRES_URL || "";
+export const dbConnected = /^postgres(ql)?:\/\//.test(dbUrl);
+
+const g = globalThis as unknown as { __db?: DB };
+
+function make(): DB {
+  if (!dbConnected) {
+    // No database configured: public pages fall back to built-in content (see lib/content.ts)
+    // and the dashboard explains that a database must be connected.
+    return new Proxy({} as DB, {
+      get() {
+        throw new Error("Database not connected: set DATABASE_URL.");
+      },
+    });
+  }
+  // Neon over HTTP: ideal for serverless (no connection pool to exhaust).
+  if (/\.neon\.tech\b/.test(dbUrl)) return drizzleNeon(neon(dbUrl), { schema });
+  // Any other Postgres (local dev, Supabase, RDS...) over a normal connection.
+  const pool = new Pool({ connectionString: dbUrl, max: 5 });
+  return drizzlePg(pool, { schema }) as unknown as DB;
 }
 
-/** Shared Drizzle client (libSQL: local file in dev, Turso in production). */
+/** Shared Drizzle client. */
 export const db = g.__db ?? (g.__db = make());
 export { schema };

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { and, count, desc, eq, like, or, type SQL } from "drizzle-orm";
+import { and, count, desc, eq, ilike, or, type SQL } from "drizzle-orm";
 import { db } from "@/db";
 import { LEAD_STATUSES, leads, users, type LeadStatus } from "@/db/schema";
 import { requireUser } from "@/lib/auth";
@@ -22,7 +22,7 @@ export default async function LeadsPage({ searchParams }: { searchParams: Promis
   const conds: SQL[] = [];
   if (status) conds.push(eq(leads.status, status));
   if (sp.mine) conds.push(eq(leads.assigneeId, user.id));
-  if (q) conds.push(or(like(leads.name, `%${q}%`), like(leads.email, `%${q}%`), like(leads.phone, `%${q}%`), like(leads.service, `%${q}%`))!);
+  if (q) conds.push(or(ilike(leads.name, `%${q}%`), ilike(leads.email, `%${q}%`), ilike(leads.phone, `%${q}%`), ilike(leads.service, `%${q}%`))!);
   const where = conds.length ? and(...conds) : undefined;
 
   const [rows, [{ n: total }], counts, team] = await Promise.all([

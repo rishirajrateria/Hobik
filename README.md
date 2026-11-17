@@ -2,33 +2,32 @@
 
 A fast, visual, conversion-focused website for **Home Value Inc.**, a residential appraisal firm in Toronto. It's built to rank in Google and to be cited by AI assistants (ChatGPT, Perplexity, Gemini, Claude, Copilot), and it's ready for Google Ads traffic.
 
-**Stack:** Next.js 16 (App Router, static generation) · React 19 · TypeScript · Tailwind CSS 4 · Drizzle ORM + libSQL (SQLite locally, Turso in production). Website visuals are inline SVG/CSS, which keeps pages fast for Core Web Vitals.
+**Stack:** Next.js 16 (App Router, static generation) · React 19 · TypeScript · Tailwind CSS 4 · Drizzle ORM + Postgres (Neon on Vercel). Website visuals are inline SVG/CSS, which keeps pages fast for Core Web Vitals.
 
 It also includes a **built-in dashboard** at `/dashboard` (sign in at `/login`) for analytics, leads, forms, blog, testimonials and team roles. See below.
 
-## Run
+## Run locally
+
+Needs Node 20+ and a Postgres database (a free [Neon](https://neon.tech) project works well, or a local Postgres).
 
 ```bash
 npm install
-cp .env.example .env.local   # fill in values
-npm run dev                  # migrates the DB, then http://localhost:3000
+cp .env.example .env.local   # set DATABASE_URL (and the other values)
+npm run dev                  # migrates + seeds the DB, then http://localhost:3000
 npm run build && npm start   # production
 ```
 
 Then open `/login`. The **first visit creates the owner account**; after that, the owner invites everyone else from *Team & roles*.
 
-To preview the dashboard with sample charts locally, run `npm run db:demo`. It inserts ~60 days of clearly labelled **demo** traffic and leads into your local DB only. Never run it against production.
+To preview the dashboard with sample charts, run `npm run db:demo` (or set `SEED_DEMO=true` for the build). It inserts ~60 days of clearly labelled **demo** traffic and leads. Never enable it on the database you launch with.
 
-### Deploy to Vercel (step by step)
+### Deploy to Vercel
 
-1. **Import:** at vercel.com, *Add New → Project*, then import the `Hobik` GitHub repo. Next.js is detected automatically.
-2. **Environment variables** (before clicking Deploy):
-   - `OWNER_EMAIL` = your email (only this address can create the owner account)
-   - `SEED_DEMO` = `true` *(optional, preview only: fills the dashboard with labelled sample data)*
-3. **Deploy.** The website works immediately; the dashboard needs step 4.
-4. **Database:** in the project's *Storage* tab, *Create Database → Turso → Connect* to this project (all environments). This sets `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN`.
-5. **Redeploy:** *Deployments → … → Redeploy*. The build migrates the database and imports the forms and blog posts.
-6. Open `https://<your-project>.vercel.app/login` and create the owner account with your `OWNER_EMAIL`.
+1. **Import** the GitHub repo at vercel.com (*Add New → Project*). Next.js is detected automatically.
+2. **Storage tab → Create Database → Neon**, and connect it to the project (all environments). This sets `DATABASE_URL` and friends.
+3. **Environment variables:** `OWNER_EMAIL` = your email (only this address can create the owner account). Optional: `SEED_DEMO=true` for a preview with sample data.
+4. **Deploy / Redeploy.** The build migrates the database and imports the forms and blog posts automatically.
+5. Open `https://<your-project>.vercel.app/login` and create the owner account.
 
 Until `NEXT_PUBLIC_SITE_URL` is set, Vercel deployments are **hidden from search engines** (robots `noindex`), so a preview never competes with the real domain. At launch: add the custom domain, set `NEXT_PUBLIC_SITE_URL=https://www.homeappraisaltoronto.ca` and `BLOG_LAUNCH_DATE`, use a fresh database **without** `SEED_DEMO`, and redeploy.
 

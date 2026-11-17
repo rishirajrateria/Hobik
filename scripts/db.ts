@@ -1,25 +1,39 @@
 /**
  * Migrate the database and seed defaults (idempotent). Runs before every build.
  *   npx tsx scripts/db.ts           migrate + seed
- *   npx tsx scripts/db.ts --demo    also insert ~60 days of SAMPLE analytics + leads (local preview only)
+ *   npx tsx scripts/db.ts --demo    also insert ~60 days of SAMPLE analytics + leads (preview databases only)
  */
-import { mkdirSync } from "node:fs";
-import { migrate } from "drizzle-orm/libsql/migrator";
+import { readdirSync, readFileSync } from "node:fs";
 import { count, eq } from "drizzle-orm";
-import { db, dbConnected, dbUrl } from "../src/db";
+import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
+import { migrate } from "drizzle-orm/node-postgres/migrator";
+import { Pool } from "pg";
+import * as schema from "../src/db/schema";
 import { forms, posts, events, leads, testimonials } from "../src/db/schema";
 import { defaultBookingForm, defaultQuoteForm } from "../src/lib/defaultForms";
-import { readdirSync, readFileSync } from "node:fs";
 import { parseBlogFile } from "../src/lib/blogfile";
 
+// Migrations use a direct (unpooled) connection when the host provides one (Neon does).
+const url = process.env.DATABASE_URL_UNPOOLED || process.env.DATABASE_URL || process.env.POSTGRES_URL || "";
+let db: NodePgDatabase<typeof schema>;
+
 async function main() {
-  if (!dbConnected) {
-    console.warn("[db] No database connected on Vercel — skipping migrate. Connect a Turso database and redeploy so the dashboard works.");
+  if (!/^postgres(ql)?:\/\//.test(url)) {
+    console.warn("[db] No database configured (set DATABASE_URL) — skipping migrate. Connect Postgres/Neon and redeploy so the dashboard works.");
     return;
   }
-  if (dbUrl.startsWith("file:") && !dbUrl.includes(":memory:")) mkdirSync("data", { recursive: true });
+  const pool = new Pool({ connectionString: url, max: 2 });
+  db = drizzle(pool, { schema });
+  try {
+    await run();
+  } finally {
+    await pool.end();
+  }
+}
+
+async function run() {
   await migrate(db, { migrationsFolder: "./drizzle" });
-  console.log(`[db] migrated (${dbUrl.replace(/\/\/.*@/, "//***@")})`);
+  console.log(`[db] migrated (${url.replace(/\/\/.*@/, "//***@")})`);
 
   const [{ n: formCount }] = await db.select({ n: count() }).from(forms);
   if (formCount === 0) {
@@ -100,7 +114,7 @@ async function demo() {
       const source = pick(sources, sw);
       const device = pick(["mobile", "desktop", "tablet"], [62, 33, 5]);
       const browser = pick(["Chrome", "Safari", "Edge", "Firefox"], [55, 32, 9, 4]);
-      const base = Date.now() - d * DAY - Math.random() * DAY;
+      const base = Math.round(Date.now() - d * DAY - Math.random() * DAY);
       const views = 1 + Math.floor(Math.random() * 3);
       for (let v = 0; v < views; v++) {
         const path = pick(pages, pw);
