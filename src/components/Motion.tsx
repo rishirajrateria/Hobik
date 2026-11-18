@@ -36,12 +36,27 @@ export function Motion() {
       },
       { rootMargin: "0px 0px -6% 0px", threshold: 0.1 },
     );
-    const scan = () => document.querySelectorAll<HTMLElement>("[data-reveal]:not(.is-in)").forEach((el) => io.observe(el));
+    // Line drawings sketch themselves once, when they come into view.
+    const drawIo = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          e.target.classList.add("is-drawn");
+          drawIo.unobserve(e.target);
+        }
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.2 },
+    );
+    const scan = () => {
+      document.querySelectorAll<HTMLElement>("[data-reveal]:not(.is-in)").forEach((el) => io.observe(el));
+      document.querySelectorAll<Element>("[data-draw-svg]:not(.is-drawn)").forEach((el) => drawIo.observe(el));
+    };
     scan();
     const mo = new MutationObserver(scan);
     mo.observe(document.body, { childList: true, subtree: true });
     return () => {
       io.disconnect();
+      drawIo.disconnect();
       mo.disconnect();
     };
   }, [pathname]);

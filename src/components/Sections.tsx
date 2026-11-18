@@ -5,7 +5,7 @@ import { areas, type Area } from "@/lib/areas";
 import { breadcrumbSchema } from "@/lib/schema";
 import { Icon } from "./Icon";
 import { CallLink, CtaLink } from "./Tracked";
-import { Vignette } from "./Vignettes";
+import { Vignette, drawable } from "./Vignettes";
 
 export function JsonLd({ data }: { data: object | object[] }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
@@ -22,7 +22,9 @@ export function HeroVisual() {
   const pane = "var(--color-lake)";
   return (
     <figure className="relative mx-auto w-full max-w-[520px]">
-      <svg viewBox="0 0 400 450" className="w-full" role="img" aria-label="Line drawing of a Toronto bay-and-gable house with survey dimensions">
+      <svg viewBox="0 0 400 450" className="w-full" role="img" aria-label="Line drawing of a Toronto bay-and-gable house with survey dimensions" data-draw-svg style={{ "--base": "0.25s" } as React.CSSProperties}>
+        {drawable(
+          <>
         <g fill="none" stroke={ink} strokeWidth="1.4" strokeLinejoin="round">
           {/* ground */}
           <path d="M30 400h340" strokeWidth="1.8" />
@@ -76,10 +78,14 @@ export function HeroVisual() {
           <text x="200" y="442" textAnchor="middle">FRONTAGE</text>
           <text x="368" y="233" textAnchor="middle" transform="rotate(90 368 233)">HEIGHT · 2½ STOREYS</text>
         </g>
+          </>,
+          0.035,
+          1.4,
+        )}
       </svg>
 
       {/* report excerpt */}
-      <div className="absolute bottom-10 -left-2 w-[230px] border border-ink-950 bg-paper-50 text-[13px] sm:-left-8">
+      <div className="hv-float-in absolute bottom-10 -left-2 w-[230px] border border-ink-950 bg-paper-50 text-[13px] sm:-left-8">
         <div className="flex items-center justify-between border-b border-ink-950 px-4 py-2">
           <span className="font-semibold tracking-[0.12em] uppercase">Appraisal summary</span>
           <span className="text-[11px] text-ink-700">Sample</span>
@@ -112,7 +118,7 @@ export function TrustStrip() {
       <dl className="container-x grid grid-cols-2 lg:grid-cols-4">
         {items.map(([icon, v, l], i) => (
           <div key={l} className={`flex items-center gap-4 py-6 ${i % 2 ? "border-l border-ink-100 pl-4 sm:pl-6" : ""} ${i === 2 ? "lg:border-l lg:border-ink-100 lg:pl-6" : ""} ${i > 1 ? "border-t border-ink-100 lg:border-t-0" : ""}`}>
-            <Vignette name={icon} className="h-14 w-[74px] shrink-0 sm:h-16 sm:w-[84px]" />
+            <Vignette name={icon} delay={i * 0.15} className="h-14 w-[74px] shrink-0 sm:h-16 sm:w-[84px]" />
             <div className="flex flex-col-reverse">
               <dt className="text-[13px] text-ink-700">{l}</dt>
               <dd className="font-display text-[26px] leading-none font-medium text-ink-950 sm:text-[30px]">{v}</dd>
@@ -162,7 +168,7 @@ export function ServiceGrid({ citySuffix }: { citySuffix?: string }) {
       {services.map((s, i) => (
         <li key={s.slug} className="border-r border-b border-ink-100" data-reveal style={{ "--d": i % 5 } as React.CSSProperties}>
           <Link href={`/services/${s.slug}`} className="group flex h-full flex-col bg-paper p-4 transition-colors duration-300 hover:bg-paper-50 sm:p-5">
-            <Vignette name={s.icon} className="w-full transition-transform duration-500 group-hover:-translate-y-1" />
+            <Vignette name={s.icon} delay={(i % 5) * 0.12} className="w-full transition-transform duration-500 group-hover:-translate-y-1" />
             <span className="mt-3 flex items-start justify-between gap-2">
               <span className="font-display text-[17px] leading-snug font-medium text-ink-950 sm:text-[18px]">
                 {s.name.replace(" Appraisal", "")}{citySuffix ? <span className="sr-only"> appraisal in {citySuffix}</span> : <span className="sr-only"> appraisal</span>}
@@ -188,7 +194,7 @@ export function Process() {
     <ol className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
       {steps.map((s, i) => (
         <li key={s.t} data-reveal style={{ "--d": i } as React.CSSProperties} className="relative">
-          <Vignette name={s.icon} className="w-full max-w-[220px]" />
+          <Vignette name={s.icon} delay={i * 0.3} className="w-full max-w-[220px]" />
           <div className="mt-3 flex items-baseline gap-3 border-t border-ink-950 pt-3">
             <span className="font-display text-[28px] leading-none text-brick-500">{i + 1}</span>
             <h3 className="text-[20px] font-medium text-ink-950">{s.t}</h3>
@@ -205,7 +211,9 @@ export function Process() {
 export function AreaMap({ highlight }: { highlight?: string }) {
   return (
     <figure className="border border-ink-100 bg-paper-50">
-      <svg viewBox="-28 8 156 92" className="block aspect-[4/3] w-full sm:aspect-[17/10]" role="img" aria-label="Map of the Greater Toronto Area showing the cities we serve">
+      <svg viewBox="-28 8 156 92" className="block aspect-[4/3] w-full sm:aspect-[17/10]" role="img" aria-label="Map of the Greater Toronto Area showing the cities we serve" data-draw-svg>
+        {drawable(
+          <>
         <path d="M-30 84 C-16 78 -6 72 0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 C110 40 120 37 130 34 V104 H-30Z" fill="var(--color-lake)" />
         <path d="M-30 84 C-16 78 -6 72 0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 C110 40 120 37 130 34" fill="none" stroke="var(--color-ink-700)" strokeWidth="0.25" />
         <text x="64" y="86" fontSize="2.6" fill="var(--color-ink-700)" letterSpacing="0.6" fontStyle="italic" fontFamily="var(--font-display)">Lake Ontario</text>
@@ -221,6 +229,10 @@ export function AreaMap({ highlight }: { highlight?: string }) {
           );
         })}
         <rect x={HQ.x - 1.4} y={HQ.y - 1.4} width="2.8" height="2.8" fill="none" stroke="var(--color-brick-500)" strokeWidth="0.4" />
+          </>,
+          0.06,
+          1.4,
+        )}
       </svg>
       <figcaption className="flex items-center justify-between border-t border-ink-100 px-4 py-2.5 text-[12px] text-ink-700">
         <span>Greater Toronto Area</span>
@@ -260,7 +272,9 @@ export function WhyUs() {
     [392, 392, "Signed & certified"],
   ];
   return (
-    <svg viewBox="0 0 600 440" className="w-full" role="img" aria-label="Diagram of an appraisal report: inspection, comparable sales, adjustments, market value and signature">
+    <svg viewBox="0 0 600 440" className="w-full" role="img" aria-label="Diagram of an appraisal report: inspection, comparable sales, adjustments, market value and signature" data-draw-svg>
+      {drawable(
+        <>
       <g stroke={I} strokeWidth="1.5" fill="none">
         <rect x="20" y="16" width="330" height="410" fill={P} stroke="none" />
         <text x="44" y="46" fill={I} stroke="none" fontSize="11" fontWeight="700" letterSpacing="2" fontFamily="var(--font-sans)">APPRAISAL REPORT</text>
@@ -297,6 +311,10 @@ export function WhyUs() {
           <text x="442" y={yTo + 6} fill="#f4f0e8" fontSize="20" fontFamily="var(--font-display)">{label}</text>
         </g>
       ))}
+        </>,
+        0.05,
+        1.6,
+      )}
     </svg>
   );
 }

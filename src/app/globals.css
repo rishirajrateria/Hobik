@@ -66,9 +66,34 @@
 .motion [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: calc(var(--d, 0) * 70ms); }
 .motion [data-reveal].is-in { opacity: 1; transform: none; }
 
+/* ---------- Sketch-on drawings (enabled by <Motion />) ---------- */
+.motion [data-draw-svg] .dw { stroke-dasharray: 1; stroke-dashoffset: 1; fill-opacity: 0; }
+.motion [data-draw-svg] :is(text, [stroke-dasharray]) { opacity: 0; }
+.motion [data-draw-svg].is-drawn .dw {
+  animation: hv-draw 1.3s cubic-bezier(0.45, 0.05, 0.25, 1) calc(var(--base, 0s) + var(--dd, 0s)) forwards,
+    hv-fill 0.6s ease calc(var(--base, 0s) + var(--dd, 0s) + 0.7s) forwards;
+}
+.motion [data-draw-svg].is-drawn :is(text, [stroke-dasharray]) { animation: hv-fade 0.6s ease calc(var(--base, 0s) + 1s) forwards; }
+@keyframes hv-draw { to { stroke-dashoffset: 0; } }
+@keyframes hv-fill { to { fill-opacity: 1; } }
+@keyframes hv-fade { to { opacity: 1; } }
+
+/* ---------- Idle details (very slow, very small) ---------- */
+.hv-spin-slow, .hv-spin-slower, .hv-bob { transform-box: view-box; }
+.hv-spin-slow { transform-origin: 80px 58px; animation: hv-turn 14s linear infinite; }
+.hv-spin-slower { transform-origin: 80px 58px; animation: hv-turn 120s linear infinite; }
+.hv-bob { animation: hv-bob 3.2s ease-in-out infinite; }
+.hv-blink { animation: hv-blink 1.6s ease-in-out infinite; }
+.hv-float-in { animation: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) 1.3s both; }
+@keyframes hv-turn { to { transform: rotate(360deg); } }
+@keyframes hv-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes hv-blink { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .motion [data-reveal] { opacity: 1; transform: none; }
+  .motion [data-draw-svg] .dw { stroke-dasharray: none; fill-opacity: 1; }
+  .motion [data-draw-svg] :is(text, [stroke-dasharray]) { opacity: 1; }
 }
 
 /* Blog article typography */

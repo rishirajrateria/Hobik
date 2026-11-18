@@ -1,3 +1,5 @@
+import { Children, cloneElement, isValidElement } from "react";
+
 /**
  * Hand-drafted line illustrations in the site's house style: ink strokes, brick accents,
  * pale "glass" fills. One per service, process step and key fact.
@@ -8,7 +10,7 @@ const BRICK = "var(--color-brick-500)";
 const PANE = "var(--color-lake)";
 const PAPER = "var(--color-paper-50)";
 
-function House({ x, y, w = 40, h = 32, fill = PAPER, door = true }: { x: number; y: number; w?: number; h?: number; fill?: string; door?: boolean }) {
+function house({ x, y, w = 40, h = 32, fill = PAPER, door = true }: { x: number; y: number; w?: number; h?: number; fill?: string; door?: boolean }) {
   // x,y = bottom-left corner on the ground
   const roof = w * 0.55;
   return (
@@ -66,7 +68,7 @@ const drawings: Record<string, React.ReactNode> = {
       {ground}
       <path d="M22 92 52 74l22 8 26-26 22 6 18-26" stroke={BRICK} strokeWidth="1.8" />
       <path d="M134 30l6 4-1 7" stroke={BRICK} strokeWidth="1.8" />
-      <House x={34} y={104} w={44} h={30} />
+      {house({ x: 34, y: 104, w: 44, h: 30 })}
       <path d="M100 104V84h18v20" fill={PAPER} />
       <path d="M96 86 109 74l13 12" />
     </>
@@ -93,7 +95,7 @@ const drawings: Record<string, React.ReactNode> = {
       <path d="M62 34v8M100 34v8" />
       <rect x="54" y="42" width="56" height="28" fill={PAPER} />
       <text x="82" y="60" textAnchor="middle" fontSize="9.5" fontWeight="700" letterSpacing="1" fill={BRICK} stroke="none" fontFamily="var(--font-sans)">FOR SALE</text>
-      <House x={104} y={104} w={30} h={22} door={false} />
+      {house({ x: 104, y: 104, w: 30, h: 22, door: false })}
     </>
   ),
   key: (
@@ -126,13 +128,13 @@ const drawings: Record<string, React.ReactNode> = {
           <ellipse cx="50" cy={y} rx="20" ry="5" fill={y === 72 ? BRICK : PAPER} stroke={y === 72 ? BRICK : INK} />
         </g>
       ))}
-      <House x={88} y={104} w={44} h={30} />
+      {house({ x: 88, y: 104, w: 44, h: 30 })}
     </>
   ),
   briefcase: (
     <>
       {ground}
-      <House x={26} y={104} w={52} h={38} />
+      {house({ x: 26, y: 104, w: 52, h: 38 })}
       <circle cx="104" cy="54" r="20" fill={PANE} stroke={BRICK} strokeWidth="2" />
       <path d="M118 68l18 18" stroke={BRICK} strokeWidth="4" />
       <path d="M96 54h16M104 46v16" stroke={BRICK} opacity="0.7" />
@@ -147,7 +149,7 @@ const drawings: Record<string, React.ReactNode> = {
       <path d="M54 28h38M54 82h38" />
       <circle cx="73" cy="88" r="2" fill={INK} />
       <path d="M96 30h42v24h-26l-8 8v-8h-8z" fill={PAPER} stroke={BRICK} />
-      {[110, 117, 124].map((x) => <circle key={x} cx={x} cy="42" r="2" fill={BRICK} stroke="none" />)}
+      {[110, 117, 124].map((x, i) => <g key={x} className="hv-blink" style={{ animationDelay: `${i * 0.25}s` }}><circle cx={x} cy="42" r="2" fill={BRICK} stroke="none" /></g>)}
     </>
   ),
   calendar: (
@@ -163,7 +165,7 @@ const drawings: Record<string, React.ReactNode> = {
   measure: (
     <>
       {ground}
-      <House x={40} y={96} w={60} h={40} />
+      {house({ x: 40, y: 96, w: 60, h: 40 })}
       <path d="M40 112h60M40 108v8M100 108v8" stroke={BRICK} />
       <path d="M116 56v40M112 56h8M112 96h8" stroke={BRICK} />
       <path d="M14 96h132" strokeWidth="1.6" />
@@ -198,8 +200,8 @@ const drawings: Record<string, React.ReactNode> = {
         const a = (i * Math.PI) / 6;
         return <path key={i} d={`M${80 + Math.sin(a) * 34} ${58 - Math.cos(a) * 34}L${80 + Math.sin(a) * 38} ${58 - Math.cos(a) * 38}`} />;
       })}
-      <path d="M80 58V32" strokeWidth="2.2" />
-      <path d="M80 58l18 10" strokeWidth="2.2" stroke={BRICK} />
+      <g className="hv-spin-slow"><path d="M80 58V32" strokeWidth="2.2" /></g>
+      <g className="hv-spin-slower"><path d="M80 58l18 10" strokeWidth="2.2" stroke={BRICK} /></g>
       <circle cx="80" cy="58" r="2.5" fill={INK} />
     </>
   ),
@@ -216,8 +218,10 @@ const drawings: Record<string, React.ReactNode> = {
     <>
       <path d="M16 78c20-6 30 10 48 0s34-18 50-10 22 4 30-2" opacity="0.45" />
       <path d="M16 96c24-8 40 6 60-2s40-12 70-6" opacity="0.45" />
-      <path d="M80 86s-22-20-22-38a22 22 0 0 1 44 0c0 18-22 38-22 38z" fill={PAPER} stroke={BRICK} strokeWidth="1.8" />
-      <path d="M72 52 80 45l8 7v8H72z" />
+      <g className="hv-bob">
+        <path d="M80 86s-22-20-22-38a22 22 0 0 1 44 0c0 18-22 38-22 38z" fill={PAPER} stroke={BRICK} strokeWidth="1.8" />
+        <path d="M72 52 80 45l8 7v8H72z" />
+      </g>
     </>
   ),
 };
@@ -238,10 +242,46 @@ export function vignetteForTags(tags: string[]) {
   return "report";
 }
 
-export function Vignette({ name, className = "", title }: { name: string; className?: string; title?: string }) {
+const SHAPES = new Set(["path", "rect", "circle", "ellipse", "line", "polyline", "polygon"]);
+
+/**
+ * Prepares a drawing for the "sketch-on" reveal: every solid-stroked shape gets pathLength=1
+ * (so CSS can animate stroke-dashoffset from 1 to 0) and a small staggered delay.
+ * Dashed shapes and text simply fade in. Has no visual effect until the CSS runs.
+ */
+export function drawable(node: React.ReactNode, step = 0.045, max = 1.1): React.ReactNode {
+  let i = 0;
+  const walk = (n: React.ReactNode): React.ReactNode =>
+    Children.map(n, (child) => {
+      if (!isValidElement(child)) return child;
+      const props = child.props as { children?: React.ReactNode; strokeDasharray?: unknown; stroke?: unknown; className?: string; style?: React.CSSProperties };
+      const kids = props.children !== undefined ? walk(props.children) : undefined;
+      if (typeof child.type === "string" && SHAPES.has(child.type) && !props.strokeDasharray && props.stroke !== "none") {
+        const dd = Math.min(i++ * step, max);
+        return cloneElement(child as React.ReactElement<Record<string, unknown>>, { pathLength: 1, className: `${props.className ?? ""} dw`.trim(), style: { ...props.style, "--dd": `${dd}s` } as React.CSSProperties }, kids);
+      }
+      return kids !== undefined ? cloneElement(child as React.ReactElement<Record<string, unknown>>, {}, kids) : child;
+    });
+  return walk(node);
+}
+
+export function Vignette({ name, className = "", title, delay = 0 }: { name: string; className?: string; title?: string; delay?: number }) {
   return (
-    <svg viewBox="0 0 160 120" className={className} role={title ? "img" : undefined} aria-label={title} aria-hidden={title ? undefined : true} fill="none" stroke={INK} strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round">
-      {drawings[name] ?? drawings.report}
+    <svg
+      viewBox="0 0 160 120"
+      className={className}
+      role={title ? "img" : undefined}
+      aria-label={title}
+      aria-hidden={title ? undefined : true}
+      fill="none"
+      stroke={INK}
+      strokeWidth="1.5"
+      strokeLinejoin="round"
+      strokeLinecap="round"
+      data-draw-svg
+      style={{ "--base": `${delay}s` } as React.CSSProperties}
+    >
+      {drawable(drawings[name] ?? drawings.report)}
     </svg>
   );
 }
