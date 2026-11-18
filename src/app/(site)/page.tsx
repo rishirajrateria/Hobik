@@ -8,7 +8,6 @@ import { BlogCard } from "@/components/BlogCard";
 import { Testimonials } from "@/components/Testimonials";
 import { QuoteForm } from "@/components/QuoteForm";
 import {
-  AreaChips,
   AreaMap,
   CtaBand,
   FaqList,
@@ -45,8 +44,8 @@ export default async function HomePage() {
             <h1 className="mt-6 animate-fade-up text-[46px] leading-[1.02] font-medium text-ink-950 [animation-delay:60ms] sm:text-[64px] lg:text-[76px]">
               Know what your home is worth.
             </h1>
-            <p className="mt-7 max-w-xl animate-fade-up text-[19px] leading-relaxed text-ink-700 [animation-delay:120ms]">
-              Independent, certified appraisals for mortgages, estates, separations, CRA filings and property tax appeals. Most reports are delivered in {site.turnaround}.
+            <p className="mt-6 max-w-md animate-fade-up text-[19px] leading-relaxed text-ink-700 [animation-delay:120ms]">
+              Certified home appraisals across Toronto and the GTA.
             </p>
             <div className="animate-fade-up [animation-delay:180ms]"><HeroCtas location="hero" /></div>
           </div>
@@ -60,21 +59,15 @@ export default async function HomePage() {
 
       {/* SERVICES */}
       <section className="container-x py-20 sm:py-28" id="services">
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7"><SectionHead eyebrow="What we appraise" title="An appraisal for every reason you might need one" /></div>
-          <p className="text-[17px] leading-relaxed text-ink-700 lg:col-span-5" data-reveal>
-            Lenders, lawyers, executors, accountants and the CRA rely on our reports. Pick the purpose below to see what's included.
-          </p>
-        </div>
+        <SectionHead eyebrow="What we appraise" title="Pick your reason" />
         <div className="mt-12"><ServiceGrid /></div>
       </section>
 
       {/* PROCESS */}
       <section className="border-t border-ink-100 bg-paper-50 py-20 sm:py-28">
         <div className="container-x">
-          <SectionHead eyebrow="How it works" title="From first call to signed report" />
+          <SectionHead eyebrow="How it works" title="Four simple steps" />
           <div className="mt-12"><Process /></div>
-          <div className="mt-10"><Link href="/get-a-quote" className="link-arrow">Start with a free quote →</Link></div>
         </div>
       </section>
 
@@ -82,8 +75,8 @@ export default async function HomePage() {
       <section className="bg-ink-950 py-20 sm:py-28">
         <div className="container-x grid gap-14 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-7">
-            <SectionHead dark eyebrow="Why Home Value Inc." title="Reports that hold up when it matters" sub={`${site.yearsExperience} years valuing homes across Toronto and Southern Ontario.`} />
-            <div className="mt-12"><WhyUs /></div>
+            <SectionHead dark eyebrow="Inside every report" title="Reports that hold up" />
+            <div className="mt-10" data-reveal><WhyUs /></div>
           </div>
           <div className="lg:sticky lg:top-28 lg:col-span-5" id="quote" data-reveal>
             <QuoteForm location="home_why" />
@@ -93,23 +86,18 @@ export default async function HomePage() {
 
       {/* AREAS */}
       <section className="container-x py-20 sm:py-28">
-        <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <SectionHead eyebrow="Service areas" title="Across Toronto and the GTA" sub="Our office is in North York. We appraise homes from Hamilton to Oshawa and north to Newmarket." />
-            <div className="mt-10"><AreaChips /></div>
-          </div>
-          <div className="lg:col-span-7" data-reveal><AreaMap /></div>
-        </div>
+        <SectionHead eyebrow="Service areas" title="All across the GTA" />
+        <div className="mt-10" data-reveal><AreaMap /></div>
       </section>
 
-      <Testimonials />
+      <Testimonials single />
 
       {/* BLOG */}
       {posts.length > 0 && (
         <section className="border-t border-ink-100 py-20 sm:py-28">
           <div className="container-x">
             <div className="flex flex-wrap items-end justify-between gap-6">
-              <SectionHead eyebrow="From the blog" title="Plain answers to appraisal questions" />
+              <SectionHead eyebrow="From the blog" title="Quick reads" />
               <Link href="/blog" className="link-arrow" data-reveal>All articles →</Link>
             </div>
             <div className="mt-12 grid gap-x-10 gap-y-12 md:grid-cols-3">
@@ -123,10 +111,10 @@ export default async function HomePage() {
       <section className="border-t border-ink-100 bg-paper-50 py-20 sm:py-28">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <SectionHead eyebrow="FAQ" title="Common questions" sub="Can't find your answer? Call us and ask." />
+            <SectionHead eyebrow="FAQ" title="Common questions" />
             <Link href="/faq" className="link-arrow mt-8" data-reveal>See all FAQs →</Link>
           </div>
-          <div className="lg:col-span-8"><FaqList items={faqs.slice(0, 6)} /></div>
+          <div className="lg:col-span-8"><FaqList items={faqs.slice(0, 4)} /></div>
         </div>
       </section>
 

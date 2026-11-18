@@ -11,7 +11,7 @@ function Rating({ n, dark }: { n: number; dark?: boolean }) {
 }
 
 /** Published testimonials from the dashboard, set as pull quotes. Renders nothing until one exists. */
-export async function Testimonials({ service, dark = false, title = "What our clients say" }: { service?: string; dark?: boolean; title?: string }) {
+export async function Testimonials({ service, dark = false, title = "What our clients say", single = false }: { service?: string; dark?: boolean; title?: string; single?: boolean }) {
   const all = await getTestimonials();
   if (!all.length) return null;
   // Prefer testimonials for this service, then the rest.
@@ -40,7 +40,7 @@ export async function Testimonials({ service, dark = false, title = "What our cl
           </figcaption>
         </figure>
 
-        {rest.length > 0 && (
+        {!single && rest.length > 0 && (
           <div className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-3">
             {rest.map((t, i) => (
               <figure key={t.id} data-reveal style={{ "--d": i } as React.CSSProperties} className={`border-t pt-6 ${dark ? "border-white/15" : "border-ink-100"}`}>

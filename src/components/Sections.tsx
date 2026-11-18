@@ -5,6 +5,7 @@ import { areas, type Area } from "@/lib/areas";
 import { breadcrumbSchema } from "@/lib/schema";
 import { Icon } from "./Icon";
 import { CallLink, CtaLink } from "./Tracked";
+import { Vignette } from "./Vignettes";
 
 export function JsonLd({ data }: { data: object | object[] }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
@@ -98,21 +99,24 @@ export function HeroVisual() {
 }
 
 /* ------------------------------------------------------------------ */
-/** A plain ruled row of facts (replaces badges and stat counters). */
+/** Four facts, each a drawing + one big figure + a short label. */
 export function TrustStrip() {
   const items = [
-    ["Credentials", "Appraisal Institute of Canada members"],
-    ["Turnaround", `Most reports in ${site.turnaround}`],
-    ["Dates", "Current or any past date"],
-    ["Coverage", "Toronto, the GTA and Southern Ontario"],
+    ["seal", "AIC", "Certified members"],
+    ["clock", "48–72h", "Typical delivery"],
+    ["past", "Any date", "Current or past values"],
+    ["pin", "20+", "GTA cities served"],
   ];
   return (
     <div className="border-y border-ink-950">
-      <dl className="container-x grid sm:grid-cols-2 lg:grid-cols-4">
-        {items.map(([k, v], i) => (
-          <div key={k} className={`py-5 sm:px-6 ${i > 0 ? "border-t border-ink-100 sm:border-t-0" : ""} ${i % 2 ? "sm:border-l sm:border-ink-100" : ""} ${i === 2 ? "lg:border-l lg:border-ink-100" : ""} ${i === 0 ? "sm:pl-0" : ""}`}>
-            <dt className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{k}</dt>
-            <dd className="mt-1.5 text-[15px] text-ink-950">{v}</dd>
+      <dl className="container-x grid grid-cols-2 lg:grid-cols-4">
+        {items.map(([icon, v, l], i) => (
+          <div key={l} className={`flex items-center gap-4 py-6 ${i % 2 ? "border-l border-ink-100 pl-4 sm:pl-6" : ""} ${i === 2 ? "lg:border-l lg:border-ink-100 lg:pl-6" : ""} ${i > 1 ? "border-t border-ink-100 lg:border-t-0" : ""}`}>
+            <Vignette name={icon} className="h-14 w-[74px] shrink-0 sm:h-16 sm:w-[84px]" />
+            <div className="flex flex-col-reverse">
+              <dt className="text-[13px] text-ink-700">{l}</dt>
+              <dd className="font-display text-[26px] leading-none font-medium text-ink-950 sm:text-[30px]">{v}</dd>
+            </div>
           </div>
         ))}
       </dl>
@@ -151,43 +155,44 @@ export function SectionHead({ eyebrow, title, sub, center = false, dark = false 
   );
 }
 
-/** Services as an editorial index (numbered rows), not icon cards. */
+/** Services as illustrated tiles: a drawing and a name. */
 export function ServiceGrid({ citySuffix }: { citySuffix?: string }) {
   return (
-    <ol className="grid border-t border-ink-950 lg:grid-cols-2 lg:gap-x-12">
+    <ul className="grid grid-cols-2 border-t border-l border-ink-100 sm:grid-cols-3 lg:grid-cols-5">
       {services.map((s, i) => (
-        <li key={s.slug} className="border-b border-ink-100" data-reveal style={{ "--d": i % 4 } as React.CSSProperties}>
-          <Link href={`/services/${s.slug}`} className="group grid grid-cols-[2.5rem_1fr_auto] items-baseline gap-x-3 py-6">
-            <span className="text-[13px] font-semibold text-brick-600 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-            <span>
-              <span className="block font-display text-[22px] leading-snug font-medium text-ink-950 decoration-brick-500 decoration-1 underline-offset-4 group-hover:underline">
-                {s.name}{citySuffix ? <span className="sr-only"> in {citySuffix}</span> : null}
+        <li key={s.slug} className="border-r border-b border-ink-100" data-reveal style={{ "--d": i % 5 } as React.CSSProperties}>
+          <Link href={`/services/${s.slug}`} className="group flex h-full flex-col bg-paper p-4 transition-colors duration-300 hover:bg-paper-50 sm:p-5">
+            <Vignette name={s.icon} className="w-full transition-transform duration-500 group-hover:-translate-y-1" />
+            <span className="mt-3 flex items-start justify-between gap-2">
+              <span className="font-display text-[17px] leading-snug font-medium text-ink-950 sm:text-[18px]">
+                {s.name.replace(" Appraisal", "")}{citySuffix ? <span className="sr-only"> appraisal in {citySuffix}</span> : <span className="sr-only"> appraisal</span>}
               </span>
-              <span className="mt-1.5 block text-[15px] leading-relaxed text-ink-700">{s.short}</span>
+              <Icon name="arrow" className="mt-1 h-4 w-4 shrink-0 text-brick-500 opacity-0 transition-opacity group-hover:opacity-100" />
             </span>
-            <Icon name="arrow" className="h-4 w-4 self-center text-ink-950 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </li>
       ))}
-    </ol>
+    </ul>
   );
 }
 
 /* ------------------------------------------------------------------ */
 export function Process() {
   const steps = [
-    { t: "Request a quote", d: "Call or send the form. You get a firm fee before anything is booked." },
-    { t: "Book the visit", d: "Choose a time that suits you, usually within a few days." },
-    { t: "Inspection", d: "30 to 60 minutes on site, measuring and photographing." },
-    { t: "Your report", d: `A signed PDF report, typically within ${site.turnaround}.` },
+    { icon: "phone", t: "Ask for a quote" },
+    { icon: "calendar", t: "Book a visit" },
+    { icon: "measure", t: "We inspect" },
+    { icon: "report", t: `Report in ${site.turnaround.replace(" hours", "h")}` },
   ];
   return (
-    <ol className="grid border-t border-ink-950 sm:grid-cols-2 lg:grid-cols-4">
+    <ol className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
       {steps.map((s, i) => (
-        <li key={s.t} data-reveal style={{ "--d": i } as React.CSSProperties} className={`py-7 ${i > 0 ? "border-t border-ink-100" : ""} ${i === 1 ? "sm:border-t-0 sm:border-l sm:pl-7" : ""} ${i === 2 ? "lg:border-t-0 lg:border-l lg:pl-7" : ""} ${i === 3 ? "sm:border-l sm:pl-7 lg:border-t-0" : ""}`}>
-          <span className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">Step {i + 1}</span>
-          <h3 className="mt-3 text-[22px] font-medium text-ink-950">{s.t}</h3>
-          <p className="mt-2 text-[15px] leading-relaxed text-ink-700">{s.d}</p>
+        <li key={s.t} data-reveal style={{ "--d": i } as React.CSSProperties} className="relative">
+          <Vignette name={s.icon} className="w-full max-w-[220px]" />
+          <div className="mt-3 flex items-baseline gap-3 border-t border-ink-950 pt-3">
+            <span className="font-display text-[28px] leading-none text-brick-500">{i + 1}</span>
+            <h3 className="text-[20px] font-medium text-ink-950">{s.t}</h3>
+          </div>
         </li>
       ))}
     </ol>
@@ -200,9 +205,9 @@ export function Process() {
 export function AreaMap({ highlight }: { highlight?: string }) {
   return (
     <figure className="border border-ink-100 bg-paper-50">
-      <svg viewBox="0 0 100 100" className="block aspect-[4/3] w-full sm:aspect-[16/10]" role="img" aria-label="Map of the Greater Toronto Area showing the cities we serve">
-        <path d="M0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 V100 H0Z" fill="var(--color-lake)" />
-        <path d="M0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44" fill="none" stroke="var(--color-ink-700)" strokeWidth="0.25" />
+      <svg viewBox="-28 8 156 92" className="block aspect-[4/3] w-full sm:aspect-[17/10]" role="img" aria-label="Map of the Greater Toronto Area showing the cities we serve">
+        <path d="M-30 84 C-16 78 -6 72 0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 C110 40 120 37 130 34 V104 H-30Z" fill="var(--color-lake)" />
+        <path d="M-30 84 C-16 78 -6 72 0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 C110 40 120 37 130 34" fill="none" stroke="var(--color-ink-700)" strokeWidth="0.25" />
         <text x="64" y="86" fontSize="2.6" fill="var(--color-ink-700)" letterSpacing="0.6" fontStyle="italic" fontFamily="var(--font-display)">Lake Ontario</text>
         {areas.map((a) => {
           const on = highlight === a.slug;
@@ -241,24 +246,58 @@ export function AreaChips({ exclude }: { exclude?: string }) {
 }
 
 /* ------------------------------------------------------------------ */
+/** "What's in a report": a drawn report page with numbered callouts (for dark sections). */
 export function WhyUs() {
-  const items = [
-    { t: "Certified and independent", d: "Appraisal Institute of Canada members who follow CUSPAP. We earn no commission, so we have no reason to lean either way." },
-    { t: "Reports when you need them", d: `Most reports are ready in ${site.turnaround}, and rush service is available for tight deadlines.` },
-    { t: "Street-level knowledge", d: "We compare your home with sales on nearby streets, not city-wide averages." },
-    { t: "Any valuation date", d: "Today, or a past date such as a date of death, separation or change of use." },
-    { t: "Built to be relied on", d: "Lenders, lawyers, accountants and courts rely on our reports." },
-    { t: "You talk to the appraiser", d: "Clear quotes from the person doing the work, with no call centre in between." },
+  const P = "var(--color-paper-50)";
+  const I = "var(--color-ink-950)";
+  const B = "var(--color-brick-500)";
+  const L = "var(--color-lake)";
+  const callouts: [number, number, string][] = [
+    [100, 98, "Home inspected"],
+    [196, 196, "Nearby sales"],
+    [262, 240, "Adjustments"],
+    [330, 318, "Market value"],
+    [392, 392, "Signed & certified"],
   ];
   return (
-    <div className="grid gap-x-10 sm:grid-cols-2">
-      {items.map((it, i) => (
-        <div key={it.t} data-reveal style={{ "--d": i % 2 } as React.CSSProperties} className="border-t border-white/15 py-6">
-          <h3 className="text-[20px] font-medium text-paper">{it.t}</h3>
-          <p className="mt-2 text-[15px] leading-relaxed text-white/60">{it.d}</p>
-        </div>
+    <svg viewBox="0 0 600 440" className="w-full" role="img" aria-label="Diagram of an appraisal report: inspection, comparable sales, adjustments, market value and signature">
+      <g stroke={I} strokeWidth="1.5" fill="none">
+        <rect x="20" y="16" width="330" height="410" fill={P} stroke="none" />
+        <text x="44" y="46" fill={I} stroke="none" fontSize="11" fontWeight="700" letterSpacing="2" fontFamily="var(--font-sans)">APPRAISAL REPORT</text>
+        <path d="M44 56h282" />
+        {/* subject */}
+        <rect x="44" y="70" width="120" height="72" fill={L} />
+        <path d="M76 132v-28l28-20 28 20v28" fill={P} />
+        <rect x="96" y="114" width="16" height="18" fill={L} />
+        <path d="M180 78h120M180 94h96M180 110h110M180 126h80" stroke="#c9c2b5" strokeWidth="5" />
+        {/* comparables table */}
+        <path d="M44 168h282M44 252h282" />
+        {[184, 212, 240].map((y, i) => (
+          <g key={y}>
+            <rect x="44" y={y - 10} width="22" height="16" fill={L} />
+            <path d={`M76 ${y - 2}h120`} stroke="#c9c2b5" strokeWidth="5" />
+            <text x="320" y={y + 3} textAnchor="end" fill={B} stroke="none" fontSize="14" fontWeight="700" fontFamily="var(--font-sans)">{["+$12k", "−$8k", "+$4k"][i]}</text>
+          </g>
+        ))}
+        {/* value */}
+        <rect x="44" y="282" width="282" height="74" stroke={I} />
+        <text x="60" y="306" fill="#4a505b" stroke="none" fontSize="12" fontFamily="var(--font-sans)">Market value</text>
+        <text x="60" y="342" fill={I} stroke="none" fontSize="32" fontFamily="var(--font-display)">$1,248,000</text>
+        {/* signature */}
+        <path d="M44 398c18-14 30 8 46-6s22 2 34-4" />
+        <path d="M44 406h130" />
+        <circle cx="300" cy="392" r="18" fill={B} stroke={B} />
+        <path d="M292 392l6 6 10-12" stroke={P} strokeWidth="2.2" />
+      </g>
+      {callouts.map(([yFrom, yTo, label], i) => (
+        <g key={label}>
+          <path d={`M350 ${yFrom}H376L392 ${yTo}H408`} stroke="rgba(255,255,255,0.35)" strokeWidth="1" fill="none" />
+          <circle cx="420" cy={yTo} r="12" fill={B} />
+          <text x="420" y={yTo + 4.5} textAnchor="middle" fill="#fff" fontSize="13" fontWeight="700" fontFamily="var(--font-sans)">{i + 1}</text>
+          <text x="442" y={yTo + 6} fill="#f4f0e8" fontSize="20" fontFamily="var(--font-display)">{label}</text>
+        </g>
       ))}
-    </div>
+    </svg>
   );
 }
 
@@ -266,8 +305,8 @@ export function WhyUs() {
 export function FaqList({ items }: { items: { q: string; a: string }[] }) {
   return (
     <div className="border-t border-ink-950" data-reveal>
-      {items.map((f, i) => (
-        <details key={f.q} className="group border-b border-ink-100" open={i === 0}>
+      {items.map((f) => (
+        <details key={f.q} className="group border-b border-ink-100">
           <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
             <h3 className="text-[19px] leading-snug font-medium text-ink-950">{f.q}</h3>
             <span className="relative mt-2 h-3 w-3 shrink-0" aria-hidden="true">
@@ -289,7 +328,6 @@ export function CtaBand({ title = "Need an appraisal? Get a firm quote today.", 
       <div className="container-x grid gap-8 py-16 lg:grid-cols-12 lg:items-end lg:py-20" data-reveal>
         <div className="lg:col-span-8">
           <h2 className="text-[34px] leading-[1.1] font-medium sm:text-[46px]">{title}</h2>
-          <p className="mt-4 max-w-xl text-[17px] text-white/80">Certified, independent appraisals anywhere in Toronto and the GTA.</p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row lg:col-span-4 lg:justify-end">
           <CtaLink href="/get-a-quote" location={location} className="btn bg-paper text-ink-950 hover:bg-white">Get a free quote</CtaLink>

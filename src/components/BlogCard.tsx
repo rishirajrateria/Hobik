@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Post } from "@/db/schema";
 import { readingMinutes } from "@/lib/markdown";
+import { Vignette, vignetteForTags } from "./Vignettes";
 
 /** Flat colour keys kept for posts' "card colour" setting (used in the dashboard). */
 export const ACCENTS: Record<string, string> = {
@@ -14,17 +15,17 @@ export const ACCENTS: Record<string, string> = {
 /** Article teaser: rule, category, serif title, excerpt. Cover image only if one was uploaded. */
 export function BlogCard({ p }: { p: Post }) {
   return (
-    <Link href={`/blog/${p.slug}`} className="group flex w-full flex-col border-t border-ink-950 pt-5">
-      {p.coverImage && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={p.coverImage} alt="" loading="lazy" className="mb-5 aspect-[3/2] w-full object-cover" />
-      )}
-      <p className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{p.tags[0] ?? "Guide"}</p>
-      <h3 className="mt-3 font-display text-[23px] leading-snug font-medium text-ink-950 decoration-brick-500 decoration-1 underline-offset-4 group-hover:underline">{p.title}</h3>
-      <p className="mt-3 line-clamp-3 text-[15px] leading-relaxed text-ink-700">{p.excerpt}</p>
-      <p className="mt-auto pt-5 text-[13px] text-ink-700">
-        {readingMinutes(p.content)} min read{p.publishedAt ? ` · ${p.publishedAt.toLocaleDateString("en-CA", { month: "long", year: "numeric" })}` : ""}
-      </p>
+    <Link href={`/blog/${p.slug}`} className="group flex w-full flex-col">
+      <div className="border border-ink-100 bg-paper-50 transition-colors duration-300 group-hover:border-ink-950">
+        {p.coverImage ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={p.coverImage} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
+        ) : (
+          <Vignette name={vignetteForTags(p.tags)} className="aspect-[4/3] w-full p-6 transition-transform duration-500 group-hover:scale-[1.03]" />
+        )}
+      </div>
+      <p className="mt-4 text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{p.tags[0] ?? "Guide"} · {readingMinutes(p.content)} min</p>
+      <h3 className="mt-2 font-display text-[21px] leading-snug font-medium text-ink-950 decoration-brick-500 decoration-1 underline-offset-4 group-hover:underline">{p.title}</h3>
     </Link>
   );
 }

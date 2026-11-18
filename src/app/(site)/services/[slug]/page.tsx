@@ -5,6 +5,7 @@ import { getService, services } from "@/lib/services";
 import { faqs as generalFaqs } from "@/lib/faqs";
 import { faqSchema, serviceSchema } from "@/lib/schema";
 import { QuoteForm } from "@/components/QuoteForm";
+import { Vignette } from "@/components/Vignettes";
 import { Testimonials } from "@/components/Testimonials";
 import { AreaChips, CtaBand, FaqList, HeroCtas, JsonLd, PageHero, Process, SectionHead } from "@/components/Sections";
 
@@ -42,8 +43,9 @@ export default async function ServicePage({ params }: Props) {
       </PageHero>
 
       {/* key facts */}
-      <section className="container-x py-14">
-        <dl className="grid border-y border-ink-950 sm:grid-cols-3">
+      <section className="container-x grid items-center gap-10 py-14 lg:grid-cols-12">
+        <Vignette name={s.icon} className="mx-auto w-full max-w-[340px] lg:col-span-4" title={s.name} />
+        <dl className="grid border-y border-ink-950 sm:grid-cols-3 lg:col-span-8">
           {s.highlights.map((h, i) => (
             <div key={h.label} className={`py-6 ${i > 0 ? "border-t border-ink-100 sm:border-t-0 sm:border-l sm:pl-6" : ""}`}>
               <dt className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{h.label}</dt>
@@ -76,7 +78,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      <Testimonials service={s.name} dark />
+      <Testimonials service={s.name} dark single />
 
       <section className="py-20 sm:py-24">
         <div className="container-x">
