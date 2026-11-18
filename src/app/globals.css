@@ -5,15 +5,15 @@
   --font-display: var(--font-serif-src), Georgia, "Times New Roman", serif;
 
   /* Paper, ink and Toronto brick */
-  --color-paper: #f4f0e8;
-  --color-paper-50: #fbf9f5;
+  --color-paper: #ffffff;
+  --color-paper-50: #f6f6f4;
   --color-ink: #15181d;
   --color-ink-950: #15181d;
   --color-ink-900: #1d2128;
   --color-ink-800: #2c313a;
   --color-ink-700: #4a505b;
-  --color-ink-100: #ddd5c7;
-  --color-ink-50: #ece6db;
+  --color-ink-100: #e4e4e0;
+  --color-ink-50: #efefec;
   --color-brick-300: #e9ab92;
   --color-brick-400: #c4573a;
   --color-brick-500: #a8432a;
@@ -48,14 +48,8 @@
 @utility link-arrow { @apply inline-flex items-center gap-1.5 font-semibold text-ink-950 underline decoration-ink-950/25 underline-offset-4 transition-colors hover:decoration-brick-500; }
 
 /* Section label: small caps with a short rule, no pill */
-@utility eyebrow {
-  @apply inline-flex items-center gap-3 text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase;
-  &::before { content: ""; width: 28px; height: 1px; background: currentColor; }
-}
-@utility eyebrow-dark {
-  @apply inline-flex items-center gap-3 text-[12px] font-semibold tracking-[0.16em] text-brick-300 uppercase;
-  &::before { content: ""; width: 28px; height: 1px; background: currentColor; }
-}
+@utility eyebrow { @apply inline-block text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase; }
+@utility eyebrow-dark { @apply inline-block text-[12px] font-semibold tracking-[0.16em] text-brick-300 uppercase; }
 
 /* Surfaces: paper with a hairline */
 @utility card { @apply rounded-[4px] border border-ink-100 bg-paper-50; }

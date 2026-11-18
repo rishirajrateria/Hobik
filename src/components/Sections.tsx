@@ -283,13 +283,13 @@ export function WhyUs() {
         <rect x="44" y="70" width="120" height="72" fill={L} />
         <path d="M76 132v-28l28-20 28 20v28" fill={P} />
         <rect x="96" y="114" width="16" height="18" fill={L} />
-        <path d="M180 78h120M180 94h96M180 110h110M180 126h80" stroke="#c9c2b5" strokeWidth="5" />
+        <path d="M180 78h120M180 94h96M180 110h110M180 126h80" stroke="#d6d6d1" strokeWidth="5" />
         {/* comparables table */}
         <path d="M44 168h282M44 252h282" />
         {[184, 212, 240].map((y, i) => (
           <g key={y}>
             <rect x="44" y={y - 10} width="22" height="16" fill={L} />
-            <path d={`M76 ${y - 2}h120`} stroke="#c9c2b5" strokeWidth="5" />
+            <path d={`M76 ${y - 2}h120`} stroke="#d6d6d1" strokeWidth="5" />
             <text x="320" y={y + 3} textAnchor="end" fill={B} stroke="none" fontSize="14" fontWeight="700" fontFamily="var(--font-sans)">{["+$12k", "−$8k", "+$4k"][i]}</text>
           </g>
         ))}
@@ -308,7 +308,7 @@ export function WhyUs() {
           <path d={`M350 ${yFrom}H376L392 ${yTo}H408`} stroke="rgba(255,255,255,0.35)" strokeWidth="1" fill="none" />
           <circle cx="420" cy={yTo} r="12" fill={B} />
           <text x="420" y={yTo + 4.5} textAnchor="middle" fill="#fff" fontSize="13" fontWeight="700" fontFamily="var(--font-sans)">{i + 1}</text>
-          <text x="442" y={yTo + 6} fill="#f4f0e8" fontSize="20" fontFamily="var(--font-display)">{label}</text>
+          <text x="442" y={yTo + 6} fill="#ffffff" fontSize="20" fontFamily="var(--font-display)">{label}</text>
         </g>
       ))}
         </>,
