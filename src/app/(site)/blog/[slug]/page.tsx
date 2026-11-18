@@ -49,17 +49,17 @@ export default async function PostPage({ params }: Props) {
           )}
           <div dangerouslySetInnerHTML={{ __html: renderMarkdown(p.content) }} />
           <p className="mt-12 border-t border-ink-100 pt-6 text-sm text-ink-700">
-            Written by the appraisal team at {site.name}, Toronto. General information only, not a valuation of your property. <Link href="/get-a-quote" className="font-semibold text-brick-600 underline">Get a quote</Link>.
+            Written by the appraisal team at {site.name}, Toronto. General information only, not a valuation of your property. <Link href="/get-a-quote" className="font-semibold text-accent-600 underline">Get a quote</Link>.
           </p>
         </article>
         <aside className="lg:col-span-4">
           <div className="space-y-6 lg:sticky lg:top-28">
             {toc.length > 2 && (
               <nav aria-label="On this page" className="card hidden p-5 lg:block">
-                <p className="text-xs font-bold tracking-widest text-brick-600 uppercase">On this page</p>
+                <p className="text-xs font-bold tracking-widest text-accent-600 uppercase">On this page</p>
                 <ol className="mt-3 space-y-1.5 text-sm">
                   {toc.map((t) => (
-                    <li key={t.id}><a href={`#${t.id}`} className="block border-l border-ink-100 py-1 pl-3 text-ink-700 transition-colors hover:border-brick-500 hover:text-ink-950">{t.text}</a></li>
+                    <li key={t.id}><a href={`#${t.id}`} className="block border-l border-ink-100 py-1 pl-3 text-ink-700 transition-colors hover:border-accent-500 hover:text-ink-950">{t.text}</a></li>
                   ))}
                 </ol>
               </nav>

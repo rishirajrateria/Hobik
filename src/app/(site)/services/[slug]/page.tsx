@@ -48,7 +48,7 @@ export default async function ServicePage({ params }: Props) {
         <dl className="grid border-y border-ink-950 sm:grid-cols-3 lg:col-span-8">
           {s.highlights.map((h, i) => (
             <div key={h.label} className={`py-6 ${i > 0 ? "border-t border-ink-100 sm:border-t-0 sm:border-l sm:pl-6" : ""}`}>
-              <dt className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{h.label}</dt>
+              <dt className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">{h.label}</dt>
               <dd className="mt-2 font-display text-[24px] leading-snug font-medium text-ink-950">{h.value}</dd>
             </div>
           ))}
@@ -62,7 +62,7 @@ export default async function ServicePage({ params }: Props) {
           <ul className="mt-6 border-t border-ink-950">
             {s.bullets.map((b) => (
               <li key={b} className="flex gap-4 border-b border-ink-100 py-4 text-[17px] text-ink-800">
-                <span className="mt-[0.6em] h-[5px] w-[5px] shrink-0 bg-brick-500" aria-hidden="true" />
+                <span className="mt-[0.6em] h-[5px] w-[5px] shrink-0 bg-accent-500" aria-hidden="true" />
                 {b}
               </li>
             ))}
@@ -103,12 +103,12 @@ export default async function ServicePage({ params }: Props) {
             <div className="mt-10"><AreaChips /></div>
           </div>
           <div className="lg:col-span-5">
-            <h2 className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">Related services</h2>
+            <h2 className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">Related services</h2>
             <ul className="mt-5 border-t border-ink-950">
               {related.map((r) => (
                 <li key={r.slug} className="border-b border-ink-100">
                   <Link href={`/services/${r.slug}`} className="group block py-4">
-                    <span className="font-display text-[20px] text-ink-950 decoration-brick-500 underline-offset-4 group-hover:underline">{r.name}</span>
+                    <span className="font-display text-[20px] text-ink-950 decoration-accent-500 underline-offset-4 group-hover:underline">{r.name}</span>
                     <span className="mt-1 block text-[14px] text-ink-700">{r.short}</span>
                   </Link>
                 </li>

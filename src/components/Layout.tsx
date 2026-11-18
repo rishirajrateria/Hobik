@@ -14,7 +14,7 @@ export function Logo({ light = false }: { light?: boolean }) {
         <path d="M5 15 16 5l11 10" />
         <path d="M8 13v14h16V13" />
         <path d="M13 27v-7h6v7" />
-        <path d="M3 29h26" className="text-brick-500" stroke="var(--color-brick-500)" strokeWidth={2} />
+        <path d="M3 29h26" className="text-accent-500" stroke="var(--color-accent-500)" strokeWidth={2} />
       </svg>
       <span className="leading-none">
         <span className={`block font-display text-[21px] font-medium tracking-tight ${light ? "text-paper" : "text-ink-950"}`}>Home Value</span>
@@ -63,7 +63,7 @@ export function Header() {
               </Link>
             ))}
             <div className="mx-5 mt-2 border-t border-ink-100 pt-3 pb-1">
-              <CallLink href={telHref} location="mobile_menu" className="font-semibold text-brick-600">{site.phone}</CallLink>
+              <CallLink href={telHref} location="mobile_menu" className="font-semibold text-accent-600">{site.phone}</CallLink>
             </div>
           </div>
         </details>
@@ -78,7 +78,7 @@ export function MobileCtaBar() {
       <CallLink href={telHref} location="mobile_bar" className="flex items-center justify-center gap-2 py-4 text-[15px] font-semibold text-ink-950">
         <Icon name="phone" className="h-4 w-4" /> Call
       </CallLink>
-      <CtaLink href="/get-a-quote" location="mobile_bar" className="flex items-center justify-center gap-2 bg-brick-500 py-4 text-[15px] font-semibold text-white">
+      <CtaLink href="/get-a-quote" location="mobile_bar" className="flex items-center justify-center gap-2 bg-accent-500 py-4 text-[15px] font-semibold text-white">
         Free quote
       </CtaLink>
     </div>
@@ -95,7 +95,7 @@ export function Footer() {
           <Logo light />
           <p className="mt-6 max-w-sm leading-relaxed">{site.description}</p>
           <dl className="mt-8 space-y-3">
-            <div><dt className="sr-only">Phone</dt><dd><CallLink href={telHref} location="footer" className="font-display text-2xl text-paper hover:text-brick-300">{site.phone}</CallLink></dd></div>
+            <div><dt className="sr-only">Phone</dt><dd><CallLink href={telHref} location="footer" className="font-display text-2xl text-paper hover:text-accent-300">{site.phone}</CallLink></dd></div>
             <div><dt className="sr-only">Email</dt><dd><a href={`mailto:${site.email}`} className="hover:text-paper">{site.email}</a></dd></div>
             <div><dt className="sr-only">Address</dt><dd><address className="not-italic">{site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}</address></dd></div>
           </dl>

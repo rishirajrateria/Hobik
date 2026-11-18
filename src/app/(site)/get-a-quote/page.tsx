@@ -27,7 +27,7 @@ export default function QuotePage() {
             <li key={t} className="border-b border-ink-100 py-3 text-[16px] text-ink-950">{t}</li>
           ))}
         </ul>
-        <p className="mt-8 text-[16px] text-ink-700">Prefer to talk? Call <CallLink href={telHref} location="quote_page" className="font-semibold text-ink-950 underline decoration-ink-950/25 underline-offset-4 hover:decoration-brick-500">{site.phone}</CallLink></p>
+        <p className="mt-8 text-[16px] text-ink-700">Prefer to talk? Call <CallLink href={telHref} location="quote_page" className="font-semibold text-ink-950 underline decoration-ink-950/25 underline-offset-4 hover:decoration-accent-500">{site.phone}</CallLink></p>
       </PageHero>
       <Testimonials />
       <section className="container-x py-20"><Process /></section>

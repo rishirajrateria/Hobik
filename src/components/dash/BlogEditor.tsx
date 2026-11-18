@@ -7,7 +7,7 @@ import { deletePost, savePost, type PostPayload } from "@/app/dashboard/blog/act
 import { Icon } from "@/components/Icon";
 import { btnDanger, btnGold, btnSecondary, inputCls, labelCls } from "./ui";
 
-const ACCENT_SWATCH: Record<string, string> = { navy: "bg-ink-800", gold: "bg-brick-400", mint: "bg-sage-500", sky: "bg-sky-500", rose: "bg-rose-500" };
+const ACCENT_SWATCH: Record<string, string> = { navy: "bg-ink-800", gold: "bg-accent-400", mint: "bg-sage-500", sky: "bg-sky-500", rose: "bg-rose-500" };
 
 type Tool = { label: string; icon?: string; text?: string; wrap?: [string, string]; line?: string };
 const TOOLS: Tool[] = [

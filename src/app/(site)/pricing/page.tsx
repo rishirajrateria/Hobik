@@ -65,7 +65,7 @@ export default function PricingPage() {
           <ul className="mt-12 grid max-w-4xl border-t border-ink-950 sm:grid-cols-2 sm:gap-x-10">
             {["On-site inspection and measurements", "Photos of the interior and exterior", "Comparable sales analysis", "Market value conclusion", "Signed PDF report", "Follow-up questions answered", "CUSPAP-compliant format", `Typical delivery in ${site.turnaround}`].map((t) => (
               <li key={t} className="flex gap-4 border-b border-ink-100 py-3.5 text-[16px] text-ink-950">
-                <span className="mt-[0.6em] h-[5px] w-[5px] shrink-0 bg-brick-500" aria-hidden="true" />{t}
+                <span className="mt-[0.6em] h-[5px] w-[5px] shrink-0 bg-accent-500" aria-hidden="true" />{t}
               </li>
             ))}
           </ul>

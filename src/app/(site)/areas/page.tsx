@@ -32,8 +32,8 @@ export default function AreasPage() {
               <ul className="mt-4 space-y-1">
                 {areas.filter((a) => a.region === r).map((a) => (
                   <li key={a.slug}>
-                    <Link href={`/areas/${a.slug}`} className="group flex items-center justify-between border-b border-ink-100 py-2.5 text-[16px] text-ink-950 hover:text-brick-600">
-                      <span className="flex items-center gap-2"><Icon name="pin" className="h-4 w-4 text-brick-600" /> {a.name}</span>
+                    <Link href={`/areas/${a.slug}`} className="group flex items-center justify-between border-b border-ink-100 py-2.5 text-[16px] text-ink-950 hover:text-accent-600">
+                      <span className="flex items-center gap-2"><Icon name="pin" className="h-4 w-4 text-accent-600" /> {a.name}</span>
                       <Icon name="arrow" className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
                     </Link>
                   </li>

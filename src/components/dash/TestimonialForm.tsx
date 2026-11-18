@@ -29,7 +29,7 @@ export function TestimonialForm({ t, services }: { t?: Testimonial; services: st
           <input type="hidden" name="rating" value={rating} />
           <div className="flex gap-1" role="radiogroup" aria-label="Rating">
             {[1, 2, 3, 4, 5].map((n) => (
-              <button type="button" key={n} role="radio" aria-checked={rating === n} aria-label={`${n} stars`} onClick={() => setRating(n)} className={n <= rating ? "text-brick-500" : "text-slate-200"}>
+              <button type="button" key={n} role="radio" aria-checked={rating === n} aria-label={`${n} stars`} onClick={() => setRating(n)} className={n <= rating ? "text-accent-500" : "text-slate-200"}>
                 <Icon name="star" className="h-7 w-7" />
               </button>
             ))}

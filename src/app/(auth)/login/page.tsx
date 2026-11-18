@@ -43,7 +43,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           {!setup && <p className="mt-5 text-[14px] text-ink-700">Forgot your password? Ask a workspace owner or admin to reset it.</p>}
         </div>
         <div className="hidden lg:col-span-6 lg:col-start-7 lg:block">
-          <p className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">Inside the dashboard</p>
+          <p className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">Inside the dashboard</p>
           <dl className="mt-5 border-t border-ink-950">
             {[
               ["Traffic", "Visitors by country, province, city, page and source."],

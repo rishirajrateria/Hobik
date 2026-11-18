@@ -71,7 +71,7 @@ export default async function AreaPage({ params }: Props) {
               <li key={n} className="break-inside-avoid border-b border-ink-100 py-2.5 text-[16px] text-ink-950">{n}</li>
             ))}
           </ul>
-          <h3 className="mt-10 text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">Property types we see most</h3>
+          <h3 className="mt-10 text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">Property types we see most</h3>
           <p className="mt-3 font-display text-[22px] leading-snug text-ink-950">{a.homeTypes.join(", ")}</p>
         </div>
         <div data-reveal="scale"><AreaMap highlight={a.slug} /></div>

@@ -86,7 +86,7 @@ export function DynamicForm({
   const header = (
     <div className="flex items-center justify-between gap-3">
       <div>
-        {form.subtitle && <p className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{form.subtitle}</p>}
+        {form.subtitle && <p className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">{form.subtitle}</p>}
         <h2 className="mt-2 text-[28px] leading-tight font-medium text-ink-950">{form.title}</h2>
       </div>
     </div>
@@ -117,7 +117,7 @@ export function DynamicForm({
     return (
       <form onSubmit={(e) => { e.preventDefault(); next(); }} className="relative overflow-hidden border border-ink-950 bg-paper-50 p-6 text-ink-950 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
         <div className="absolute inset-x-0 top-0 h-[3px] bg-ink-100">
-          <div className="h-full bg-brick-500 transition-all duration-500" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
+          <div className="h-full bg-accent-500 transition-all duration-500" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
         </div>
         <div className="flex items-center justify-between">
           {header}
@@ -177,7 +177,7 @@ function Field({ f, uid, value, onChange, big = false }: { f: FormField; uid: st
   const span = f.width === "full" || ["textarea", "radio", "checkbox"].includes(f.type) ? "sm:col-span-2" : "";
   const label = (
     <label htmlFor={id} className={big ? "mb-2 block font-display text-[20px] font-medium text-ink-950" : "mb-1.5 block text-[13px] font-semibold text-ink-800"}>
-      {f.label}{f.required && big ? <span className="text-brick-600"> *</span> : null}
+      {f.label}{f.required && big ? <span className="text-accent-600"> *</span> : null}
     </label>
   );
   const help = f.help ? <p className="mt-1 text-xs text-ink-700">{f.help}</p> : null;
@@ -187,7 +187,7 @@ function Field({ f, uid, value, onChange, big = false }: { f: FormField; uid: st
     const arr = Array.isArray(value) ? value : [];
     return (
       <fieldset className={span}>
-        <legend className={big ? "mb-3 font-display text-[20px] font-medium text-ink-950" : "mb-1.5 text-[13px] font-semibold text-ink-800"}>{f.label}{f.required && <span className="text-brick-600"> *</span>}</legend>
+        <legend className={big ? "mb-3 font-display text-[20px] font-medium text-ink-950" : "mb-1.5 text-[13px] font-semibold text-ink-800"}>{f.label}{f.required && <span className="text-accent-600"> *</span>}</legend>
         <div className="grid gap-2 sm:grid-cols-2">
           {(f.options ?? []).map((o) => {
             const on = f.type === "radio" ? str === o : arr.includes(o);
@@ -199,7 +199,7 @@ function Field({ f, uid, value, onChange, big = false }: { f: FormField; uid: st
                   value={o}
                   checked={on}
                   onChange={() => onChange(f.type === "radio" ? o : on ? arr.filter((x) => x !== o) : [...arr, o])}
-                  className="h-4 w-4 accent-brick-500"
+                  className="h-4 w-4 accent-accent-500"
                 />
                 {o}
               </label>

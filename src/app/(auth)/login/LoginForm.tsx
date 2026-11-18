@@ -25,7 +25,7 @@ export function LoginForm({ setup, next }: { setup: boolean; next?: string }) {
         <label htmlFor="password" className="mb-1.5 block text-[13px] font-semibold text-ink-800">Password</label>
         <input id="password" name="password" type="password" required minLength={setup ? 10 : 1} autoComplete={setup ? "new-password" : "current-password"} className={input} placeholder="••••••••••" />
       </div>
-      {state.error && <p role="alert" className="border-l-2 border-brick-500 bg-white px-4 py-3 text-sm font-semibold text-brick-600">{state.error}</p>}
+      {state.error && <p role="alert" className="border-l-2 border-accent-500 bg-white px-4 py-3 text-sm font-semibold text-accent-600">{state.error}</p>}
       <button disabled={pending} className="btn-primary w-full disabled:opacity-70">
         {pending ? "Please wait…" : setup ? "Create owner account" : "Sign in"}
       </button>

@@ -6,7 +6,7 @@ import { Vignette, vignetteForTags } from "./Vignettes";
 /** Flat colour keys kept for posts' "card colour" setting (used in the dashboard). */
 export const ACCENTS: Record<string, string> = {
   navy: "bg-ink-900",
-  gold: "bg-brick-500",
+  gold: "bg-accent-500",
   mint: "bg-sage-500",
   sky: "bg-[#5b7a8c]",
   rose: "bg-[#8e5563]",
@@ -24,8 +24,8 @@ export function BlogCard({ p }: { p: Post }) {
           <Vignette name={vignetteForTags(p.tags)} mode="wipe" className="aspect-[4/3] w-full p-6 transition-transform duration-500 group-hover:scale-[1.03]" />
         )}
       </div>
-      <p className="mt-4 text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{p.tags[0] ?? "Guide"} · {readingMinutes(p.content)} min</p>
-      <h3 className="mt-2 font-display text-[21px] leading-snug font-medium text-ink-950 decoration-brick-500 decoration-1 underline-offset-4 group-hover:underline">{p.title}</h3>
+      <p className="mt-4 text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">{p.tags[0] ?? "Guide"} · {readingMinutes(p.content)} min</p>
+      <h3 className="mt-2 font-display text-[21px] leading-snug font-medium text-ink-950 decoration-accent-500 decoration-1 underline-offset-4 group-hover:underline">{p.title}</h3>
     </Link>
   );
 }

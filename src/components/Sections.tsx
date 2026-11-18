@@ -18,7 +18,7 @@ const HQ = { x: 55, y: 48 };
 /* ------------------------------------------------------------------ */
 export function HeroVisual() {
   const ink = "var(--color-ink-950)";
-  const brick = "var(--color-brick-500)";
+  const accent = "var(--color-accent-500)";
   const pane = "var(--color-lake)";
   return (
     <figure className="relative mx-auto w-full max-w-[520px]">
@@ -65,16 +65,16 @@ export function HeroVisual() {
           {/* steps */}
           <path d="M226 400v-6h64v6M232 394v-6h52v6" />
           {/* brick coursing hints */}
-          <g stroke={brick} strokeWidth="1" opacity="0.55">
+          <g stroke={accent} strokeWidth="1" opacity="0.55">
             <path d="M296 340h14M300 350h12M296 360h14M300 370h12M296 380h14M88 250h6M88 262h6M88 274h6" />
           </g>
         </g>
         {/* survey dimensions */}
-        <g stroke={brick} strokeWidth="1" fill="none">
+        <g stroke={accent} strokeWidth="1" fill="none">
           <path d="M84 424h232M84 418v12M316 418v12" />
           <path d="M352 66v334M346 66h12M346 400h12" />
         </g>
-        <g fill={brick} fontFamily="var(--font-sans)" fontSize="10" fontWeight="600" letterSpacing="1.6">
+        <g fill={accent} fontFamily="var(--font-sans)" fontSize="10" fontWeight="600" letterSpacing="1.6">
           <text x="200" y="442" textAnchor="middle">FRONTAGE</text>
           <text x="368" y="233" textAnchor="middle" transform="rotate(90 368 233)">HEIGHT · 2½ STOREYS</text>
         </g>
@@ -173,7 +173,7 @@ export function ServiceGrid({ citySuffix }: { citySuffix?: string }) {
               <span className="font-display text-[17px] leading-snug font-medium text-ink-950 sm:text-[18px]">
                 {s.name.replace(" Appraisal", "")}{citySuffix ? <span className="sr-only"> appraisal in {citySuffix}</span> : <span className="sr-only"> appraisal</span>}
               </span>
-              <Icon name="arrow" className="mt-1 h-4 w-4 shrink-0 text-brick-500 opacity-0 transition-opacity group-hover:opacity-100" />
+              <Icon name="arrow" className="mt-1 h-4 w-4 shrink-0 text-accent-500 opacity-0 transition-opacity group-hover:opacity-100" />
             </span>
           </Link>
         </li>
@@ -183,7 +183,7 @@ export function ServiceGrid({ citySuffix }: { citySuffix?: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-/** Steps appear one by one, each icon pops in, and a brick progress line runs under them. */
+/** Steps appear one by one, each icon pops in, and a green progress line runs under them. */
 export function Process() {
   const steps = [
     { icon: "phone", t: "Ask for a quote" },
@@ -198,7 +198,7 @@ export function Process() {
           <Vignette name={s.icon} mode="pop" delay={0.15 + i * 0.35} className="w-full max-w-[220px]" />
           <div className="relative mt-3 flex items-baseline gap-3 border-t border-ink-950 pt-3">
             <span className="hv-step-fill" aria-hidden="true" />
-            <span className="font-display text-[28px] leading-none text-brick-500">{i + 1}</span>
+            <span className="font-display text-[28px] leading-none text-accent-500">{i + 1}</span>
             <h3 className="text-[20px] font-medium text-ink-950">{s.t}</h3>
           </div>
         </li>
@@ -221,23 +221,23 @@ export function AreaMap({ highlight }: { highlight?: string }) {
           <path d="M-30 84 C-16 78 -6 72 0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 C110 40 120 37 130 34" fill="none" stroke="var(--color-ink-700)" strokeWidth="0.25" />
           <text x="64" y="86" fontSize="2.6" fill="var(--color-ink-700)" letterSpacing="0.6" fontStyle="italic" fontFamily="var(--font-display)">Lake Ontario</text>
         </g>
-        <circle className="hv-ripple" cx={HQ.x} cy={HQ.y} r="3" fill="none" stroke="var(--color-brick-500)" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
+        <circle className="hv-ripple" cx={HQ.x} cy={HQ.y} r="3" fill="none" stroke="var(--color-accent-500)" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
         {areas.map((a) => {
           const on = highlight === a.slug;
           return (
             <a key={a.slug} href={`/areas/${a.slug}`} aria-label={`Home appraisal in ${a.name}`} className="hv-city group" style={{ "--dd": `${delayFor(a)}s` } as React.CSSProperties}>
-              <circle cx={a.map.x} cy={a.map.y} r={on ? 1.5 : 0.9} fill={on ? "var(--color-brick-500)" : "var(--color-ink-950)"} className="transition-colors group-hover:fill-[var(--color-brick-500)]" />
-              <text x={a.map.x + 1.8} y={a.map.y + 0.9} fontSize={on ? 2.8 : 2.2} fill={on ? "var(--color-brick-600)" : "var(--color-ink-800)"} fontWeight={on ? 600 : 400} className="transition-colors group-hover:fill-[var(--color-brick-600)]">
+              <circle cx={a.map.x} cy={a.map.y} r={on ? 1.5 : 0.9} fill={on ? "var(--color-accent-500)" : "var(--color-ink-950)"} className="transition-colors group-hover:fill-[var(--color-accent-500)]" />
+              <text x={a.map.x + 1.8} y={a.map.y + 0.9} fontSize={on ? 2.8 : 2.2} fill={on ? "var(--color-accent-600)" : "var(--color-ink-800)"} fontWeight={on ? 600 : 400} className="transition-colors group-hover:fill-[var(--color-accent-600)]">
                 {a.name}
               </text>
             </a>
           );
         })}
-        <rect x={HQ.x - 1.4} y={HQ.y - 1.4} width="2.8" height="2.8" fill="none" stroke="var(--color-brick-500)" strokeWidth="0.4" />
+        <rect x={HQ.x - 1.4} y={HQ.y - 1.4} width="2.8" height="2.8" fill="none" stroke="var(--color-accent-500)" strokeWidth="0.4" />
       </svg>
       <figcaption className="flex items-center justify-between border-t border-ink-100 px-4 py-2.5 text-[12px] text-ink-700">
         <span>Greater Toronto Area</span>
-        <span className="flex items-center gap-2"><span className="inline-block h-2 w-2 border border-brick-500" /> Office, North York</span>
+        <span className="flex items-center gap-2"><span className="inline-block h-2 w-2 border border-accent-500" /> Office, North York</span>
       </figcaption>
     </figure>
   );
@@ -249,7 +249,7 @@ export function AreaChips({ exclude }: { exclude?: string }) {
       {areas.filter((a) => a.slug !== exclude).map((a: Area) => (
         <li key={a.slug} className="break-inside-avoid border-b border-ink-100">
           <Link href={`/areas/${a.slug}`} className="group flex items-center justify-between py-2.5 text-[15px] text-ink-950">
-            <span className="decoration-brick-500 underline-offset-4 group-hover:underline">{a.name}</span>
+            <span className="decoration-accent-500 underline-offset-4 group-hover:underline">{a.name}</span>
             <Icon name="arrow" className="h-3.5 w-3.5 text-ink-700 opacity-0 transition-opacity group-hover:opacity-100" />
           </Link>
         </li>
@@ -266,7 +266,7 @@ export function AreaChips({ exclude }: { exclude?: string }) {
 export function WhyUs() {
   const P = "var(--color-paper-50)";
   const I = "var(--color-ink-950)";
-  const B = "var(--color-brick-500)";
+  const B = "var(--color-accent-500)";
   const L = "var(--color-lake)";
   const G = "#d6d6d1";
   const callouts: [number, number, string][] = [
@@ -348,7 +348,7 @@ export function FaqList({ items }: { items: { q: string; a: string }[] }) {
 /* ------------------------------------------------------------------ */
 export function CtaBand({ title = "Need an appraisal? Get a firm quote today.", location = "cta_band" }: { title?: string; location?: string }) {
   return (
-    <section className="bg-brick-500 text-white">
+    <section className="bg-accent-500 text-white">
       <div className="container-x grid gap-8 py-16 lg:grid-cols-12 lg:items-end lg:py-20" data-reveal>
         <div className="lg:col-span-8">
           <h2 className="text-[34px] leading-[1.1] font-medium sm:text-[46px]">{title}</h2>
@@ -419,7 +419,7 @@ export function HeroCtas({ location }: { location: string }) {
     <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
       <CtaLink href="/get-a-quote" location={location} className="btn-primary px-6 py-3.5 text-base">Get a free quote <Icon name="arrow" className="h-4 w-4" /></CtaLink>
       <span className="text-[15px] text-ink-700">
-        or call <CallLink href={telHref} location={location} className="font-semibold text-ink-950 underline decoration-ink-950/25 underline-offset-4 hover:decoration-brick-500">{site.phone}</CallLink>
+        or call <CallLink href={telHref} location={location} className="font-semibold text-ink-950 underline decoration-ink-950/25 underline-offset-4 hover:decoration-accent-500">{site.phone}</CallLink>
       </span>
     </div>
   );

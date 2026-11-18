@@ -25,7 +25,7 @@ export default async function FormsPage() {
       />
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {list.map((f) => (
-          <div key={f.id} className={`flex flex-col rounded-2xl bg-white p-5 ring-1 ${f.isPrimary ? "ring-2 ring-brick-400" : "ring-slate-200"}`}>
+          <div key={f.id} className={`flex flex-col rounded-2xl bg-white p-5 ring-1 ${f.isPrimary ? "ring-2 ring-accent-400" : "ring-slate-200"}`}>
             <div className="flex items-start justify-between gap-3">
               <span className="grid h-11 w-11 place-items-center rounded-xl bg-ink-50 text-ink-800"><Icon name="form" className="h-5 w-5" /></span>
               <div className="flex flex-wrap justify-end gap-1.5">

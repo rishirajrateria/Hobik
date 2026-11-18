@@ -31,12 +31,12 @@ export default function ContactPage() {
         <dl className="mt-10 grid max-w-2xl border-t border-ink-950 sm:grid-cols-2 sm:gap-x-10">
           {cards.map((c) => (
             <div key={c.t} className="border-b border-ink-100 py-4">
-              <dt className="text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{c.t}</dt>
+              <dt className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">{c.t}</dt>
               <dd className="mt-1.5 text-[16px] break-words text-ink-950">
                 {!c.href ? c.v : c.call ? (
-                  <CallLink href={c.href} location="contact_card" className="font-display text-[22px] hover:text-brick-600">{c.v}</CallLink>
+                  <CallLink href={c.href} location="contact_card" className="font-display text-[22px] hover:text-accent-600">{c.v}</CallLink>
                 ) : (
-                  <a href={c.href} className="underline decoration-ink-950/25 underline-offset-4 hover:decoration-brick-500" {...(c.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}>{c.v}</a>
+                  <a href={c.href} className="underline decoration-ink-950/25 underline-offset-4 hover:decoration-accent-500" {...(c.href.startsWith("http") ? { target: "_blank", rel: "noopener" } : {})}>{c.v}</a>
                 )}
               </dd>
             </div>

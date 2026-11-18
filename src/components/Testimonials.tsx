@@ -3,7 +3,7 @@ import { SectionHead } from "./Sections";
 
 function Rating({ n, dark }: { n: number; dark?: boolean }) {
   return (
-    <span className={`text-[13px] tracking-[0.2em] ${dark ? "text-brick-300" : "text-brick-500"}`} aria-label={`${n} out of 5 stars`}>
+    <span className={`text-[13px] tracking-[0.2em] ${dark ? "text-accent-300" : "text-accent-500"}`} aria-label={`${n} out of 5 stars`}>
       {"★".repeat(n)}
       <span className={dark ? "text-white/20" : "text-ink-100"}>{"★".repeat(5 - n)}</span>
     </span>

@@ -27,7 +27,7 @@ export default async function TestimonialsAdmin({ searchParams }: { searchParams
 
       <div className="grid gap-4 sm:grid-cols-3">
         <div className="rounded-2xl bg-white p-5 ring-1 ring-slate-200"><p className="text-sm font-semibold text-slate-500">On website</p><p className="mt-1 font-display text-3xl font-extrabold">{live.length}</p></div>
-        <div className="rounded-2xl bg-white p-5 ring-1 ring-slate-200"><p className="text-sm font-semibold text-slate-500">Average rating</p><p className="mt-1 font-display text-3xl font-extrabold">{avg ? avg.toFixed(1) : "—"} <span className="text-brick-500">★</span></p></div>
+        <div className="rounded-2xl bg-white p-5 ring-1 ring-slate-200"><p className="text-sm font-semibold text-slate-500">Average rating</p><p className="mt-1 font-display text-3xl font-extrabold">{avg ? avg.toFixed(1) : "—"} <span className="text-accent-500">★</span></p></div>
         <div className="rounded-2xl bg-white p-5 ring-1 ring-slate-200"><p className="text-sm font-semibold text-slate-500">Hidden</p><p className="mt-1 font-display text-3xl font-extrabold">{list.length - live.length}</p></div>
       </div>
 
@@ -42,7 +42,7 @@ export default async function TestimonialsAdmin({ searchParams }: { searchParams
                 <li key={t.id} className={`p-5 ${editing?.id === t.id ? "bg-blue-50/60" : ""}`}>
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="font-bold text-ink-950">{t.name}</span>
-                    <span className="text-brick-500" aria-label={`${t.rating} stars`}>{"★".repeat(t.rating)}<span className="text-slate-200">{"★".repeat(5 - t.rating)}</span></span>
+                    <span className="text-accent-500" aria-label={`${t.rating} stars`}>{"★".repeat(t.rating)}<span className="text-slate-200">{"★".repeat(5 - t.rating)}</span></span>
                     {t.featured && <Badge tone="amber">Featured</Badge>}
                     <Badge tone={t.status === "published" ? "green" : "slate"}>{t.status === "published" ? "Live" : "Hidden"}</Badge>
                   </div>

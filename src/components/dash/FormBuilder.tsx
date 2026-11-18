@@ -113,7 +113,7 @@ export function FormBuilder({ initial, isPrimary }: { initial: FormConfig & { pu
                   <div className="flex items-center gap-2 px-3 py-2.5">
                     <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-slate-100 text-xs font-bold text-slate-500">{i + 1}</span>
                     <button type="button" onClick={() => setOpen(isOpen ? null : f.id)} className="min-w-0 flex-1 text-left">
-                      <span className="block truncate text-sm font-bold text-ink-950">{f.label || "Untitled question"}{f.required && <span className="text-brick-600"> *</span>}</span>
+                      <span className="block truncate text-sm font-bold text-ink-950">{f.label || "Untitled question"}{f.required && <span className="text-accent-600"> *</span>}</span>
                       <span className="block text-xs text-slate-400">{TYPE_LABEL[f.type]} · {f.key}</span>
                     </button>
                     <button type="button" aria-label="Move up" onClick={() => move(i, -1)} disabled={i === 0} className="grid h-8 w-8 place-items-center rounded-lg text-slate-400 hover:bg-slate-100 disabled:opacity-30"><Icon name="up" className="h-4 w-4" /></button>

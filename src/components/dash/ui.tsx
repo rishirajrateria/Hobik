@@ -129,7 +129,7 @@ export const labelCls = "mb-1.5 block text-xs font-bold tracking-wide text-slate
 export const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-xl bg-ink-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-ink-800 disabled:opacity-60";
 export const btnSecondary = "inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-ink-900 ring-1 ring-slate-200 transition hover:bg-slate-50 disabled:opacity-60";
 export const btnDanger = "inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-rose-700 ring-1 ring-rose-200 transition hover:bg-rose-50 disabled:opacity-60";
-export const btnGold = "inline-flex items-center justify-center gap-2 rounded-xl bg-brick-400 px-4 py-2.5 text-sm font-bold text-ink-950 transition hover:bg-brick-300 disabled:opacity-60";
+export const btnGold = "inline-flex items-center justify-center gap-2 rounded-xl bg-accent-400 px-4 py-2.5 text-sm font-bold text-ink-950 transition hover:bg-accent-300 disabled:opacity-60";
 
 export function fmtDate(d: Date | number | null | undefined, withTime = false) {
   if (!d) return "—";
