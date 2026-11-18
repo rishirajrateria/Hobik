@@ -265,7 +265,29 @@ export function drawable(node: React.ReactNode, step = 0.045, max = 1.1): React.
   return walk(node);
 }
 
-export function Vignette({ name, className = "", title, delay = 0 }: { name: string; className?: string; title?: string; delay?: number }) {
+/**
+ * "Build" mode: each top-level piece of a drawing (ground, walls, sign, coins...) rises into
+ * place in sequence. Pieces get class "pc" and a staggered --dd delay.
+ */
+function pieces(node: React.ReactNode, step = 0.09): React.ReactNode {
+  if (!isValidElement(node)) return node;
+  const kids = (node.props as { children?: React.ReactNode }).children;
+  let i = 0;
+  return Children.map(kids, (child) => {
+    if (!isValidElement(child)) return child;
+    const props = child.props as { className?: string; style?: React.CSSProperties };
+    return cloneElement(child as React.ReactElement<Record<string, unknown>>, {
+      className: `${props.className ?? ""} pc`.trim(),
+      style: { ...props.style, "--dd": `${i++ * step}s` } as React.CSSProperties,
+    });
+  });
+}
+
+/** How a drawing enters: built piece by piece, popped, stamped, dropped, flipped, wiped or sketched. */
+export type VignetteMode = "build" | "pop" | "stamp" | "drop" | "flip" | "wipe" | "sketch";
+
+export function Vignette({ name, className = "", title, delay = 0, mode = "build" }: { name: string; className?: string; title?: string; delay?: number; mode?: VignetteMode }) {
+  const art = drawings[name] ?? drawings.report;
   return (
     <svg
       viewBox="0 0 160 120"
@@ -279,9 +301,10 @@ export function Vignette({ name, className = "", title, delay = 0 }: { name: str
       strokeLinejoin="round"
       strokeLinecap="round"
       data-draw-svg
+      data-anim={mode}
       style={{ "--base": `${delay}s` } as React.CSSProperties}
     >
-      {drawable(drawings[name] ?? drawings.report)}
+      {mode === "sketch" ? drawable(art) : mode === "build" ? pieces(art) : art}
     </svg>
   );
 }

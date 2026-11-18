@@ -60,17 +60,73 @@
 .motion [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: calc(var(--d, 0) * 70ms); }
 .motion [data-reveal].is-in { opacity: 1; transform: none; }
 
-/* ---------- Sketch-on drawings (enabled by <Motion />) ---------- */
-.motion [data-draw-svg] .dw { stroke-dasharray: 1; stroke-dashoffset: 1; fill-opacity: 0; }
-.motion [data-draw-svg] :is(text, [stroke-dasharray]) { opacity: 0; }
-.motion [data-draw-svg].is-drawn .dw {
+/* ---------- Entrance animations (enabled by <Motion />, which adds .is-drawn on view) ---------- */
+/* sketch — the hero house traces itself */
+.motion [data-anim="sketch"] .dw { stroke-dasharray: 1; stroke-dashoffset: 1; fill-opacity: 0; }
+.motion [data-anim="sketch"] :is(text, [stroke-dasharray]) { opacity: 0; }
+.motion [data-anim="sketch"].is-drawn .dw {
   animation: hv-draw 1.3s cubic-bezier(0.45, 0.05, 0.25, 1) calc(var(--base, 0s) + var(--dd, 0s)) forwards,
     hv-fill 0.6s ease calc(var(--base, 0s) + var(--dd, 0s) + 0.7s) forwards;
 }
-.motion [data-draw-svg].is-drawn :is(text, [stroke-dasharray]) { animation: hv-fade 0.6s ease calc(var(--base, 0s) + 1s) forwards; }
+.motion [data-anim="sketch"].is-drawn :is(text, [stroke-dasharray]) { animation: hv-fade 0.6s ease calc(var(--base, 0s) + 1s) forwards; }
+
+/* build — service drawings assemble piece by piece */
+.motion [data-anim="build"] .pc { opacity: 0; }
+.motion [data-anim="build"].is-drawn .pc { animation: hv-rise 0.65s cubic-bezier(0.34, 1.45, 0.64, 1) calc(var(--base, 0s) + var(--dd, 0s)) both; }
+
+/* whole-drawing entrances — facts strip, steps, blog cards */
+.motion :is([data-anim="pop"], [data-anim="stamp"], [data-anim="drop"], [data-anim="flip"]) { opacity: 0; }
+.motion [data-anim="pop"].is-drawn { animation: hv-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) var(--base, 0s) both; }
+.motion [data-anim="stamp"].is-drawn { animation: hv-stamp 0.6s cubic-bezier(0.2, 0.8, 0.3, 1) var(--base, 0s) both; }
+.motion [data-anim="drop"].is-drawn { animation: hv-drop 1s ease var(--base, 0s) both; }
+.motion [data-anim="flip"].is-drawn { transform-origin: 50% 20%; animation: hv-flip 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) var(--base, 0s) both; }
+.motion [data-anim="wipe"] { clip-path: inset(0 100% 0 0); }
+.motion [data-anim="wipe"].is-drawn { animation: hv-wipe 1s cubic-bezier(0.65, 0, 0.35, 1) var(--base, 0s) both; }
+
+/* steps — each step rises in turn and a brick progress line runs underneath */
+.hv-step-fill { position: absolute; top: -1px; left: 0; height: 2px; width: 100%; background: var(--color-brick-500); transform-origin: left; }
+.motion [data-anim-group="steps"] .hv-step { opacity: 0; }
+.motion [data-anim-group="steps"] .hv-step-fill { transform: scaleX(0); }
+.motion [data-anim-group="steps"].is-drawn .hv-step { animation: hv-rise-dom 0.6s ease calc(var(--i) * 0.35s) both; }
+.motion [data-anim-group="steps"].is-drawn .hv-step-fill { animation: hv-grow 0.7s ease calc(var(--i) * 0.35s + 0.35s) both; }
+
+/* radiate — map cities pop in outward from the office, with one ripple */
+.motion [data-anim="radiate"] :is(.hv-city, .hv-lake) { opacity: 0; }
+.motion [data-anim="radiate"] .hv-city circle { transform-box: fill-box; transform-origin: center; }
+.motion [data-anim="radiate"].is-drawn .hv-lake { animation: hv-rise-sm 0.9s ease both; }
+.motion [data-anim="radiate"].is-drawn .hv-city { animation: hv-fade 0.4s ease calc(var(--dd) + 0.2s) both; }
+.motion [data-anim="radiate"].is-drawn .hv-city circle { animation: hv-dot 0.6s cubic-bezier(0.34, 1.8, 0.64, 1) calc(var(--dd) + 0.2s) both; }
+.hv-ripple { opacity: 0; transform-box: fill-box; transform-origin: center; }
+.motion [data-anim="radiate"].is-drawn .hv-ripple { animation: hv-ripple 2.4s ease-out 0.2s both; }
+
+/* report — the page fills in like a form */
+.motion [data-anim="report"] :is(.hv-in, .hv-slide, .hv-callout, .hv-stamp) { opacity: 0; }
+.motion [data-anim="report"] :is(.hv-bar, .hv-stamp) { transform-box: fill-box; }
+.motion [data-anim="report"] .hv-bar { transform-origin: left center; transform: scaleX(0); }
+.motion [data-anim="report"] .hv-stamp { transform-origin: center; }
+.motion [data-anim="report"] .hv-sign { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.motion [data-anim="report"].is-drawn .hv-in { animation: hv-fade 0.5s ease var(--dd) both; }
+.motion [data-anim="report"].is-drawn .hv-bar { animation: hv-grow 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) var(--dd) both; }
+.motion [data-anim="report"].is-drawn .hv-slide { animation: hv-slide-x 0.5s ease var(--dd) both; }
+.motion [data-anim="report"].is-drawn .hv-sign { animation: hv-draw 1s ease var(--dd) both; }
+.motion [data-anim="report"].is-drawn .hv-stamp { animation: hv-stamp 0.55s cubic-bezier(0.2, 0.8, 0.3, 1) var(--dd) both; }
+.motion [data-anim="report"].is-drawn .hv-callout { animation: hv-slide-x 0.6s ease var(--dd) both; }
+
 @keyframes hv-draw { to { stroke-dashoffset: 0; } }
 @keyframes hv-fill { to { fill-opacity: 1; } }
 @keyframes hv-fade { to { opacity: 1; } }
+@keyframes hv-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes hv-rise-sm { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+@keyframes hv-rise-dom { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes hv-pop { from { opacity: 0; transform: scale(0.55); } to { opacity: 1; transform: none; } }
+@keyframes hv-stamp { 0% { opacity: 0; transform: scale(1.8) rotate(-16deg); } 70% { opacity: 1; transform: scale(0.94) rotate(2deg); } 100% { opacity: 1; transform: none; } }
+@keyframes hv-drop { 0% { opacity: 0; transform: translateY(-34px); } 55% { opacity: 1; transform: translateY(0); } 72% { transform: translateY(-8px); } 88% { transform: translateY(0); } 94% { transform: translateY(-2px); } 100% { opacity: 1; transform: none; } }
+@keyframes hv-flip { from { opacity: 0; transform: perspective(240px) rotateX(-90deg); } to { opacity: 1; transform: perspective(240px) rotateX(0deg); } }
+@keyframes hv-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes hv-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes hv-dot { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes hv-ripple { from { opacity: 0.8; transform: scale(0.3); } to { opacity: 0; transform: scale(18); } }
+@keyframes hv-slide-x { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
 
 /* ---------- Idle details (very slow, very small) ---------- */
 .hv-spin-slow, .hv-spin-slower, .hv-bob { transform-box: view-box; }
@@ -86,8 +142,7 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .motion [data-reveal] { opacity: 1; transform: none; }
-  .motion [data-draw-svg] .dw { stroke-dasharray: none; fill-opacity: 1; }
-  .motion [data-draw-svg] :is(text, [stroke-dasharray]) { opacity: 1; }
+  .motion [data-draw-svg], .motion [data-draw-svg] *, .motion [data-anim-group] * { opacity: 1 !important; transform: none !important; clip-path: none !important; stroke-dashoffset: 0 !important; fill-opacity: 1 !important; }
 }
 
 /* Blog article typography */

@@ -21,7 +21,7 @@ export function BlogCard({ p }: { p: Post }) {
           // eslint-disable-next-line @next/next/no-img-element
           <img src={p.coverImage} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
         ) : (
-          <Vignette name={vignetteForTags(p.tags)} className="aspect-[4/3] w-full p-6 transition-transform duration-500 group-hover:scale-[1.03]" />
+          <Vignette name={vignetteForTags(p.tags)} mode="wipe" className="aspect-[4/3] w-full p-6 transition-transform duration-500 group-hover:scale-[1.03]" />
         )}
       </div>
       <p className="mt-4 text-[12px] font-semibold tracking-[0.16em] text-brick-600 uppercase">{p.tags[0] ?? "Guide"} · {readingMinutes(p.content)} min</p>
