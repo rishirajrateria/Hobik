@@ -1,7 +1,7 @@
 import { Children, cloneElement, isValidElement } from "react";
 
 /**
- * Hand-drafted line illustrations in the site's house style: ink strokes, green accents,
+ * Hand-drafted line illustrations in the site's house style: charcoal strokes, gold accents,
  * pale "glass" fills. One per service, process step and key fact.
  * All drawn on a 160 × 120 grid with a shared ground line.
  */
@@ -141,6 +141,79 @@ const drawings: Record<string, React.ReactNode> = {
     </>
   ),
 
+  /* ---------------- property types ---------------- */
+  home: (
+    <>
+      {ground}
+      <path d="M118 104V64" opacity="0.5" />
+      <circle cx="118" cy="56" r="13" fill={PANE} opacity="0.9" />
+      {house({ x: 38, y: 104, w: 62, h: 40 })}
+      <path d="M50 44V30h9v8" fill={PAPER} />
+      <circle cx="69" cy="14" r="7" fill={ACCENT} stroke={ACCENT} />
+    </>
+  ),
+  shop: (
+    <>
+      {ground}
+      <rect x="30" y="34" width="100" height="70" fill={PAPER} />
+      <path d="M26 34h108" strokeWidth="2.2" />
+      <path d="M30 46h100l-6 12H36z" fill={ACCENT} stroke={ACCENT} />
+      {[46, 62, 78, 94, 110].map((x) => <path key={x} d={`M${x} 46l-3 12`} stroke={PAPER} />)}
+      <rect x="38" y="66" width="38" height="28" fill={PANE} />
+      <rect x="88" y="66" width="20" height="38" fill={PAPER} />
+      <rect x="114" y="66" width="10" height="20" fill={PANE} />
+      <path d="M40 24h80v10H40z" fill={PAPER} />
+    </>
+  ),
+  factory: (
+    <>
+      {ground}
+      <path d="M22 104V58l24 14V58l24 14V58l24 14V40h40v64z" fill={PAPER} />
+      <rect x="104" y="18" width="10" height="22" fill={PAPER} />
+      <g className="hv-bob"><circle cx="112" cy="10" r="4" stroke={ACCENT} /><circle cx="122" cy="6" r="3" stroke={ACCENT} opacity="0.6" /></g>
+      {[30, 54, 78].map((x) => <rect key={x} x={x} y="80" width="12" height="10" fill={PANE} />)}
+      <rect x="104" y="72" width="22" height="32" fill={ACCENT} stroke={ACCENT} />
+      <path d="M104 80h22M104 88h22M104 96h22" stroke={PAPER} />
+    </>
+  ),
+  barn: (
+    <>
+      {ground}
+      <path d="M34 104V58l16-18h40l16 18v46z" fill={PAPER} />
+      <path d="M30 60 50 36h40l20 24" />
+      <rect x="56" y="72" width="28" height="32" fill={PAPER} />
+      <path d="M56 72l28 32M84 72l-28 32" stroke={ACCENT} />
+      <rect x="64" y="48" width="12" height="12" fill={PANE} />
+      <path d="M116 104V42a10 10 0 0 1 20 0v62" fill={PAPER} />
+      <path d="M116 56h20M116 72h20M116 88h20" opacity="0.5" />
+      <path d="M14 112c20-4 40-4 60 0" stroke={ACCENT} opacity="0.5" />
+    </>
+  ),
+  school: (
+    <>
+      {ground}
+      <rect x="24" y="58" width="112" height="46" fill={PAPER} />
+      <path d="M58 58V38l22-16 22 16v20" fill={PAPER} />
+      <circle cx="80" cy="42" r="7" fill={PANE} />
+      <path d="M80 42v-4M80 42h3" />
+      <path d="M80 22V8" />
+      <path d="M80 8h14l-3 4 3 4H80" fill={ACCENT} stroke={ACCENT} />
+      {[32, 46, 104, 118].map((x) => <rect key={x} x={x} y="68" width="9" height="12" fill={PANE} />)}
+      <path d="M70 104V80a10 10 0 0 1 20 0v24" fill={PAPER} />
+      <path d="M20 58h120" strokeWidth="2" />
+    </>
+  ),
+  road: (
+    <>
+      {ground}
+      {house({ x: 24, y: 104, w: 40, h: 28 })}
+      <path d="M86 104 104 20M150 104 122 20" />
+      <path d="M118 96l-2-10M115 76l-2-10M112 56l-1-8M110 40l-1-7" stroke={ACCENT} strokeWidth="2" />
+      <path d="M74 24v80" stroke={ACCENT} strokeDasharray="3 4" />
+      <path d="M70 24h8M70 104h8" stroke={ACCENT} />
+    </>
+  ),
+
   /* ---------------- process ---------------- */
   phone: (
     <>
@@ -229,16 +302,20 @@ const drawings: Record<string, React.ReactNode> = {
 /** Map tags/categories to a drawing (used for blog cards). */
 export function vignetteForTags(tags: string[]) {
   const t = tags.join(" ").toLowerCase();
-  if (/estate|probate/.test(t)) return "scroll";
-  if (/divorce/.test(t)) return "scale";
+  if (/estate|probate/.test(t)) return "key";
+  if (/divorce|separation/.test(t)) return "scale";
   if (/cra|tax/.test(t)) return "receipt";
-  if (/mpac|litigation/.test(t)) return "gavel";
-  if (/condo/.test(t)) return "building";
+  if (/mpac|assessment/.test(t)) return "coins";
+  if (/litigation/.test(t)) return "gavel";
+  if (/expropriation/.test(t)) return "road";
+  if (/commercial|retail|office/.test(t)) return "shop";
+  if (/industrial/.test(t)) return "factory";
+  if (/farm|agricultur|rural/.test(t)) return "barn";
+  if (/condo|multi|investor/.test(t)) return "building";
   if (/mortgage|refinanc/.test(t)) return "bank";
   if (/selling|pricing/.test(t)) return "tag";
-  if (/buying/.test(t)) return "key";
-  if (/investor|land|secondary/.test(t)) return "coins";
-  if (/older|renovation|energy|stigma|insurance/.test(t)) return "measure";
+  if (/buying/.test(t)) return "briefcase";
+  if (/older|renovation|energy|stigma|insurance|land|secondary/.test(t)) return "measure";
   return "report";
 }
 

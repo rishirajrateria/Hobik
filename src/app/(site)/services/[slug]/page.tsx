@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { pageMeta } from "@/lib/seo";
-import { getService, services } from "@/lib/services";
+import { getService, services, type Service } from "@/lib/services";
+import { serviceOptions } from "@/lib/defaultForms";
 import { faqs as generalFaqs } from "@/lib/faqs";
 import { faqSchema, serviceSchema } from "@/lib/schema";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Vignette } from "@/components/Vignettes";
 import { Testimonials } from "@/components/Testimonials";
-import { AreaChips, CtaBand, FaqList, HeroCtas, JsonLd, PageHero, Process, SectionHead } from "@/components/Sections";
+import { AreaChips, CtaBand, SouthernOntario, FaqList, HeroCtas, JsonLd, PageHero, Process, SectionHead } from "@/components/Sections";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -20,24 +21,31 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const s = getService((await params).slug);
   if (!s) return {};
-  return pageMeta({ title: `${s.name} Toronto | Certified Appraisers`, description: `${s.answer.slice(0, 150).replace(/\s\S*$/, "")}… Free quote.`, path: `/services/${s.slug}` });
+  return pageMeta({ title: `${s.name} Appraisal Toronto & Southern Ontario | AACI Appraiser`, description: `${s.answer.slice(0, 150).replace(/\s\S*$/, "")}…`, path: `/services/${s.slug}` });
+}
+
+/** Pre-select the matching option in the quote form. */
+function formDefaults(s: Service): Record<string, string> {
+  if (s.group === "property") return { property_type: s.name };
+  const opt = serviceOptions.find((o) => o.toLowerCase().startsWith(s.name.toLowerCase().slice(0, 8)));
+  return opt && s.slug !== "non-financing-appraisal" ? { service: opt } : {};
 }
 
 export default async function ServicePage({ params }: Props) {
   const s = getService((await params).slug);
   if (!s) notFound();
-  const faq = [...s.faqs, ...generalFaqs.slice(0, 3)];
-  const related = services.filter((x) => x.slug !== s.slug).slice(0, 3);
+  const faq = [...s.faqs, ...generalFaqs.slice(0, 2)];
+  const related = services.filter((x) => x.slug !== s.slug && x.group === s.group).slice(0, 4);
 
   return (
     <>
       <JsonLd data={[serviceSchema(s), faqSchema(faq)]} />
       <PageHero
         crumbs={[{ name: "Services", path: "/services" }, { name: s.name, path: `/services/${s.slug}` }]}
-        eyebrow="Toronto & GTA"
-        title={<>{s.name} in Toronto</>}
+        eyebrow={s.group === "property" ? "Property type" : s.group === "use" ? "Non-financing appraisal" : "Service"}
+        title={<>{s.slug === "advisory-consulting" ? s.name : `${s.name} appraisals`}</>}
         answer={s.answer}
-        aside={<QuoteForm compact defaultService={s.name} location={`service_${s.slug}`} />}
+        aside={<QuoteForm compact defaults={formDefaults(s)} location={`service_${s.slug}`} />}
       >
         <HeroCtas location={`service_${s.slug}_hero`} />
       </PageHero>
@@ -90,7 +98,7 @@ export default async function ServicePage({ params }: Props) {
       <section className="border-t border-ink-100 bg-paper-50 py-20">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <SectionHead eyebrow="FAQ" title={`${s.name} questions`} />
+            <SectionHead eyebrow="FAQ" title="Questions" />
           </div>
           <div className="lg:col-span-8"><FaqList items={faq} /></div>
         </div>
@@ -99,11 +107,12 @@ export default async function ServicePage({ params }: Props) {
       <section className="border-t border-ink-100 py-20">
         <div className="container-x grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
-            <SectionHead eyebrow="Where we work" title={`${s.name} across the GTA`} />
+            <SectionHead eyebrow="Coverage" title="GTHA + Southern Ontario" />
             <div className="mt-10"><AreaChips /></div>
+            <div className="mt-10"><SouthernOntario /></div>
           </div>
           <div className="lg:col-span-5">
-            <h2 className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">Related services</h2>
+            <h2 className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">{s.group === "property" ? "Other property types" : "Related services"}</h2>
             <ul className="mt-5 border-t border-ink-950">
               {related.map((r) => (
                 <li key={r.slug} className="border-b border-ink-100">
@@ -118,7 +127,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      <CtaBand title={`Book your ${s.name.toLowerCase()} today.`} location={`service_${s.slug}_bottom`} />
+      <CtaBand title={`Need a ${s.name.toLowerCase()} appraisal? Request a quote.`} location={`service_${s.slug}_bottom`} />
     </>
   );
 }

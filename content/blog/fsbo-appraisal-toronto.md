@@ -53,4 +53,4 @@ Usually not — lenders order their own. But a well-supported price makes a low 
 
 ---
 
-*Selling privately? [Get a pre-listing appraisal](/services/pre-listing-fsbo-appraisal).*
+*Selling privately? [Get a pre-listing appraisal](/services/advisory-consulting).*

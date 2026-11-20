@@ -58,6 +58,6 @@ It reflects a 2016 valuation date for mass-appraisal purposes, not market value 
 
 ---
 
-*Need a value as of your conversion date? [Learn about CRA appraisals](/services/capital-gains-cra-appraisal).*
+*Need a value as of your conversion date? [Learn about CRA appraisals](/services/tax-appraisal).*
 
 *General information only — tax elections have conditions. Confirm with a tax professional.*

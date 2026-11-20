@@ -6,26 +6,27 @@ import { CallLink } from "@/components/Tracked";
 import { PageHero } from "@/components/Sections";
 
 export const metadata = pageMeta({
-  title: "Contact Home Value Inc. | Toronto Home Appraisers",
-  description: `Call ${site.phone} or send a message to book a certified home appraisal in Toronto or the GTA. Office at ${site.address.street}, North York.`,
+  title: "Contact Value Trust Appraisals Inc.",
+  description: `Call ${site.phone} or email ${site.email} to request an appraisal quote. Office at ${site.address.street}, ${site.address.city}.`,
   path: "/contact",
 });
 
 export default function ContactPage() {
-  const mapQ = encodeURIComponent(`${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`);
+  const addr = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`.trim();
+  const mapQ = encodeURIComponent(addr);
   const cards = [
     { icon: "phone", t: "Call", v: site.phone, href: telHref, call: true },
     { icon: "mail", t: "Email", v: site.email, href: `mailto:${site.email}` },
-    { icon: "pin", t: "Office", v: `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`, href: `https://www.google.com/maps/search/?api=1&query=${mapQ}` },
-    { icon: "clock", t: "Hours", v: site.hoursLabel },
+    { icon: "pin", t: "Office", v: addr, href: `https://www.google.com/maps/search/?api=1&query=${mapQ}` },
+    { icon: "globe", t: "Coverage", v: `${site.coverage}, case by case` },
   ];
   return (
     <>
       <PageHero
         crumbs={[{ name: "Contact", path: "/contact" }]}
         eyebrow="Contact"
-        title={<>Let&apos;s value your home</>}
-        answer="Call for the fastest answer, or send the form and we'll get back to you with a quote."
+        title={<>Call or email us</>}
+        answer="Alternatively, fill out the form and we will get back to you."
         aside={<QuoteForm location="contact" />}
       >
         <dl className="mt-10 grid max-w-2xl border-t border-ink-950 sm:grid-cols-2 sm:gap-x-10">

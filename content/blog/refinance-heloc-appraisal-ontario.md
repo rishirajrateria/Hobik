@@ -55,6 +55,6 @@ Not always. Some lenders use automated or desktop valuations for low-risk files.
 
 ---
 
-*Using a private lender or planning a refinance? [Get an independent value](/services/mortgage-refinance-appraisal).*
+*Using a private lender or planning a refinance? [Get an independent value](/services/mortgage-financing-appraisal).*
 
 *Lending limits change and vary by lender — confirm current rules with your broker.*

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { absUrl } from "@/lib/site";
 import { services } from "@/lib/services";
+import { team } from "@/lib/team";
 import { areas } from "@/lib/areas";
 import { getPublishedPosts } from "@/lib/content";
 
@@ -18,6 +19,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     page("/get-a-quote", 0.8),
     page("/faq", 0.7),
     page("/about", 0.6),
+    page("/team", 0.6),
+    ...team.map((m) => page(`/team/${m.slug}`, 0.5)),
     page("/contact", 0.7),
     page("/blog", 0.7, "weekly"),
     page("/book-appraisal", 0.8),

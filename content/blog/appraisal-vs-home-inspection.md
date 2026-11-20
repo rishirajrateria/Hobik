@@ -50,4 +50,4 @@ No. A home can be in perfect condition and still appraise below the price if com
 
 ---
 
-*Buying soon? [Ask about a pre-purchase appraisal](/services/pre-purchase-appraisal).*
+*Buying soon? [Ask about a pre-purchase appraisal](/services/advisory-consulting).*

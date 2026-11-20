@@ -19,7 +19,7 @@ export function Sidebar({ items, user, signOut }: { items: NavItem[]; user: { na
           <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m3 11 9-8 9 8" /><path d="M5 10v10h14V10" /><path d="m9 15 2 2 4-4" /></svg>
         </span>
         <span className="leading-tight">
-          <span className="block font-display text-[15px] font-extrabold text-white">Home Value</span>
+          <span className="block font-display text-[15px] font-extrabold text-white">Value Trust</span>
           <span className="block text-[10px] font-bold tracking-[0.2em] text-accent-300 uppercase">Workspace</span>
         </span>
       </Link>
@@ -67,7 +67,7 @@ export function Sidebar({ items, user, signOut }: { items: NavItem[]; user: { na
         <button onClick={() => setOpen(true)} className="grid h-10 w-10 place-items-center rounded-xl ring-1 ring-slate-200" aria-label="Open navigation">
           <Icon name="menu" className="h-5 w-5" />
         </button>
-        <span className="font-display font-extrabold text-ink-950">Home Value</span>
+        <span className="font-display font-extrabold text-ink-950">Value Trust</span>
         <span className="w-10" />
       </div>
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 bg-ink-950 lg:block">{nav}</aside>

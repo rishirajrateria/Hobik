@@ -57,6 +57,6 @@ Both rely on it. The estate uses it for the final return; the heir keeps it as p
 
 ---
 
-*We prepare date-of-death appraisals for executors and heirs across the GTA. [See estate appraisals](/services/estate-probate-appraisal) or [get a quote](/get-a-quote).*
+*We prepare date-of-death appraisals for executors and heirs across the GTA. [See estate appraisals](/services/estate-appraisal) or [get a quote](/get-a-quote).*
 
 *General information only — speak to an accountant about your situation.*

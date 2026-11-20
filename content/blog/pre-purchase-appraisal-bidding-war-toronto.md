@@ -56,4 +56,4 @@ An exterior or desktop valuation may be possible, with assumptions clearly state
 
 ---
 
-*Bidding soon? [Ask about a rush pre-purchase appraisal](/services/pre-purchase-appraisal).*
+*Bidding soon? [Ask about a rush pre-purchase appraisal](/services/advisory-consulting).*

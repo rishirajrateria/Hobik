@@ -56,4 +56,4 @@ In downtown Toronto, yes. Many buyers won't consider a unit without parking, and
 
 ---
 
-*Need a condo valued for a refinance, estate or sale? [See condo appraisals](/services/condo-appraisal).*
+*Need a condo valued for a refinance, estate or sale? [See condo appraisals](/services/residential-appraisal).*

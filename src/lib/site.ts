@@ -3,43 +3,42 @@
  * Everything here feeds visible copy, JSON-LD schema, llms.txt and the sitemap,
  * so keeping it accurate keeps Google, ChatGPT, Perplexity, Gemini and Claude consistent.
  *
- * Items marked VERIFY were gathered from public listings and must be confirmed
- * with the client before launch.
+ * Facts come from valuetrustappraisalsinc.ca. Items marked VERIFY still need the client's confirmation.
  */
 export const site = {
-  name: "Home Value Inc.",
-  brand: "Home Appraisal Toronto",
-  legalName: "Home Value Inc.",
-  tagline: "Certified Home Appraisals Across Toronto & the GTA",
+  name: "Value Trust Appraisals Inc.",
+  brand: "Value Trust",
+  legalName: "Value Trust Appraisals Inc.",
+  /** Company slogan, as on the logo. */
+  slogan: "Trust in Every Valuation, Excellence in Every Service.",
+  tagline: "Real estate appraisal and advisory services in Southern Ontario",
   description:
-    "Home Value Inc. provides certified residential property appraisals in Toronto, the GTA and Southern Ontario for mortgages, estates, divorce, CRA capital gains, MPAC tax appeals and private sales. Fast turnaround, lender-accepted reports.",
-  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.homeappraisaltoronto.ca").replace(/\/$/, ""),
-  phone: "(416) 871-9224",
-  phoneE164: "+14168719224",
-  email: "info@homeappraisaltoronto.ca", // VERIFY
+    "Value Trust Appraisals Inc. provides real estate appraisal and advisory services for residential, multi-residential, commercial, industrial, agricultural and institutional properties across the GTHA and Southern Ontario. AACI-designated appraiser, CUSPAP-compliant reports.",
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://www.valuetrustappraisalsinc.ca").replace(/\/$/, ""),
+  phone: "(647) 783-8979",
+  phoneE164: "+16477838979",
+  email: "hobikh@valuetrustappraisalsinc.ca",
   address: {
-    street: "36 Gwendolen Ave",
-    city: "Toronto",
+    street: "1195 The Queensway",
+    city: "Etobicoke",
     region: "ON",
     regionName: "Ontario",
-    postalCode: "M2N 1A2",
+    postalCode: "", // VERIFY: confirm postal code with the client
     country: "CA",
   },
-  geo: { lat: 43.7587, lng: -79.4089 }, // approx. 36 Gwendolen Ave, North York — VERIFY
+  geo: { lat: 43.6215, lng: -79.5205 }, // approx. 1195 The Queensway, Etobicoke
   hours: [
-    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "19:00" },
-    { days: ["Saturday"], opens: "09:00", closes: "17:00" },
-  ], // VERIFY
-  hoursLabel: "Mon–Fri 8am–7pm · Sat 9am–5pm",
+    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "17:00" },
+  ], // VERIFY business hours
+  hoursLabel: "Mon–Fri 9am–5pm", // VERIFY
   yearsExperience: "10+",
-  credentials: "Appraisal Institute of Canada (AIC) members", // VERIFY designations (AACI / CRA)
-  turnaround: "48–72 hours", // VERIFY typical report turnaround
-  startingPrice: null as string | null, // e.g. "$450" — set once confirmed; shown on pricing + ads landing
+  credentials: "AACI-designated appraiser, Appraisal Institute of Canada (AIC)",
+  /** Where we work: main area plus case-by-case coverage. */
+  coverage: "GTHA + Southern Ontario",
+  coverageNote: "Main coverage is the Greater Toronto and Hamilton Area. Elsewhere in Southern Ontario on a case-by-case basis.",
+  propertyTypes: ["Residential", "Multi-residential", "Commercial", "Industrial", "Agricultural", "Institutional"],
   priceRange: "$$",
-  founded: "2014", // VERIFY
-  sameAs: [
-    "https://www.facebook.com/HomeAppraisal/", // VERIFY this is the client's page
-  ] as string[],
+  sameAs: [] as string[], // add the LinkedIn company page and Google Business Profile URLs when supplied
 };
 
 export type Site = typeof site;

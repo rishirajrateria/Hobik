@@ -58,6 +58,6 @@ No. Appraisers must be impartial under CUSPAP. The report is an independent opin
 
 ---
 
-*We provide neutral matrimonial-home valuations across Toronto and the GTA. [See divorce appraisals](/services/divorce-separation-appraisal) or [request a quote](/get-a-quote).*
+*We provide neutral matrimonial-home valuations across Toronto and the GTA. [See divorce appraisals](/services/marital-separation-appraisal) or [request a quote](/get-a-quote).*
 
 *General information only — not legal advice.*

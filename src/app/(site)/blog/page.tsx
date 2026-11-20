@@ -5,8 +5,8 @@ import { CtaBand, PageHero } from "@/components/Sections";
 
 export const revalidate = 3600;
 export const metadata = pageMeta({
-  title: "Home Appraisal Blog & Guides for Ontario Homeowners",
-  description: "Plain-English articles on home appraisal costs, preparing for an appraisal, estates, divorce, CRA and MPAC, from Toronto's Home Value Inc.",
+  title: "Articles: Real Estate Appraisal in Ontario",
+  description: "Plain-English articles on real estate appraisal in Ontario: preparing for an appraisal, estates, separation, tax, assessment appeals and more, from Value Trust Appraisals Inc.",
   path: "/blog",
 });
 
@@ -14,7 +14,7 @@ export default async function BlogIndex() {
   const posts = await getPublishedPosts();
   return (
     <>
-      <PageHero crumbs={[{ name: "Blog", path: "/blog" }]} eyebrow="Blog & guides" title={<>Appraisals, explained</>} answer="Short, practical reads for Toronto and Ontario homeowners, executors, lawyers and investors." />
+      <PageHero crumbs={[{ name: "Articles", path: "/blog" }]} eyebrow="Articles" title={<>Appraisals, explained</>} answer="Short, practical reads for owners, executors, lawyers, lenders and investors in Ontario." />
       <section className="container-x py-20">
         {posts.length ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">{posts.map((p) => <BlogCard key={p.id} p={p} />)}</div>

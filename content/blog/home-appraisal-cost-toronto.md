@@ -61,7 +61,7 @@ Have these ready and you can usually get a firm fee in one call:
 - The date of value you need (today, or a past date)
 - Your deadline
 
-See [our pricing page](/pricing) for what's included in every report, or [request a free quote](/get-a-quote).
+See [our pricing page](/pricing) for what's included in every report, or [request a quote](/get-a-quote).
 
 ## Frequently asked questions
 
@@ -79,4 +79,4 @@ Generally no. Reports are prepared for a named client and a specific intended us
 
 ---
 
-*Need a firm price? [Get a free, no-obligation quote](/get-a-quote) or call (416) 871-9224.*
+*Need a firm price? [Request a no-obligation quote](/get-a-quote) or call (647) 783-8979.*

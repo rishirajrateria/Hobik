@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { legacyServiceRedirects } from "./src/lib/services";
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -16,18 +17,13 @@ const nextConfig: NextConfig = {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
   async redirects() {
-    // Preserve equity from the legacy PHP site's URLs.
+    // URLs from the client's previous Squarespace site, and renamed service pages.
     return [
-      { source: "/index.php", destination: "/", permanent: true },
-      { source: "/rates-and-services.php", destination: "/pricing", permanent: true },
-      { source: "/contact.php", destination: "/contact", permanent: true },
-      { source: "/contact-us.php", destination: "/contact", permanent: true },
-      { source: "/about.php", destination: "/about", permanent: true },
-      { source: "/about-us.php", destination: "/about", permanent: true },
-      { source: "/services.php", destination: "/services", permanent: true },
-      { source: "/faq.php", destination: "/faq", permanent: true },
-      { source: "/guides", destination: "/blog", permanent: true },
-      { source: "/guides/:slug", destination: "/blog/:slug", permanent: true },
+      { source: "/faqs-4", destination: "/faq", permanent: true },
+      { source: "/coverage-area", destination: "/areas", permanent: true },
+      { source: "/appointments", destination: "/book-appraisal", permanent: true },
+      { source: "/our-team", destination: "/team", permanent: true },
+      ...Object.entries(legacyServiceRedirects).map(([from, to]) => ({ source: `/services/${from}`, destination: `/services/${to}`, permanent: true })),
     ];
   },
 };

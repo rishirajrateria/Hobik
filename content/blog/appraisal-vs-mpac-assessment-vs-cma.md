@@ -56,4 +56,4 @@ List price is a strategy decision you make with your agent. An independent appra
 
 ---
 
-*Want an independent number? [Get a free appraisal quote](/get-a-quote).*
+*Want an independent number? [Request an appraisal quote](/get-a-quote).*

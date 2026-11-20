@@ -26,7 +26,7 @@ export const areas: Area[] = [
     region: "Toronto",
     map: { x: 55, y: 48 },
     intro:
-      "Our office is on Gwendolen Ave in Willowdale, so North York is home turf: Yonge-Sheppard condos, Bayview Village bungalows and custom rebuilds in Lansing and Willowdale.",
+      "North York mixes Yonge-Sheppard condos, Bayview Village bungalows, custom rebuilds in Lansing and Willowdale, and commercial and industrial pockets around Downsview and Don Mills.",
     neighbourhoods: ["Willowdale", "Bayview Village", "Lansing", "Don Mills", "York Mills", "Bedford Park", "Newtonbrook", "Downsview"],
     homeTypes: ["Custom rebuilds", "Bungalows", "High-rise condos", "Townhomes"],
   },
@@ -46,7 +46,7 @@ export const areas: Area[] = [
     region: "Toronto",
     map: { x: 40, y: 60 },
     intro:
-      "Etobicoke ranges from lakeside condos in Humber Bay to estate homes in the Kingsway. We account for ravine lots, rebuilds and lake proximity.",
+      "Our office is on The Queensway in Etobicoke. The area ranges from lakeside condos in Humber Bay and estate homes in the Kingsway to the industrial and commercial corridors along the Queensway and in Rexdale.",
     neighbourhoods: ["The Kingsway", "Humber Bay", "Mimico", "Islington Village", "Long Branch", "Rexdale", "Markland Wood"],
     homeTypes: ["Estate homes", "Waterfront condos", "Bungalows", "Split-levels"],
   },
@@ -213,3 +213,17 @@ export const areas: Area[] = [
 ];
 
 export const getArea = (slug: string) => areas.find((a) => a.slug === slug);
+
+/** Southern Ontario regions served case by case, beyond the GTHA. VERIFY: client to confirm the final region list. */
+export const southernOntario = [
+  "Niagara",
+  "Waterloo Region",
+  "Guelph & Wellington",
+  "Brantford & Brant",
+  "London & Middlesex",
+  "Simcoe County & Barrie",
+  "Kawartha Lakes & Peterborough",
+  "Northumberland",
+  "Haldimand & Norfolk",
+  "Dufferin",
+];

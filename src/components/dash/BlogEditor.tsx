@@ -140,8 +140,8 @@ export function BlogEditor({ id, initial, flash }: { id: string | null; initial:
         <div className="space-y-4 rounded-2xl bg-white p-4 ring-1 ring-slate-200">
           <p className="text-sm font-bold text-ink-950">Search & AI preview</p>
           <div className="rounded-xl bg-slate-50 p-3">
-            <p className="truncate text-xs text-slate-500">homeappraisaltoronto.ca › blog › {slugPreview || "…"}</p>
-            <p className="mt-0.5 line-clamp-1 text-[17px] text-[#1a0dab]">{seoTitle} | Home Value Inc.</p>
+            <p className="truncate text-xs text-slate-500">valuetrustappraisalsinc.ca › blog › {slugPreview || "…"}</p>
+            <p className="mt-0.5 line-clamp-1 text-[17px] text-[#1a0dab]">{seoTitle} | Value Trust Appraisals Inc.</p>
             <p className="mt-0.5 line-clamp-2 text-xs text-slate-600">{seoDesc}</p>
           </div>
           <div>

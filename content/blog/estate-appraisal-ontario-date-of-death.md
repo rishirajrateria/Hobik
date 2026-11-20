@@ -69,6 +69,6 @@ Property held in joint tenancy usually passes outside the estate and may not be 
 
 ---
 
-*We prepare date-of-death appraisals across Toronto and the GTA. [Learn about estate appraisals](/services/estate-probate-appraisal) or [request a quote](/get-a-quote).*
+*We prepare date-of-death appraisals across Toronto and the GTA. [Learn about estate appraisals](/services/estate-appraisal) or [request a quote](/get-a-quote).*
 
 *This article is general information, not legal or tax advice. Confirm your situation with an estate lawyer or accountant.*

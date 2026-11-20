@@ -4,24 +4,24 @@
   --font-sans: var(--font-sans-src), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-serif-src), Georgia, "Times New Roman", serif;
 
-  /* White paper, ink and a deep green accent */
+  /* White paper, charcoal ink and the Value Trust gold (from the logo: #e8a941 on #262626) */
   --color-paper: #ffffff;
-  --color-paper-50: #f6f6f4;
-  --color-ink: #15181d;
-  --color-ink-950: #15181d;
-  --color-ink-900: #1d2128;
-  --color-ink-800: #2c313a;
-  --color-ink-700: #4a505b;
-  --color-ink-100: #e4e4e0;
-  --color-ink-50: #efefec;
-  /* Accent: deep forest green */
-  --color-accent-300: #a7d3bc;
-  --color-accent-400: #2e7a5a;
-  --color-accent-500: #205c44;
-  --color-accent-600: #1a4a37;
-  --color-sage-400: #6f9a7f;
-  --color-sage-500: #3f6b52;
-  --color-lake: #dbe3e4;
+  --color-paper-50: #f7f6f3;
+  --color-ink: #161616;
+  --color-ink-950: #161616;
+  --color-ink-900: #202020;
+  --color-ink-800: #2e2e2e;
+  --color-ink-700: #555555;
+  --color-ink-100: #e6e4df;
+  --color-ink-50: #f0eee9;
+  /* Accent: gold. 500 = logo gold for fills; 600 = deeper gold for text on white */
+  --color-accent-300: #f2c879;
+  --color-accent-400: #eeb653;
+  --color-accent-500: #e8a941;
+  --color-accent-600: #94661a;
+  --color-sage-400: #c9a462;
+  --color-sage-500: #8a7350;
+  --color-lake: #f4ead6;
 
   --animate-fade-up: fade-up 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
@@ -42,7 +42,7 @@
 
 /* Buttons: rectangular, solid, no glow */
 @utility btn { @apply inline-flex items-center justify-center gap-2 rounded-[3px] px-5 py-3 text-[15px] font-semibold whitespace-nowrap transition-colors duration-200; }
-@utility btn-primary { @apply btn bg-accent-500 text-white hover:bg-accent-600; }
+@utility btn-primary { @apply btn bg-accent-500 text-ink-950 hover:bg-accent-400; }
 @utility btn-ink { @apply btn bg-ink-950 text-paper hover:bg-ink-800; }
 @utility btn-ghost { @apply btn border border-white/30 text-white hover:border-white hover:bg-white/5; }
 @utility btn-outline { @apply btn border border-ink-950/25 text-ink-950 hover:border-ink-950; }
@@ -167,3 +167,9 @@
   & td { @apply border-b border-ink-100 px-3 py-3 align-top; }
   & tr:last-child td { @apply border-b-0; }
 }
+
+/* Hero sun (echoes the logo): rises behind the house once the drawing starts */
+.motion [data-anim="sketch"] .hv-sun { opacity: 0; transform: translateY(40px); transform-box: fill-box; }
+.motion [data-anim="sketch"].is-drawn .hv-sun { animation: hv-sun-rise 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) 0.9s forwards; }
+@keyframes hv-sun-rise { to { opacity: 0.92; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .motion [data-anim="sketch"] .hv-sun { opacity: 0.92; transform: none; animation: none; } }

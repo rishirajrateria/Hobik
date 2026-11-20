@@ -57,4 +57,4 @@ Typically more costly than bank financing. Speak with a licensed mortgage broker
 
 ---
 
-*Need a lender-addressed report fast? [See private lending appraisals](/services/private-lending-appraisal).*
+*Need a lender-addressed report fast? [See private lending appraisals](/services/mortgage-financing-appraisal).*

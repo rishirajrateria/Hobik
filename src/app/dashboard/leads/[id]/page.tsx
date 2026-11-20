@@ -41,7 +41,7 @@ export default async function LeadDetail({ params }: { params: Promise<{ id: str
         </div>
         <div className="flex flex-wrap gap-2">
           {lead.phone && <a href={`tel:${lead.phone}`} className={btnPrimary}><Icon name="phone" className="h-4 w-4" /> Call {lead.phone}</a>}
-          {lead.email && <a href={`mailto:${lead.email}?subject=${encodeURIComponent("Your appraisal quote — Home Value Inc.")}`} className={btnSecondary}><Icon name="mail" className="h-4 w-4" /> Email</a>}
+          {lead.email && <a href={`mailto:${lead.email}?subject=${encodeURIComponent("Your appraisal quote, Value Trust Appraisals Inc.")}`} className={btnSecondary}><Icon name="mail" className="h-4 w-4" /> Email</a>}
         </div>
       </div>
 

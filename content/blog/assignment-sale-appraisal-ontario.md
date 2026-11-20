@@ -59,4 +59,4 @@ Appraisers rely more on similar nearby buildings and explain the comparability.
 
 ---
 
-*Closing soon? [Get an independent value first](/services/condo-appraisal).*
+*Closing soon? [Get an independent value first](/services/residential-appraisal).*

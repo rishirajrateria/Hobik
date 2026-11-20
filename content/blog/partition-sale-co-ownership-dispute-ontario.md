@@ -50,6 +50,6 @@ If needed. Ask whether the appraiser provides expert testimony.
 
 ---
 
-*Need a defensible value for a co-ownership dispute? [See litigation appraisals](/services/litigation-expert-witness).*
+*Need a defensible value for a co-ownership dispute? [See litigation appraisals](/services/litigation-appraisal).*
 
 *General information only — consult a real estate litigation lawyer.*

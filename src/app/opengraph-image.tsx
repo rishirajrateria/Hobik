@@ -1,26 +1,26 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/lib/site";
 
-export const alt = `${site.name}: Certified Home Appraisals in Toronto & the GTA`;
+export const alt = `${site.name}: real estate appraisal and advisory in Southern Ontario`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OgImage() {
+export default async function OgImage() {
+  const logo = `data:image/png;base64,${(await readFile(join(process.cwd(), "public/brand/value-trust-logo.png"))).toString("base64")}`;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, background: "#ffffff", color: "#15181d", fontFamily: "serif" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 18, borderBottom: "2px solid #15181d", paddingBottom: 24 }}>
-          <svg width="52" height="52" viewBox="0 0 32 32" fill="none" stroke="#15181d" strokeWidth="1.8"><path d="M5 15 16 5l11 10" /><path d="M8 13v14h16V13" /><path d="M13 27v-7h6v7" /><path d="M3 29h26" stroke="#205c44" strokeWidth="2.4" /></svg>
-          <div style={{ fontSize: 34 }}>Home Value</div>
-          <div style={{ fontSize: 18, letterSpacing: 4, color: "#4a505b", fontFamily: "sans-serif", marginLeft: 8 }}>APPRAISERS · TORONTO</div>
-        </div>
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, background: "#ffffff", color: "#161616", fontFamily: "serif" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logo} width={442} height={170} alt="" />
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 80, lineHeight: 1.05 }}>Certified home appraisals</div>
-          <div style={{ fontSize: 80, lineHeight: 1.05, color: "#205c44" }}>in Toronto and the GTA</div>
+          <div style={{ fontSize: 66, lineHeight: 1.08 }}>Real estate appraisal &amp; advisory</div>
+          <div style={{ fontSize: 66, lineHeight: 1.08, color: "#94661a" }}>GTHA + Southern Ontario</div>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 26, fontFamily: "sans-serif", color: "#4a505b" }}>
-          <span>Mortgage · Estate · Divorce · CRA · MPAC</span>
-          <span style={{ color: "#15181d", fontWeight: 700 }}>{site.phone}</span>
+        <div style={{ display: "flex", justifyContent: "space-between", borderTop: "6px solid #e8a941", paddingTop: 22, fontSize: 25, fontFamily: "sans-serif", color: "#555555" }}>
+          <span>Residential · Commercial · Industrial · Agricultural · Institutional</span>
+          <span style={{ color: "#161616", fontWeight: 700 }}>{site.phone}</span>
         </div>
       </div>
     ),

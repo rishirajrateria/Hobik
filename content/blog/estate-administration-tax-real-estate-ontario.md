@@ -54,6 +54,6 @@ Estate Administration Tax uses the value at the date of death. Later changes aff
 
 ---
 
-*Need a date-of-death value? [See estate appraisals](/services/estate-probate-appraisal).*
+*Need a date-of-death value? [See estate appraisals](/services/estate-appraisal).*
 
 *General information only — confirm your estate's situation with a lawyer.*

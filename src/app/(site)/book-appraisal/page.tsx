@@ -8,8 +8,8 @@ import { Testimonials } from "@/components/Testimonials";
 import { PageHero, Process } from "@/components/Sections";
 
 export const metadata = pageMeta({
-  title: "Book a Home Appraisal Online | Toronto & GTA",
-  description: `Answer a few quick questions to book a certified home appraisal in Toronto or the GTA. Reports in ${site.turnaround}.`,
+  title: "Book an Appraisal Online",
+  description: `Answer a few quick questions to book an appraisal anywhere in the GTHA or Southern Ontario. Or call ${site.phone}.`,
   path: "/book-appraisal",
 });
 
@@ -26,7 +26,7 @@ export default async function BookPage() {
         aside={<DynamicForm form={form} location="book_page" />}
       >
         <ul className="mt-8 max-w-lg border-t border-ink-950">
-          {["One question at a time", "Fee confirmed before booking", `Report typically in ${site.turnaround}`].map((t) => (
+          {["One question at a time", "Fee confirmed before booking", "All property types"].map((t) => (
             <li key={t} className="border-b border-ink-100 py-3 text-[16px] text-ink-950">{t}</li>
           ))}
         </ul>

@@ -9,8 +9,8 @@ const serif = Newsreader({ subsets: ["latin"], variable: "--font-serif-src", sty
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "Home Appraisal Toronto | Certified Appraisers | Home Value Inc.",
-    template: "%s | Home Value Inc.",
+    default: "Value Trust Appraisals Inc. | Real Estate Appraisal & Advisory, Southern Ontario",
+    template: "%s | Value Trust Appraisals Inc.",
   },
   description: site.description,
   applicationName: site.brand,
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   other: {
     "geo.region": "CA-ON",
-    "geo.placename": "Toronto",
+    "geo.placename": "Etobicoke, Toronto",
     "geo.position": `${site.geo.lat};${site.geo.lng}`,
     ICBM: `${site.geo.lat}, ${site.geo.lng}`,
   },

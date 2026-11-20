@@ -38,7 +38,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         <div className="lg:col-span-5">
           <span className="eyebrow">{setup ? "First-time setup" : "Team sign-in"}</span>
           <h1 className="mt-5 text-[40px] leading-[1.08] font-medium text-ink-950">{setup ? "Set up your workspace" : "Welcome back"}</h1>
-          <p className="mt-3 text-[17px] text-ink-700">{setup ? "Create the owner account. You can invite your team afterwards." : "Sign in to the Home Value dashboard."}</p>
+          <p className="mt-3 text-[17px] text-ink-700">{setup ? "Create the owner account. You can invite your team afterwards." : "Sign in to the Value Trust dashboard."}</p>
           <div className="mt-10 border border-ink-950 bg-paper-50 p-6 sm:p-8"><LoginForm setup={setup} next={next} /></div>
           {!setup && <p className="mt-5 text-[14px] text-ink-700">Forgot your password? Ask a workspace owner or admin to reset it.</p>}
         </div>

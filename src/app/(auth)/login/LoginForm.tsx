@@ -19,7 +19,7 @@ export function LoginForm({ setup, next }: { setup: boolean; next?: string }) {
       )}
       <div>
         <label htmlFor="email" className="mb-1.5 block text-[13px] font-semibold text-ink-800">Email</label>
-        <input id="email" name="email" type="email" required autoComplete="email" defaultValue={state.email} className={input} placeholder="you@homeappraisaltoronto.ca" />
+        <input id="email" name="email" type="email" required autoComplete="email" defaultValue={state.email} className={input} placeholder="you@valuetrustappraisalsinc.ca" />
       </div>
       <div>
         <label htmlFor="password" className="mb-1.5 block text-[13px] font-semibold text-ink-800">Password</label>

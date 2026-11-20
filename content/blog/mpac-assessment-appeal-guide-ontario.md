@@ -50,7 +50,7 @@ If you disagree with MPAC's RfR decision, file an appeal with the ARB (part of T
 
 ## Where an appraisal helps
 
-A **retrospective appraisal as of January 1, 2016** gives the ARB an independent, standards-based opinion of what your property was worth on the legislated date. It is most useful when the dispute is about value rather than a simple data error, or when the potential tax savings justify the cost. See our [property tax appeal appraisals](/services/property-tax-assessment-appeal).
+A **retrospective appraisal as of January 1, 2016** gives the ARB an independent, standards-based opinion of what your property was worth on the legislated date. It is most useful when the dispute is about value rather than a simple data error, or when the potential tax savings justify the cost. See our [property tax appeal appraisals](/services/assessment-appeal-appraisal).
 
 ## Frequently asked questions
 

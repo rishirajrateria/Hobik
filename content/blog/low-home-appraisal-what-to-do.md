@@ -61,4 +61,4 @@ No. On a firm agreement, the seller can insist on the agreed price.
 
 ---
 
-*Know the value before offer night. [Ask about a pre-purchase appraisal](/services/pre-purchase-appraisal).*
+*Know the value before offer night. [Ask about a pre-purchase appraisal](/services/advisory-consulting).*

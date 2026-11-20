@@ -5,8 +5,8 @@ import { faqSchema } from "@/lib/schema";
 import { CtaBand, FaqList, HeroCtas, JsonLd, PageHero } from "@/components/Sections";
 
 export const metadata = pageMeta({
-  title: "Home Appraisal FAQ | Toronto Appraisal Questions Answered",
-  description: "Answers to common questions about home appraisals in Toronto: cost, timing, preparation, retrospective values, MPAC, estates, divorce and more.",
+  title: "Appraisal FAQ | Value Trust Appraisals Inc.",
+  description: "Appraisal vs. home evaluation, the main purposes of an appraisal, preparing for the inspection, AACI vs. CRA designations, coverage area and payment methods.",
   path: "/faq",
 });
 
@@ -16,7 +16,7 @@ export default function FaqPage() {
   return (
     <>
       <JsonLd data={faqSchema(all)} />
-      <PageHero crumbs={[{ name: "FAQ", path: "/faq" }]} eyebrow="FAQ" title={<>Appraisal questions, answered</>}>
+      <PageHero crumbs={[{ name: "FAQ", path: "/faq" }]} eyebrow="FAQ" title={<>Frequently asked questions</>}>
         <HeroCtas location="faq_hero" />
       </PageHero>
       <section className="container-x py-20">
@@ -26,7 +26,7 @@ export default function FaqPage() {
             <FaqList items={faqs} />
           </div>
           <div>
-            <h2 className="mb-6 text-2xl font-medium text-ink-950">By appraisal type</h2>
+            <h2 className="mb-6 text-2xl font-medium text-ink-950">By service</h2>
             <FaqList items={serviceFaqs} />
           </div>
         </div>

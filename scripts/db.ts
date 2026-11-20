@@ -6,13 +6,14 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { randomBytes, scrypt } from "node:crypto";
 import { promisify } from "node:util";
-import { count, eq } from "drizzle-orm";
+import { count, eq, like, sql } from "drizzle-orm";
 import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { Pool } from "pg";
 import * as schema from "../src/db/schema";
 import { forms, posts, events, leads, testimonials, users } from "../src/db/schema";
 import { defaultBookingForm, defaultQuoteForm } from "../src/lib/defaultForms";
+import { legacyServiceRedirects } from "../src/lib/services";
 import { parseBlogFile } from "../src/lib/blogfile";
 
 // Migrations use a direct (unpooled) connection when the host provides one (Neon does).
@@ -48,8 +49,42 @@ async function run() {
 
   await seedOwner();
   await seedBlog();
+  await rebrand();
 
   if (process.argv.includes("--demo") || process.env.SEED_DEMO === "true") await demo();
+}
+
+/**
+ * One-off move from the Home Value template to Value Trust (idempotent; safe to run on every build).
+ * Only touches content that still matches the old defaults, so dashboard edits are kept.
+ */
+async function rebrand() {
+  // Forms still on the old defaults (old service names in the options) get the new defaults.
+  for (const f of [defaultQuoteForm, defaultBookingForm]) {
+    const [row] = await db.select().from(forms).where(eq(forms.slug, f.slug));
+    if (!row || !JSON.stringify(row.fields).includes("Mortgage & Refinance Appraisal")) continue;
+    const { id: _id, slug: _slug, name: _name, ...rest } = f;
+    await db.update(forms).set(rest).where(eq(forms.id, row.id));
+    console.log(`[db] rebrand: updated form "${f.slug}"`);
+  }
+  // Sample testimonials are removed; real (Google) reviews are added in the dashboard.
+  const removed = await db.delete(testimonials).where(like(testimonials.body, "Demo testimonial.%")).returning({ id: testimonials.id });
+  if (removed.length) console.log(`[db] rebrand: removed ${removed.length} sample testimonials`);
+  // Blog posts already in the database: renamed service links, phone number and quote wording.
+  const pairs: [string, string][] = [
+    ...Object.entries(legacyServiceRedirects).map(([a, b]) => [`/services/${a})`, `/services/${b})`] as [string, string]),
+    ["(416) 871-9224", "(647) 783-8979"],
+    ["Get a free, no-obligation quote", "Request a no-obligation quote"],
+    ["request a free quote", "request a quote"],
+    ["Get a free appraisal quote", "Request an appraisal quote"],
+    ["Get a free quote", "Request a quote"],
+  ];
+  let changed = 0;
+  for (const [from, to] of pairs) {
+    const r = await db.update(posts).set({ content: sql`replace(${posts.content}, ${from}, ${to})` }).where(like(posts.content, `%${from.replace(/[%_]/g, "\\$&")}%`)).returning({ id: posts.id });
+    changed += r.length;
+  }
+  if (changed) console.log(`[db] rebrand: updated ${changed} blog post links/phrases`);
 }
 
 /**
@@ -122,7 +157,7 @@ async function demo() {
   const gw = [40, 14, 8, 7, 7, 5, 4, 3, 2, 3, 2, 3, 2];
   const sources = ["google", "google-ads", "direct", "chatgpt.com", "bing", "facebook", "perplexity.ai"];
   const sw = [40, 25, 18, 6, 5, 4, 2];
-  const clicks = [["Get a Free Quote", "hero"], ["(416) 871-9224", "hero"], ["Free Quote", "header"], ["Call Now", "mobile_bar"], ["Free Quote", "mobile_bar"], ["Get My Free Quote", "form"], ["Learn more", "services"]];
+  const clicks = [["Request a quote", "hero"], ["(647) 783-8979", "hero"], ["Request a quote", "header"], ["Call", "mobile_bar"], ["Request a quote", "mobile_bar"], ["Request My Quote", "form"], ["Learn more", "services"]];
   const rows: (typeof events.$inferInsert)[] = [];
   const DAY = 86400000;
   for (let d = 60; d >= 0; d--) {
@@ -148,8 +183,8 @@ async function demo() {
       if (Math.random() < 0.035) {
         await db.insert(leads).values({
           name: pick(["Sample Lead A", "Sample Lead B", "Sample Lead C"]),
-          phone: "4165550100",
-          service: pick(["Estate & Probate Appraisal", "Mortgage & Refinance Appraisal", "Divorce & Separation Appraisal", "Condo Appraisal"]),
+          phone: "6475550100",
+          service: pick(["Estate Settlement", "Mortgage financing", "Marital Separation", "Assessment Appeals"]),
           formName: "Quote request (site-wide)",
           status: pick(["new", "contacted", "quoted", "booked", "completed", "lost"], [30, 20, 15, 15, 12, 8]),
           answers: [{ key: "note", label: "Note", value: "DEMO DATA — generated for preview" }],
@@ -163,13 +198,7 @@ async function demo() {
     }
   }
   for (let i = 0; i < rows.length; i += 500) await db.insert(events).values(rows.slice(i, i + 500));
-  const [{ n: tn }] = await db.select({ n: count() }).from(testimonials).where(eq(testimonials.status, "published"));
-  if (tn === 0) {
-    await db.insert(testimonials).values([
-      { name: "Sample Client", location: "North York", rating: 5, body: "Demo testimonial. Replace it with a real client review in the dashboard.", service: "Estate & Probate Appraisal", featured: true },
-      { name: "Sample Lawyer", location: "Toronto", rating: 5, body: "Demo testimonial. Replace it with a real client review in the dashboard.", service: "Divorce & Separation Appraisal" },
-    ]);
-  }
+  // No sample testimonials: the reviews section stays hidden until real (Google) reviews are added.
   console.log(`[db] inserted ${rows.length} DEMO events`);
 }
 

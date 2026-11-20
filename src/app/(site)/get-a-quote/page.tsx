@@ -7,8 +7,8 @@ import { PageHero, Process } from "@/components/Sections";
 import { Testimonials } from "@/components/Testimonials";
 
 export const metadata = pageMeta({
-  title: "Get a Free Home Appraisal Quote | Toronto & GTA",
-  description: `Request a free, no-obligation quote for a certified home appraisal in Toronto or the GTA. Or call ${site.phone}.`,
+  title: "Request an Appraisal Quote",
+  description: `Request a no-obligation quote for a residential, commercial, industrial, agricultural or institutional appraisal. Or call ${site.phone}.`,
   path: "/get-a-quote",
 });
 
@@ -16,14 +16,14 @@ export default function QuotePage() {
   return (
     <>
       <PageHero
-        crumbs={[{ name: "Get a Quote", path: "/get-a-quote" }]}
-        eyebrow="Free quote"
-        title={<>Your appraisal quote, fast</>}
-        answer="Tell us about the property and why you need the appraisal. We'll confirm your fee and the earliest inspection time."
+        crumbs={[{ name: "Request a Quote", path: "/get-a-quote" }]}
+        eyebrow="Request a quote"
+        title={<>Tell us about the property</>}
+        answer="Fill out some info and we will be in touch shortly. We'll confirm your fee and the earliest inspection time."
         aside={<QuoteForm location="quote_page" />}
       >
         <ul className="mt-8 max-w-lg border-t border-ink-950">
-          {["Free & no obligation", "Fee confirmed before booking", `Report typically in ${site.turnaround}`, "AIC member appraisers"].map((t) => (
+          {["No obligation", "Fee confirmed before booking", "AACI-designated appraiser", "CUSPAP-compliant reports"].map((t) => (
             <li key={t} className="border-b border-ink-100 py-3 text-[16px] text-ink-950">{t}</li>
           ))}
         </ul>
