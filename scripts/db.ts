@@ -6,7 +6,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { randomBytes, scrypt } from "node:crypto";
 import { promisify } from "node:util";
-import { count, eq, like, sql } from "drizzle-orm";
+import { count, eq, ilike, like, sql } from "drizzle-orm";
 import { drizzle, type NodePgDatabase } from "drizzle-orm/node-postgres";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import { Pool } from "pg";
@@ -68,7 +68,7 @@ async function rebrand() {
     console.log(`[db] rebrand: updated form "${f.slug}"`);
   }
   // Sample testimonials are removed; real (Google) reviews are added in the dashboard.
-  const removed = await db.delete(testimonials).where(like(testimonials.body, "Demo testimonial.%")).returning({ id: testimonials.id });
+  const removed = await db.delete(testimonials).where(ilike(testimonials.body, "demo testimonial%")).returning({ id: testimonials.id });
   if (removed.length) console.log(`[db] rebrand: removed ${removed.length} sample testimonials`);
   // Blog posts already in the database: renamed service links, phone number and quote wording.
   const pairs: [string, string][] = [
