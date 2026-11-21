@@ -40,7 +40,7 @@ export default function PricingPage() {
 
       <section className="container-x py-20">
         <SectionHead eyebrow="What affects the price" title="What sets your fee" />
-        <dl className="mt-12 grid border-t border-ink-950 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3">
+        <dl className="mt-12 grid lg !rounded-[24px] px-5 sm:px-6 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3">
           {factors.map((f, i) => (
             <div key={f.t} className="border-b border-ink-100 py-6" data-reveal style={{ "--d": i % 3 } as React.CSSProperties}>
               <dt className="font-display text-[22px] font-medium text-ink-950">{f.t}</dt>
@@ -50,10 +50,10 @@ export default function PricingPage() {
         </dl>
       </section>
 
-      <section className="border-t border-ink-100 bg-paper-50 py-20">
+      <section className="py-20">
         <div className="container-x">
           <SectionHead eyebrow="Included in every report" title="What you always get" />
-          <ul className="mt-12 grid max-w-4xl border-t border-ink-950 sm:grid-cols-2 sm:gap-x-10">
+          <ul className="mt-12 grid max-w-4xl lg !rounded-[24px] px-5 sm:px-6 sm:grid-cols-2 sm:gap-x-10">
             {["Property inspection", "Photographs", "Market and comparable sales analysis", "Clearly stated purpose, method and conclusion of value", "Signed report", "CUSPAP-compliant format", "Prepared under an AACI-designated appraiser", "Clear communication with all parties"].map((t) => (
               <li key={t} className="flex gap-4 border-b border-ink-100 py-3.5 text-[16px] text-ink-950">
                 <span className="mt-[0.6em] h-[5px] w-[5px] shrink-0 bg-accent-500" aria-hidden="true" />{t}

@@ -29,19 +29,19 @@ export default function ServicesPage() {
         <HeroCtas location="services_hero" />
       </PageHero>
       <section className="container-x py-20"><ServiceLines /></section>
-      <section className="border-t border-ink-100 py-20">
+      <section className="py-20">
         <div className="container-x">
           <SectionHead eyebrow="Non-financing" title="Current and retrospective reports" />
           <div className="mt-12"><ServiceGrid items={serviceUses} /></div>
         </div>
       </section>
-      <section className="border-t border-ink-100 py-20">
+      <section className="py-20">
         <div className="container-x">
           <SectionHead eyebrow="Property types" title="What we appraise" />
           <div className="mt-12"><ServiceGrid /></div>
         </div>
       </section>
-      <section className="border-t border-ink-100 bg-paper-50 py-20">
+      <section className="py-20">
         <div className="container-x">
           <SectionHead eyebrow="How it works" title="Simple from start to finish" />
           <div className="mt-14"><Process /></div>

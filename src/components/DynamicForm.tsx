@@ -71,7 +71,7 @@ export function DynamicForm({
 
   if (status === "done") {
     return (
-      <div className="animate-fade-up border border-ink-950 bg-paper-50 p-8 text-ink-950" role="status">
+      <div className="animate-fade-up lg-strong p-8 text-ink-950" role="status">
         <span className="eyebrow !text-sage-500">Received</span>
         <h3 className="mt-4 text-[28px] leading-tight font-medium">{form.successTitle}</h3>
         <p className="mt-2 text-[16px] text-ink-700">{form.successMessage}</p>
@@ -115,7 +115,7 @@ export function DynamicForm({
       else setStep(step + 1);
     };
     return (
-      <form onSubmit={(e) => { e.preventDefault(); next(); }} className="relative overflow-hidden border border-ink-950 bg-paper-50 p-6 text-ink-950 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
+      <form onSubmit={(e) => { e.preventDefault(); next(); }} className="relative overflow-hidden lg-strong p-6 text-ink-950 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
         <div className="absolute inset-x-0 top-0 h-[3px] bg-ink-100">
           <div className="h-full bg-accent-500 transition-all duration-500" style={{ width: `${((step + 1) / steps.length) * 100}%` }} />
         </div>
@@ -145,7 +145,7 @@ export function DynamicForm({
 
   /* ---------------- single card ---------------- */
   return (
-    <form onSubmit={(e) => { e.preventDefault(); submit(); }} className="relative border border-ink-950 bg-paper-50 p-6 text-ink-950 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
+    <form onSubmit={(e) => { e.preventDefault(); submit(); }} className="relative lg-strong p-6 text-ink-950 sm:p-8" aria-label={form.title} data-no-track={preview || undefined}>
       {header}
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {form.fields.map((f) => <Field key={f.id} f={f} uid={uid} value={values[f.key]} onChange={(v) => set(f.key, v)} />)}
@@ -192,7 +192,7 @@ function Field({ f, uid, value, onChange, big = false }: { f: FormField; uid: st
           {(f.options ?? []).map((o) => {
             const on = f.type === "radio" ? str === o : arr.includes(o);
             return (
-              <label key={o} className={`flex cursor-pointer items-center gap-3 rounded-[3px] border px-4 py-3 text-[15px] transition-colors ${on ? "border-ink-950 bg-white font-semibold text-ink-950" : "border-ink-100 bg-white text-ink-800 hover:border-ink-700"}`}>
+              <label key={o} className={`flex cursor-pointer items-center gap-3 rounded-2xl border px-4 py-3 text-[15px] transition-colors ${on ? "border-ink-950 bg-white font-semibold text-ink-950" : "border-ink-100 bg-white text-ink-800 hover:border-ink-700"}`}>
                 <input
                   type={f.type}
                   name={id}

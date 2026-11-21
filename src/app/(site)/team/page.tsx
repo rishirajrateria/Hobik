@@ -33,7 +33,7 @@ export default function TeamPage() {
           {team.map((m, i) => (
             <li key={m.slug} id={m.slug} data-reveal style={{ "--d": i } as React.CSSProperties}>
               <Link href={`/team/${m.slug}`} className="group block">
-                <div className="overflow-hidden bg-ink-100">
+                <div className="overflow-hidden rounded-[28px] bg-ink-100 shadow-[0_30px_60px_-30px_rgba(22,22,22,0.45)]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={m.photo} alt={m.name} width={640} height={800} className="aspect-[4/5] w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
                 </div>
@@ -46,7 +46,7 @@ export default function TeamPage() {
         </ul>
       </section>
 
-      <section className="border-t border-ink-100 bg-paper-50 py-14">
+      <section className="py-14">
         <div className="container-x flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="max-w-lg text-[17px] leading-relaxed text-ink-800">
             {site.name} is accredited and in good standing with the Appraisal Institute of Canada (AIC). All reports conform to CUSPAP.

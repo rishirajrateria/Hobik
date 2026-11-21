@@ -44,7 +44,7 @@ export default async function HomePage() {
       <section>
         <div className="container-x grid items-center gap-14 pt-14 pb-16 sm:pt-20 lg:grid-cols-12 lg:pb-24">
           <div className="lg:col-span-6">
-            <span className="eyebrow animate-fade-up">{site.slogan}</span>
+            <span className="lg inline-flex animate-fade-up items-center gap-2.5 !rounded-full py-2 pr-4 pl-2.5 text-[13px] font-medium text-ink-800"><span className="h-2 w-2 rounded-full bg-accent-500 shadow-[0_0_0_4px_rgba(232,169,65,0.2)]" aria-hidden="true" />{site.slogan}</span>
             <h1 className="mt-6 animate-fade-up text-[42px] leading-[1.05] font-medium text-ink-950 [animation-delay:60ms] sm:text-[56px] lg:text-[60px]">
               Real estate appraisal &amp; advisory in Southern Ontario.
             </h1>
@@ -68,7 +68,7 @@ export default async function HomePage() {
       </section>
 
       {/* SERVICE LINES */}
-      <section className="bg-ink-950 py-20 sm:py-28">
+      <section className="dark-glow py-20 sm:py-28">
         <div className="container-x">
           <SectionHead dark eyebrow="Our services" title="Financing, non-financing and advisory" />
           <div className="mt-12"><ServiceLines dark /></div>
@@ -76,7 +76,7 @@ export default async function HomePage() {
       </section>
 
       {/* PROCESS */}
-      <section className="border-t border-ink-100 bg-paper-50 py-20 sm:py-28">
+      <section className="py-20 sm:py-28">
         <div className="container-x">
           <SectionHead eyebrow="How it works" title="Four simple steps" />
           <div className="mt-12"><Process /></div>
@@ -84,11 +84,11 @@ export default async function HomePage() {
       </section>
 
       {/* WHY US + FORM */}
-      <section className="bg-ink-950 py-20 sm:py-28">
+      <section className="dark-glow py-20 sm:py-28">
         <div className="container-x grid gap-14 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-7">
             <SectionHead dark eyebrow="Inside every report" title="Independent. Reliable. CUSPAP-compliant." />
-            <div className="mt-10" data-reveal><WhyUs /></div>
+            <div className="lg-dark mt-10 p-4 sm:p-6" data-reveal><WhyUs /></div>
           </div>
           <div className="lg:sticky lg:top-28 lg:col-span-5" id="quote" data-reveal>
             <QuoteForm location="home_why" />
@@ -104,7 +104,7 @@ export default async function HomePage() {
       </section>
 
       {/* TEAM */}
-      <section className="border-t border-ink-100 bg-paper-50 py-20 sm:py-28">
+      <section className="py-20 sm:py-28">
         <div className="container-x">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHead eyebrow="Our team" title="Designated appraisers" />
@@ -114,17 +114,19 @@ export default async function HomePage() {
             {team.map((m, i) => (
               <li key={m.slug} data-reveal style={{ "--d": i } as React.CSSProperties}>
                 <Link href={`/team#${m.slug}`} className="group block">
-                  <div className="overflow-hidden bg-ink-100">
+                  <div className="relative overflow-hidden rounded-[28px] bg-ink-100 shadow-[0_30px_60px_-30px_rgba(22,22,22,0.45)]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={m.photo} alt={m.name} width={640} height={800} loading="lazy" className="aspect-[4/5] w-full object-cover grayscale transition duration-500 group-hover:scale-[1.03] group-hover:grayscale-0" />
+                    <img src={m.photo} alt={m.name} width={640} height={800} loading="lazy" className="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-[1.04]" />
+                    <div className="lg absolute inset-x-3 bottom-3 !rounded-[20px] px-4 py-3">
+                      <p className="font-display text-[20px] leading-tight font-medium text-ink-950">{m.name}{m.credentials && <span className="text-[15px] text-ink-700">, {m.credentials}</span>}</p>
+                      <p className="mt-0.5 text-[13px] text-accent-600">{m.title}</p>
+                    </div>
                   </div>
-                  <p className="mt-4 font-display text-[22px] font-medium text-ink-950">{m.name}{m.credentials && <span className="text-ink-700">, {m.credentials}</span>}</p>
-                  <p className="mt-1 text-[14px] text-accent-600">{m.title}</p>
                 </Link>
               </li>
             ))}
           </ul>
-          <div className="mt-14 flex flex-col items-start gap-5 border-t border-ink-100 pt-10 sm:flex-row sm:items-center sm:justify-between" data-reveal>
+          <div className="mt-14 flex flex-col items-start gap-5 pt-4 sm:flex-row sm:items-center sm:justify-between" data-reveal>
             <p className="max-w-md text-[16px] leading-relaxed text-ink-700">Accredited and in good standing with the Appraisal Institute of Canada. All reports are CUSPAP compliant.</p>
             <AicBadge className="w-[300px] sm:w-[360px]" />
           </div>
@@ -135,7 +137,7 @@ export default async function HomePage() {
 
       {/* BLOG */}
       {posts.length > 0 && (
-        <section className="border-t border-ink-100 py-20 sm:py-28">
+        <section className="py-20 sm:py-28">
           <div className="container-x">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <SectionHead eyebrow="Articles" title="Quick reads" />
@@ -149,7 +151,7 @@ export default async function HomePage() {
       )}
 
       {/* FAQ */}
-      <section className="border-t border-ink-100 bg-paper-50 py-20 sm:py-28">
+      <section className="py-20 sm:py-28">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <SectionHead eyebrow="FAQ" title="Common questions" />

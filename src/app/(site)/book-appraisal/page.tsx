@@ -25,7 +25,7 @@ export default async function BookPage() {
         answer="Tell us a little about the property. An appraiser will confirm your fee and inspection time, with no obligation."
         aside={<DynamicForm form={form} location="book_page" />}
       >
-        <ul className="mt-8 max-w-lg border-t border-ink-950">
+        <ul className="mt-8 max-w-lg lg !rounded-[24px] px-5 sm:px-6">
           {["One question at a time", "Fee confirmed before booking", "All property types"].map((t) => (
             <li key={t} className="border-b border-ink-100 py-3 text-[16px] text-ink-950">{t}</li>
           ))}

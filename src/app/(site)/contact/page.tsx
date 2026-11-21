@@ -29,7 +29,7 @@ export default function ContactPage() {
         answer="Alternatively, fill out the form and we will get back to you."
         aside={<QuoteForm location="contact" />}
       >
-        <dl className="mt-10 grid max-w-2xl border-t border-ink-950 sm:grid-cols-2 sm:gap-x-10">
+        <dl className="mt-10 grid max-w-2xl lg !rounded-[24px] px-5 sm:px-6 sm:grid-cols-2 sm:gap-x-10">
           {cards.map((c) => (
             <div key={c.t} className="border-b border-ink-100 py-4">
               <dt className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">{c.t}</dt>

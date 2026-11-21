@@ -40,7 +40,7 @@ export default async function AdsLanding({ searchParams }: Props) {
             <p className="mt-6 max-w-xl text-[19px] leading-relaxed text-ink-700">
               {service ? service.short : "Independent, reliable appraisal reports for residential, commercial, industrial, agricultural and institutional property."}
             </p>
-            <ul className="mt-8 grid max-w-lg border-t border-ink-950 sm:grid-cols-2 sm:gap-x-8">
+            <ul className="mt-8 grid max-w-lg lg !rounded-[24px] px-5 sm:px-6 sm:grid-cols-2 sm:gap-x-8">
               {["No-obligation quote", "Fee confirmed before booking", "CUSPAP-compliant reports", "GTHA + Southern Ontario, case by case"].map((t) => (
                 <li key={t} className="border-b border-ink-100 py-3 text-[15px] text-ink-950">{t}</li>
               ))}
@@ -59,7 +59,7 @@ export default async function AdsLanding({ searchParams }: Props) {
           {[["Property types", propertyTypes], ["Purposes", [...serviceLines.filter((s) => s.slug !== "non-financing-appraisal"), ...serviceUses]]].map(([label, list]) => (
             <div key={label as string}>
               <h2 className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">{label as string}</h2>
-              <ul className="mt-4 grid border-t border-ink-950 sm:grid-cols-2 sm:gap-x-8">
+              <ul className="mt-4 grid lg !rounded-[24px] px-5 sm:px-6 sm:grid-cols-2 sm:gap-x-8">
                 {(list as typeof propertyTypes).map((s) => (
                   <li key={s.slug} className="border-b border-ink-100 py-3.5 font-display text-[19px] text-ink-950">{s.name}</li>
                 ))}
@@ -69,7 +69,7 @@ export default async function AdsLanding({ searchParams }: Props) {
         </div>
       </section>
       <Testimonials service={service?.name} />
-      <section className="border-t border-ink-100 bg-paper-50 py-20">
+      <section className="py-20">
         <div className="container-x">
           <SectionHead eyebrow="How it works" title="Four simple steps" />
           <div className="mt-12"><Process /></div>

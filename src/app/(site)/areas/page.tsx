@@ -44,7 +44,7 @@ export default function AreasPage() {
           ))}
         </div>
       </section>
-      <section className="border-t border-ink-100 bg-paper-50 py-20">
+      <section className="py-20">
         <div className="container-x grid gap-12 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-5">
             <SectionHead eyebrow="Beyond the GTHA" title="Southern Ontario, case by case" />
@@ -52,7 +52,7 @@ export default function AreasPage() {
           </div>
           <div className="lg:col-span-7" data-reveal>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/southern-ontario.png" alt="Map of Southern Ontario" className="w-full border border-ink-100 bg-white" loading="lazy" />
+            <img src="/brand/southern-ontario.png" alt="Map of Southern Ontario" className="lg w-full !rounded-[28px] p-4 mix-blend-multiply" loading="lazy" />
           </div>
         </div>
       </section>

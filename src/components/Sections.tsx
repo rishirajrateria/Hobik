@@ -31,8 +31,10 @@ export function HeroVisual() {
   ];
   return (
     <figure className="relative mx-auto w-full max-w-[640px]">
-      <svg viewBox="0 92 640 290" className="w-full" role="img" aria-label="Line drawing of a street with a farm, a house, an apartment building, a store, an institution and a factory" data-draw-svg data-anim="sketch" style={{ "--base": "0.25s" } as React.CSSProperties}>
-        <circle className="hv-sun" cx="166" cy="200" r="54" fill={gold} opacity="0.92" />
+      <div className="orb -top-10 -right-6 h-40 w-40 sm:h-56 sm:w-56" aria-hidden="true" />
+      <div className="orb-soft bottom-0 -left-10 h-56 w-56" aria-hidden="true" />
+      <div className="lg !rounded-[36px] p-5 sm:p-8">
+      <svg viewBox="0 92 640 290" className="relative w-full" role="img" aria-label="Line drawing of a street with a farm, a house, an apartment building, a store, an institution and a factory" data-draw-svg data-anim="sketch" style={{ "--base": "0.25s" } as React.CSSProperties}>
         {drawable(
           <>
             <g fill="none" stroke={ink} strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round">
@@ -87,6 +89,7 @@ export function HeroVisual() {
           1.4,
         )}
       </svg>
+      </div>
       <figcaption className="sr-only">Residential, multi-residential, commercial, industrial, agricultural and institutional property.</figcaption>
     </figure>
   );
@@ -102,10 +105,10 @@ export function TrustStrip() {
     ["pin", "GTHA", "+ Southern Ontario, case by case", "drop", false],
   ];
   return (
-    <div className="border-y border-ink-950">
-      <dl className="container-x grid grid-cols-2 lg:grid-cols-4" data-anim-group="facts">
+    <div className="container-x">
+      <dl className="lg grid grid-cols-2 px-4 sm:px-6 lg:grid-cols-4" data-anim-group="facts">
         {items.map(([icon, v, l, mode, count], i) => (
-          <div key={l} className={`flex items-center gap-4 py-6 ${i % 2 ? "border-l border-ink-100 pl-4 sm:pl-6" : ""} ${i === 2 ? "lg:border-l lg:border-ink-100 lg:pl-6" : ""} ${i > 1 ? "border-t border-ink-100 lg:border-t-0" : ""}`}>
+          <div key={l} className={`flex items-center gap-4 py-6 ${i % 2 ? "border-l border-ink-950/[0.07] pl-4 sm:pl-6" : ""} ${i === 2 ? "lg:border-l lg:border-ink-950/[0.07] lg:pl-6" : ""} ${i > 1 ? "border-t border-ink-950/[0.07] lg:border-t-0" : ""}`}>
             <Vignette name={icon} mode={mode} delay={0.15 + i * 0.18} className="h-14 w-[74px] shrink-0 sm:h-16 sm:w-[84px]" />
             <div className="flex flex-col-reverse">
               <dt className="text-[13px] leading-snug text-ink-700">{l}</dt>
@@ -122,7 +125,9 @@ export function TrustStrip() {
 export function AicBadge({ className = "" }: { className?: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src="/brand/aic-badge.png" width={861} height={131} alt="Appraisal Institute of Canada: Professional Appraisers. Know the value." className={`h-auto ${className}`} loading="lazy" />
+    <span className="lg inline-block !rounded-2xl px-5 py-3.5">
+      <img src="/brand/aic-badge.png" width={861} height={131} alt="Appraisal Institute of Canada: Professional Appraisers. Know the value." className={`h-auto ${className}`} loading="lazy" />
+    </span>
   );
 }
 
@@ -135,9 +140,9 @@ export function StatsBand({ dark = false }: { dark?: boolean }) {
     ["GTHA", "+ Southern Ontario, case by case"],
   ];
   return (
-    <dl className={`grid grid-cols-2 gap-px lg:grid-cols-4 ${dark ? "bg-white/15" : "bg-ink-100"}`}>
+    <dl className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       {stats.map(([v, l]) => (
-        <div key={l} className={`flex flex-col-reverse p-6 ${dark ? "bg-ink-950" : "bg-paper"}`}>
+        <div key={l} className={`flex flex-col-reverse p-6 ${dark ? "lg-dark" : "lg"}`}>
           <dt className={`mt-2 text-[14px] ${dark ? "text-white/60" : "text-ink-700"}`}>{l}</dt>
           <dd className={`font-display text-[34px] leading-none font-medium ${dark ? "text-paper" : "text-ink-950"}`}>{v}</dd>
         </div>
@@ -161,10 +166,10 @@ export function SectionHead({ eyebrow, title, sub, center = false, dark = false 
 export function ServiceGrid({ items = propertyTypes, citySuffix }: { items?: Service[]; citySuffix?: string }) {
   const cols = items.length === 6 ? "lg:grid-cols-6" : items.length === 7 ? "lg:grid-cols-4" : "lg:grid-cols-5";
   return (
-    <ul className={`grid grid-cols-2 border-t border-l border-ink-100 sm:grid-cols-3 ${cols}`}>
+    <ul className={`grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 ${cols}`}>
       {items.map((s, i) => (
-        <li key={s.slug} className="border-r border-b border-ink-100">
-          <Link href={`/services/${s.slug}`} className="group flex h-full flex-col bg-paper p-4 transition-colors duration-300 hover:bg-paper-50 sm:p-5">
+        <li key={s.slug} className="flex">
+          <Link href={`/services/${s.slug}`} className="lg lift group flex w-full flex-col !rounded-[24px] p-4 sm:p-5">
             <Vignette name={s.icon} mode="build" delay={(i % 6) * 0.12} className="w-full transition-transform duration-500 group-hover:-translate-y-1" />
             <span className="mt-3 flex items-start justify-between gap-2">
               <span className="font-display text-[17px] leading-snug font-medium text-ink-950 sm:text-[18px]">
@@ -182,9 +187,9 @@ export function ServiceGrid({ items = propertyTypes, citySuffix }: { items?: Ser
 /** The three service lines, with the non-financing uses listed under their card. */
 export function ServiceLines({ dark = false }: { dark?: boolean }) {
   return (
-    <div className={`grid gap-px md:grid-cols-3 ${dark ? "bg-white/15" : "bg-ink-100"}`}>
+    <div className="grid gap-4 md:grid-cols-3">
       {serviceLines.map((s, i) => (
-        <div key={s.slug} className={`flex flex-col p-6 sm:p-8 ${dark ? "bg-ink-950" : "bg-paper"}`} data-reveal style={{ "--d": i } as React.CSSProperties}>
+        <div key={s.slug} className={`flex flex-col p-6 sm:p-8 ${dark ? "lg-dark" : "lg"}`} data-reveal style={{ "--d": i } as React.CSSProperties}>
           <Vignette name={s.icon} mode="pop" delay={0.1 + i * 0.2} className="w-full max-w-[200px]" />
           <h3 className={`mt-5 text-[26px] font-medium ${dark ? "text-paper" : "text-ink-950"}`}>{s.name}</h3>
           <p className={`mt-2 text-[15px] leading-relaxed ${dark ? "text-white/65" : "text-ink-700"}`}>{s.short}</p>
@@ -192,7 +197,7 @@ export function ServiceLines({ dark = false }: { dark?: boolean }) {
             <ul className="mt-4 flex flex-wrap gap-1.5">
               {serviceUses.map((u) => (
                 <li key={u.slug}>
-                  <Link href={`/services/${u.slug}`} className={`inline-block border px-2.5 py-1 text-[13px] transition-colors ${dark ? "border-white/20 text-white/80 hover:border-accent-500 hover:text-accent-300" : "border-ink-100 text-ink-800 hover:border-accent-500"}`}>{u.name}</Link>
+                  <Link href={`/services/${u.slug}`} className={`inline-block rounded-full border px-3 py-1 text-[13px] backdrop-blur transition-colors ${dark ? "border-white/15 bg-white/[0.06] text-white/85 hover:border-accent-500/60 hover:text-accent-300" : "border-white/80 bg-white/60 text-ink-800 hover:border-accent-500"}`}>{u.name}</Link>
                 </li>
               ))}
             </ul>
@@ -218,9 +223,9 @@ export function Process() {
   return (
     <ol className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4" data-anim-group="steps">
       {steps.map((s, i) => (
-        <li key={s.t} className="hv-step relative" style={{ "--i": i } as React.CSSProperties}>
+        <li key={s.t} className="hv-step lg relative !rounded-[24px] p-4 sm:p-5" style={{ "--i": i } as React.CSSProperties}>
           <Vignette name={s.icon} mode="pop" delay={0.15 + i * 0.35} className="w-full max-w-[220px]" />
-          <div className="relative mt-3 flex items-baseline gap-3 border-t border-ink-950 pt-3">
+          <div className="relative mt-3 flex items-baseline gap-3 border-t border-ink-950/15 pt-3">
             <span className="hv-step-fill" aria-hidden="true" />
             <span className="font-display text-[28px] leading-none text-accent-600">{i + 1}</span>
             <h3 className="text-[20px] font-medium text-ink-950">{s.t}</h3>
@@ -238,10 +243,10 @@ export function AreaMap({ highlight }: { highlight?: string }) {
   // Cities ripple outward from the office: delay grows with distance from Etobicoke.
   const delayFor = (a: Area) => (Math.hypot(a.map.x - HQ.x, a.map.y - HQ.y) * 0.022).toFixed(2);
   return (
-    <figure className="border border-ink-100 bg-paper-50">
+    <figure className="lg overflow-hidden">
       <svg viewBox="-28 8 156 92" className="block aspect-[4/3] w-full sm:aspect-[17/10]" role="img" aria-label="Map of the Greater Toronto and Hamilton Area showing the cities we serve" data-draw-svg data-anim="radiate">
         <g className="hv-lake">
-          <path d="M-30 84 C-16 78 -6 72 0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 C110 40 120 37 130 34 V104 H-30Z" fill="#e8ebeb" />
+          <path d="M-30 84 C-16 78 -6 72 0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 C110 40 120 37 130 34 V104 H-30Z" fill="rgba(214,222,224,0.55)" />
           <path d="M-30 84 C-16 78 -6 72 0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 C110 40 120 37 130 34" fill="none" stroke="var(--color-ink-700)" strokeWidth="0.25" />
           <text x="64" y="86" fontSize="2.6" fill="var(--color-ink-700)" letterSpacing="0.6" fontStyle="italic" fontFamily="var(--font-display)">Lake Ontario</text>
         </g>
@@ -259,7 +264,7 @@ export function AreaMap({ highlight }: { highlight?: string }) {
         })}
         <rect x={HQ.x - 1.4} y={HQ.y - 1.4} width="2.8" height="2.8" fill="none" stroke="var(--color-accent-500)" strokeWidth="0.4" />
       </svg>
-      <figcaption className="flex items-center justify-between border-t border-ink-100 px-4 py-2.5 text-[12px] text-ink-700">
+      <figcaption className="flex items-center justify-between border-t border-white/70 px-5 py-3 text-[12px] text-ink-700">
         <span>Greater Toronto &amp; Hamilton Area</span>
         <span className="flex items-center gap-2"><span className="inline-block h-2 w-2 border border-accent-600" /> Office, Etobicoke</span>
       </figcaption>
@@ -289,7 +294,7 @@ export function SouthernOntario({ dark = false, label = true }: { dark?: boolean
       {label && <p className={`mb-4 text-[12px] font-semibold tracking-[0.16em] uppercase ${dark ? "text-accent-300" : "text-accent-600"}`}>Southern Ontario · case by case</p>}
       <ul className="flex flex-wrap gap-2">
         {southernOntario.map((r) => (
-          <li key={r} className={`border px-3 py-1.5 text-[14px] ${dark ? "border-white/20 text-white/80" : "border-ink-100 text-ink-800"}`}>{r}</li>
+          <li key={r} className={`rounded-full border px-3.5 py-1.5 text-[14px] backdrop-blur ${dark ? "border-white/15 bg-white/[0.06] text-white/80" : "border-white/85 bg-white/60 text-ink-800 shadow-[inset_0_1px_0_#fff,0_4px_14px_-8px_rgba(22,22,22,0.3)]"}`}>{r}</li>
         ))}
       </ul>
       <p className={`mt-4 max-w-xl text-[15px] leading-relaxed ${dark ? "text-white/60" : "text-ink-700"}`}>Property outside the GTHA? Contact us anyway. We will always try to work with you.</p>
@@ -393,9 +398,9 @@ export function FaqAnswer({ text }: { text: string }) {
 
 export function FaqList({ items }: { items: { q: string; a: string }[] }) {
   return (
-    <div className="border-t border-ink-950" data-reveal>
+    <div className="lg px-5 sm:px-7" data-reveal>
       {items.map((f) => (
-        <details key={f.q} className="group border-b border-ink-100">
+        <details key={f.q} className="group border-b border-ink-950/[0.07] last:border-b-0">
           <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
             <h3 className="text-[19px] leading-snug font-medium text-ink-950">{f.q}</h3>
             <span className="relative mt-2 h-3 w-3 shrink-0" aria-hidden="true">
@@ -413,15 +418,19 @@ export function FaqList({ items }: { items: { q: string; a: string }[] }) {
 /* ------------------------------------------------------------------ */
 export function CtaBand({ title = "Need an appraisal? Request a quote today.", location = "cta_band" }: { title?: string; location?: string }) {
   return (
-    <section className="bg-accent-500 text-ink-950">
-      <div className="container-x grid gap-8 py-16 lg:grid-cols-12 lg:items-end lg:py-20" data-reveal>
-        <div className="lg:col-span-8">
+    <section className="py-10 text-ink-950 sm:py-14">
+      <div className="container-x">
+      <div className="relative grid gap-8 overflow-hidden rounded-[36px] px-6 py-14 sm:px-12 lg:grid-cols-12 lg:items-end lg:py-16" style={{ background: "linear-gradient(135deg, #f4c870 0%, #e8a941 45%, #d9952b 100%)", boxShadow: "inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(120,72,0,.2), 0 40px 80px -40px rgba(200,130,30,.8)" }} data-reveal>
+        <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-white/30 blur-3xl" aria-hidden="true" />
+        <div className="pointer-events-none absolute inset-0 rounded-[36px] bg-[linear-gradient(115deg,transparent_35%,rgba(255,255,255,0.22)_48%,transparent_60%)]" aria-hidden="true" />
+        <div className="relative lg:col-span-8">
           <h2 className="text-[34px] leading-[1.1] font-medium sm:text-[46px]">{title}</h2>
         </div>
-        <div className="flex flex-col gap-3 sm:flex-row lg:col-span-4 lg:justify-end">
+        <div className="relative flex flex-col gap-3 sm:flex-row lg:col-span-4 lg:justify-end">
           <CtaLink href="/get-a-quote" location={location} className="btn-ink">Request a quote</CtaLink>
-          <CallLink href={telHref} location={location} className="btn border border-ink-950/40 text-ink-950 hover:border-ink-950">{site.phone}</CallLink>
+          <CallLink href={telHref} location={location} className="btn border border-white/60 bg-white/35 text-ink-950 backdrop-blur-xl hover:bg-white/55" style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,.8)" }}>{site.phone}</CallLink>
         </div>
+      </div>
       </div>
     </section>
   );
@@ -464,7 +473,7 @@ export function PageHero({
   aside?: React.ReactNode;
 }) {
   return (
-    <section className="border-b border-ink-100">
+    <section>
       <div className={`container-x grid gap-12 pt-10 pb-16 sm:pb-20 ${aside ? "lg:grid-cols-12 lg:items-start" : ""}`}>
         <div className={aside ? "lg:col-span-7" : "max-w-3xl"}>
           <Breadcrumbs items={crumbs} />

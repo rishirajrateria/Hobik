@@ -53,7 +53,7 @@ export default async function ServicePage({ params }: Props) {
       {/* key facts */}
       <section className="container-x grid items-center gap-10 py-14 lg:grid-cols-12">
         <Vignette name={s.icon} className="mx-auto w-full max-w-[340px] lg:col-span-4" title={s.name} />
-        <dl className="grid border-y border-ink-950 sm:grid-cols-3 lg:col-span-8">
+        <dl className="lg grid px-6 sm:grid-cols-3 lg:col-span-8">
           {s.highlights.map((h, i) => (
             <div key={h.label} className={`py-6 ${i > 0 ? "border-t border-ink-100 sm:border-t-0 sm:border-l sm:pl-6" : ""}`}>
               <dt className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">{h.label}</dt>
@@ -67,7 +67,7 @@ export default async function ServicePage({ params }: Props) {
       <section className="container-x grid gap-14 pb-20 lg:grid-cols-12">
         <div className="lg:col-span-7" data-reveal>
           <h2 className="text-[32px] font-medium text-ink-950">What you get</h2>
-          <ul className="mt-6 border-t border-ink-950">
+          <ul className="mt-6 lg !rounded-[24px] px-5 sm:px-6">
             {s.bullets.map((b) => (
               <li key={b} className="flex gap-4 border-b border-ink-100 py-4 text-[17px] text-ink-800">
                 <span className="mt-[0.6em] h-[5px] w-[5px] shrink-0 bg-accent-500" aria-hidden="true" />
@@ -78,7 +78,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
         <div className="lg:col-span-5" data-reveal>
           <h2 className="text-[32px] font-medium text-ink-950">Who it&apos;s for</h2>
-          <ul className="mt-6 border-t border-ink-950">
+          <ul className="mt-6 lg !rounded-[24px] px-5 sm:px-6">
             {s.forWho.map((w) => (
               <li key={w} className="border-b border-ink-100 py-4 font-display text-[20px] text-ink-950">{w}</li>
             ))}
@@ -95,7 +95,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      <section className="border-t border-ink-100 bg-paper-50 py-20">
+      <section className="py-20">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <SectionHead eyebrow="FAQ" title="Questions" />
@@ -104,7 +104,7 @@ export default async function ServicePage({ params }: Props) {
         </div>
       </section>
 
-      <section className="border-t border-ink-100 py-20">
+      <section className="py-20">
         <div className="container-x grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <SectionHead eyebrow="Coverage" title="GTHA + Southern Ontario" />
@@ -113,7 +113,7 @@ export default async function ServicePage({ params }: Props) {
           </div>
           <div className="lg:col-span-5">
             <h2 className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">{s.group === "property" ? "Other property types" : "Related services"}</h2>
-            <ul className="mt-5 border-t border-ink-950">
+            <ul className="mt-5 lg !rounded-[24px] px-5 sm:px-6">
               {related.map((r) => (
                 <li key={r.slug} className="border-b border-ink-100">
                   <Link href={`/services/${r.slug}`} className="group block py-4">

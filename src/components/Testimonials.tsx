@@ -21,7 +21,7 @@ export async function Testimonials({ service, dark = false, title = "What our cl
   const muted = dark ? "text-white/60" : "text-ink-700";
 
   return (
-    <section className={`py-20 sm:py-28 ${dark ? "bg-ink-950" : "border-t border-ink-100"}`} data-section="testimonials">
+    <section className={`py-20 sm:py-28 ${dark ? "dark-glow" : ""}`} data-section="testimonials">
       <div className="container-x">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <SectionHead dark={dark} eyebrow="Client reviews" title={title} />
@@ -30,7 +30,7 @@ export async function Testimonials({ service, dark = false, title = "What our cl
           </p>
         </div>
 
-        <figure className={`mt-12 border-t pt-10 ${dark ? "border-white/20" : "border-ink-950"}`} data-reveal>
+        <figure className={`mt-12 p-7 sm:p-10 ${dark ? "lg-dark" : "lg"}`} data-reveal>
           <Rating n={lead.rating} dark={dark} />
           <blockquote className={`mt-5 max-w-4xl font-display text-[26px] leading-[1.35] sm:text-[34px] ${dark ? "text-paper" : "text-ink-950"}`}>“{lead.body}”</blockquote>
           <figcaption className={`mt-6 text-[15px] ${muted}`}>
@@ -43,7 +43,7 @@ export async function Testimonials({ service, dark = false, title = "What our cl
         {!single && rest.length > 0 && (
           <div className="mt-14 grid gap-x-10 gap-y-10 md:grid-cols-3">
             {rest.map((t, i) => (
-              <figure key={t.id} data-reveal style={{ "--d": i } as React.CSSProperties} className={`border-t pt-6 ${dark ? "border-white/15" : "border-ink-100"}`}>
+              <figure key={t.id} data-reveal style={{ "--d": i } as React.CSSProperties} className={`p-6 ${dark ? "lg-dark" : "lg"}`}>
                 <Rating n={t.rating} dark={dark} />
                 <blockquote className={`mt-3 text-[17px] leading-relaxed ${dark ? "text-white/85" : "text-ink-800"}`}>“{t.body}”</blockquote>
                 <figcaption className={`mt-4 text-[14px] ${muted}`}>

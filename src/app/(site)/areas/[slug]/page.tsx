@@ -65,7 +65,7 @@ export default async function AreaPage({ params }: Props) {
       <section className="container-x grid gap-14 py-20 lg:grid-cols-2 lg:items-start">
         <div>
           <SectionHead center={false} eyebrow="Local expertise" title={`Neighbourhoods we cover in ${a.name}`} />
-          <ul className="mt-8 columns-2 gap-8 border-t border-ink-950">
+          <ul className="mt-8 columns-2 gap-8 lg !rounded-[24px] px-5 sm:px-6">
             {a.neighbourhoods.map((n) => (
               <li key={n} className="break-inside-avoid border-b border-ink-100 py-2.5 text-[16px] text-ink-950">{n}</li>
             ))}
@@ -76,7 +76,7 @@ export default async function AreaPage({ params }: Props) {
         <div data-reveal="scale"><AreaMap highlight={a.slug} /></div>
       </section>
 
-      <section className="border-t border-ink-100 bg-paper-50 py-20">
+      <section className="py-20">
         <div className="container-x">
           <SectionHead eyebrow={`${a.name} appraisal services`} title={`Every property type in ${a.name}`} />
           <div className="mt-14"><ServiceGrid citySuffix={a.name} /></div>
@@ -90,7 +90,7 @@ export default async function AreaPage({ params }: Props) {
         <div className="mt-14"><Process /></div>
       </section>
 
-      <section className="border-t border-ink-100 bg-paper-50 py-20">
+      <section className="py-20">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4"><SectionHead center={false} eyebrow="FAQ" title={`${a.name} appraisal FAQs`} /></div>
           <div className="lg:col-span-8"><FaqList items={faq} /></div>

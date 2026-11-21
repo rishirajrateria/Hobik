@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-/** Plain sticky header on paper with a hairline rule. */
+/** Floating liquid-glass header bar. */
 export function HeaderShell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   // Close the mobile menu after navigating.
@@ -12,8 +12,8 @@ export function HeaderShell({ children }: { children: React.ReactNode }) {
   }, [path]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-ink-100 bg-paper/95 backdrop-blur-sm">
-      <div className="container-x flex h-[72px] items-center justify-between gap-6">{children}</div>
+    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5">
+      <div className="lg mx-auto flex h-[68px] max-w-[1240px] items-center justify-between gap-6 !rounded-full pr-2.5 pl-5 sm:pl-6">{children}</div>
     </header>
   );
 }

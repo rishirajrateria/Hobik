@@ -22,7 +22,7 @@ export default function QuotePage() {
         answer="Fill out some info and we will be in touch shortly. We'll confirm your fee and the earliest inspection time."
         aside={<QuoteForm location="quote_page" />}
       >
-        <ul className="mt-8 max-w-lg border-t border-ink-950">
+        <ul className="mt-8 max-w-lg lg !rounded-[24px] px-5 sm:px-6">
           {["No obligation", "Fee confirmed before booking", "AACI-designated appraiser", "CUSPAP-compliant reports"].map((t) => (
             <li key={t} className="border-b border-ink-100 py-3 text-[16px] text-ink-950">{t}</li>
           ))}

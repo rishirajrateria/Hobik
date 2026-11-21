@@ -16,7 +16,7 @@ export const ACCENTS: Record<string, string> = {
 export function BlogCard({ p }: { p: Post }) {
   return (
     <Link href={`/blog/${p.slug}`} className="group flex w-full flex-col">
-      <div className="border border-ink-100 bg-paper-50 transition-colors duration-300 group-hover:border-ink-950">
+      <div className="lg lift overflow-hidden !rounded-[24px]">
         {p.coverImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={p.coverImage} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
