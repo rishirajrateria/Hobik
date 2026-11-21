@@ -5,6 +5,7 @@ import { areas } from "@/lib/areas";
 import { Icon } from "./Icon";
 import { CallLink, CtaLink } from "./Tracked";
 import { HeaderShell } from "./HeaderShell";
+import { MobileMenu } from "./MobileMenu";
 
 /** Company logo: gold sun, house mark, name and slogan (dark text; light variant for black backgrounds). */
 export function Logo({ light = false, className = "h-12 sm:h-[56px]" }: { light?: boolean; className?: string }) {
@@ -44,22 +45,7 @@ export function Header() {
         <CtaLink href="/get-a-quote" location="header" className="btn-primary !hidden !px-4 !py-2.5 text-sm sm:!inline-flex">
           Request a quote
         </CtaLink>
-        <details className="group relative lg:hidden">
-          <summary className="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-full border border-white/80 bg-white/60 [&::-webkit-details-marker]:hidden" aria-label="Open menu">
-            <Icon name="menu" className="h-5 w-5 group-open:hidden" />
-            <Icon name="x" className="hidden h-5 w-5 group-open:block" />
-          </summary>
-          <div className="lg-strong absolute right-0 mt-4 w-72 !rounded-3xl p-2">
-            {nav.map((n) => (
-              <Link key={n.href} href={n.href} className="block rounded-2xl px-4 py-3 font-medium text-ink-950 hover:bg-white/80">
-                {n.label}
-              </Link>
-            ))}
-            <div className="mx-4 mt-2 border-t border-ink-100 pt-3 pb-2">
-              <CallLink href={telHref} location="mobile_menu" className="font-semibold text-accent-600">{site.phone}</CallLink>
-            </div>
-          </div>
-        </details>
+        <MobileMenu nav={nav} />
       </div>
     </HeaderShell>
   );
