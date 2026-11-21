@@ -39,7 +39,7 @@
   .dash-ui h1, .dash-ui h2, .dash-ui h3, .dash-ui h4 { font-family: var(--font-sans); letter-spacing: -0.01em; }
 }
 
-@utility container-x { @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8; }
+@utility container-x { @apply mx-auto w-full max-w-[1520px] px-5 sm:px-8 lg:px-12 2xl:px-16; }
 
 /* Buttons: rectangular, solid, no glow */
 @utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-[15px] font-semibold whitespace-nowrap transition-[transform,box-shadow,background-color,border-color] duration-300 active:scale-[0.97]; }

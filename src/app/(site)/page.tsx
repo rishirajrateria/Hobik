@@ -45,10 +45,10 @@ export default async function HomePage() {
         <div className="container-x grid items-center gap-14 pt-14 pb-16 sm:pt-20 lg:grid-cols-12 lg:pb-24">
           <div className="lg:col-span-6">
             <span className="lg inline-flex animate-fade-up items-center gap-2.5 !rounded-full py-2 pr-4 pl-2.5 text-[13px] font-medium text-ink-800"><span className="h-2 w-2 rounded-full bg-accent-500 shadow-[0_0_0_4px_rgba(232,169,65,0.2)]" aria-hidden="true" />{site.slogan}</span>
-            <h1 className="mt-6 animate-fade-up text-[42px] leading-[1.05] font-medium text-ink-950 [animation-delay:60ms] sm:text-[56px] lg:text-[60px]">
+            <h1 className="mt-6 animate-fade-up text-[42px] leading-[1.05] font-medium text-ink-950 [animation-delay:60ms] sm:text-[56px] lg:text-[60px] 2xl:text-[76px]">
               Real estate appraisal &amp; advisory in Southern Ontario.
             </h1>
-            <p className="mt-6 max-w-md animate-fade-up text-[19px] leading-relaxed text-ink-700 [animation-delay:120ms]">
+            <p className="mt-6 max-w-md animate-fade-up text-[19px] 2xl:max-w-lg 2xl:text-[21px] leading-relaxed text-ink-700 [animation-delay:120ms]">
               Residential, commercial, industrial, agricultural and institutional property.
             </p>
             <div className="animate-fade-up [animation-delay:180ms]"><HeroCtas location="hero" /></div>

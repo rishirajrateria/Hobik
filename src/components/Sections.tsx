@@ -30,7 +30,7 @@ export function HeroVisual() {
     [584, "INDUSTRIAL"],
   ];
   return (
-    <figure className="relative mx-auto w-full max-w-[640px]">
+    <figure className="relative mx-auto w-full max-w-[640px] 2xl:max-w-[760px]">
       <div className="orb -top-10 -right-6 h-40 w-40 sm:h-56 sm:w-56" aria-hidden="true" />
       <div className="orb-soft bottom-0 -left-10 h-56 w-56" aria-hidden="true" />
       <div className="lg !rounded-[36px] p-5 sm:p-8">
