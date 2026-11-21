@@ -12,8 +12,8 @@ export function HeaderShell({ children }: { children: React.ReactNode }) {
   }, [path]);
 
   return (
-    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5">
-      <div className="lg mx-auto flex h-[68px] max-w-[1488px] items-center justify-between gap-6 !rounded-full pr-2.5 pl-5 sm:pl-6">{children}</div>
+    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5 lg:px-8 2xl:px-12">
+      <div className="lg mx-auto flex h-[68px] items-center justify-between gap-6 !rounded-full pr-2.5 pl-5 sm:pl-6">{children}</div>
     </header>
   );
 }
