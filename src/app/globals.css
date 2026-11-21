@@ -2,7 +2,7 @@
 
 @theme {
   --font-sans: var(--font-sans-src), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-serif-src), Georgia, "Times New Roman", serif;
+  --font-display: var(--font-sans-src), ui-sans-serif, system-ui, sans-serif;
 
   /* White paper, charcoal ink and the Value Trust gold (from the logo: #e8a941 on #262626) */
   --color-paper: #ffffff;
@@ -32,7 +32,7 @@
   html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; overflow-x: clip; }
   body { overflow-x: clip; }
   body { @apply bg-paper text-ink antialiased; font-family: var(--font-sans); font-feature-settings: "ss01"; }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.012em; font-optical-sizing: auto; }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.025em; font-weight: 600; }
   ::selection { background: var(--color-accent-300); color: var(--color-ink-950); }
   :focus-visible { outline: 2px solid var(--color-accent-500); outline-offset: 2px; }
   /* The dashboard keeps a plain sans UI */

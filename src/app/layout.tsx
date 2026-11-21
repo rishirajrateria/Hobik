@@ -1,10 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Newsreader, Schibsted_Grotesk } from "next/font/google";
+import { Schibsted_Grotesk } from "next/font/google";
 import "./globals.css";
 import { indexable, site } from "@/lib/site";
 
 const sans = Schibsted_Grotesk({ subsets: ["latin"], variable: "--font-sans-src", display: "swap" });
-const serif = Newsreader({ subsets: ["latin"], variable: "--font-serif-src", style: ["normal", "italic"], axes: ["opsz"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -45,7 +44,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-CA" className={`${sans.variable} ${serif.variable}`} suppressHydrationWarning>
+    <html lang="en-CA" className={sans.variable} suppressHydrationWarning>
       <head>
         <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-readable site summary" />
         {/* Enable scroll-reveal before first paint; auto-disable if JS never boots. */}

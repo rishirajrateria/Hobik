@@ -11,7 +11,7 @@ export default async function OgImage() {
   const logo = `data:image/png;base64,${(await readFile(join(process.cwd(), "public/brand/value-trust-logo.png"))).toString("base64")}`;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, background: "#ffffff", color: "#161616", fontFamily: "serif" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 72, background: "#ffffff", color: "#161616", fontFamily: "sans-serif" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={logo} width={442} height={170} alt="" />
         <div style={{ display: "flex", flexDirection: "column" }}>

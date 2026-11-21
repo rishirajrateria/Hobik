@@ -248,7 +248,7 @@ export function AreaMap({ highlight }: { highlight?: string }) {
         <g className="hv-lake">
           <path d="M-30 84 C-16 78 -6 72 0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 C110 40 120 37 130 34 V104 H-30Z" fill="rgba(214,222,224,0.55)" />
           <path d="M-30 84 C-16 78 -6 72 0 78 C15 74 22 92 35 76 C45 66 55 70 70 60 C80 54 90 50 100 44 C110 40 120 37 130 34" fill="none" stroke="var(--color-ink-700)" strokeWidth="0.25" />
-          <text x="64" y="86" fontSize="2.6" fill="var(--color-ink-700)" letterSpacing="0.6" fontStyle="italic" fontFamily="var(--font-display)">Lake Ontario</text>
+          <text x="64" y="86" fontSize="2.6" fill="var(--color-ink-700)" letterSpacing="0.6" fontFamily="var(--font-display)">Lake Ontario</text>
         </g>
         <circle className="hv-ripple" cx={HQ.x} cy={HQ.y} r="3" fill="none" stroke="var(--color-accent-500)" strokeWidth="1.2" vectorEffect="non-scaling-stroke" />
         {areas.map((a) => {
