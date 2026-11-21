@@ -421,7 +421,7 @@ export function CtaBand({ title = "Need an appraisal? Request a quote today.", l
     <section className="py-10 text-ink-950 sm:py-14">
       <div className="container-x">
       <div className="relative grid gap-8 overflow-hidden rounded-[36px] px-6 py-14 sm:px-12 lg:grid-cols-12 lg:items-end lg:py-16" style={{ background: "linear-gradient(135deg, #f4c870 0%, #e8a941 45%, #d9952b 100%)", boxShadow: "inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(120,72,0,.2), 0 40px 80px -40px rgba(200,130,30,.8)" }} data-reveal>
-        <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-white/30 blur-3xl" aria-hidden="true" />
+        <div className="glow-round pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-white/30 blur-3xl" aria-hidden="true" />
         <div className="pointer-events-none absolute inset-0 rounded-[36px] bg-[linear-gradient(115deg,transparent_35%,rgba(255,255,255,0.22)_48%,transparent_60%)]" aria-hidden="true" />
         <div className="relative lg:col-span-8">
           <h2 className="text-[34px] leading-[1.1] font-medium sm:text-[46px]">{title}</h2>

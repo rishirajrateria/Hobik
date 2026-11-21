@@ -43,8 +43,8 @@ export function MobileMenu({ nav }: { nav: { href: string; label: string }[] }) 
       aria-hidden={!open}
     >
       <div className="hv-menu-bg absolute inset-0 -z-10" aria-hidden="true">
-        <span className="absolute -top-24 -right-24 h-80 w-80 rounded-full bg-accent-500/45 blur-3xl" />
-        <span className="absolute bottom-10 -left-24 h-72 w-72 rounded-full bg-accent-300/40 blur-3xl" />
+        <span className="glow-round absolute -top-24 -right-24 h-80 w-80 rounded-full bg-accent-500/45 blur-3xl" />
+        <span className="glow-round absolute bottom-10 -left-24 h-72 w-72 rounded-full bg-accent-300/40 blur-3xl" />
       </div>
 
       <div className="flex items-center justify-between px-5 pt-[calc(1rem+env(safe-area-inset-top))]">
