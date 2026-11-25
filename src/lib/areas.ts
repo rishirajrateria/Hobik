@@ -46,7 +46,7 @@ export const areas: Area[] = [
     region: "Toronto",
     map: { x: 40, y: 60 },
     intro:
-      "Our office is on The Queensway in Etobicoke. The area ranges from lakeside condos in Humber Bay and estate homes in the Kingsway to the industrial and commercial corridors along the Queensway and in Rexdale.",
+      "Etobicoke ranges from lakeside condos in Humber Bay and estate homes in the Kingsway to the industrial and commercial corridors along the Queensway and in Rexdale.",
     neighbourhoods: ["The Kingsway", "Humber Bay", "Mimico", "Islington Village", "Long Branch", "Rexdale", "Markland Wood"],
     homeTypes: ["Estate homes", "Waterfront condos", "Bungalows", "Split-levels"],
   },
@@ -213,17 +213,3 @@ export const areas: Area[] = [
 ];
 
 export const getArea = (slug: string) => areas.find((a) => a.slug === slug);
-
-/** Southern Ontario regions served case by case, beyond the GTHA. VERIFY: client to confirm the final region list. */
-export const southernOntario = [
-  "Niagara",
-  "Waterloo Region",
-  "Guelph & Wellington",
-  "Brantford & Brant",
-  "London & Middlesex",
-  "Simcoe County & Barrie",
-  "Kawartha Lakes & Peterborough",
-  "Northumberland",
-  "Haldimand & Norfolk",
-  "Dufferin",
-];

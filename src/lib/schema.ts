@@ -6,7 +6,6 @@ import type { Testimonial } from "@/db/schema";
 const orgId = absUrl("/#business");
 const websiteId = absUrl("/#website");
 
-const days = (d: string[]) => d.map((x) => `https://schema.org/${x}`);
 
 export function businessSchema(testimonials: Testimonial[] = []) {
   const reviews = testimonials.map((t) => ({ author: t.name, rating: t.rating, text: t.body, date: t.createdAt.toISOString().slice(0, 10) }));
@@ -26,19 +25,11 @@ export function businessSchema(testimonials: Testimonial[] = []) {
     priceRange: site.priceRange,
     address: {
       "@type": "PostalAddress",
-      streetAddress: site.address.street,
       addressLocality: site.address.city,
       addressRegion: site.address.region,
-      postalCode: site.address.postalCode,
       addressCountry: site.address.country,
     },
     geo: { "@type": "GeoCoordinates", latitude: site.geo.lat, longitude: site.geo.lng },
-    openingHoursSpecification: site.hours.map((h) => ({
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: days(h.days),
-      opens: h.opens,
-      closes: h.closes,
-    })),
     areaServed: [
       ...areas.map((a) => ({ "@type": "City", name: `${a.name}, Ontario` })),
       { "@type": "AdministrativeArea", name: "Greater Toronto and Hamilton Area" },

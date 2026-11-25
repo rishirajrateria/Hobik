@@ -6,13 +6,18 @@ import { Icon } from "./Icon";
 import { CallLink, CtaLink } from "./Tracked";
 import { HeaderShell } from "./HeaderShell";
 import { MobileMenu } from "./MobileMenu";
+import { AicBadge } from "./Sections";
 
-/** Company logo: gold sun, house mark, name and slogan (dark text; light variant for black backgrounds). */
-export function Logo({ light = false, className = "h-12 sm:h-[56px]" }: { light?: boolean; className?: string }) {
+/** Header lockup: the logo mark with the company name as live, larger text. */
+export function Logo({ light = false }: { light?: boolean }) {
   return (
-    <Link href="/" className="flex shrink-0 items-center" aria-label={`${site.name} home`}>
+    <Link href="/" className="flex shrink-0 items-center gap-3 sm:gap-4" aria-label={`${site.name} home`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={light ? "/brand/value-trust-logo-light.png" : "/brand/value-trust-logo.png"} width={975} height={375} alt={site.name} className={`w-auto ${className}`} />
+      <img src={light ? "/brand/value-trust-mark-light.png" : "/brand/value-trust-mark.png"} width={294} height={375} alt="" className="h-12 w-auto sm:h-[58px]" />
+      <span className="leading-none">
+        <span className={`block text-[24px] font-bold tracking-[-0.03em] sm:text-[30px] ${light ? "text-paper" : "text-ink-950"}`}>Value Trust</span>
+        <span className={`mt-1.5 block text-[12px] font-semibold tracking-[0.18em] uppercase sm:text-[14px] ${light ? "text-white/60" : "text-ink-700"}`}>Appraisals Inc.</span>
+      </span>
     </Link>
   );
 }
@@ -71,13 +76,14 @@ export function Footer() {
     <footer className="dark-glow pb-28 text-[15px] text-white/70 md:pb-0">
       <div className="container-x grid gap-12 py-16 lg:grid-cols-12">
         <div className="lg:col-span-4">
-          <Logo light className="h-16" />
+          <Logo light />
           <p className="mt-6 max-w-sm leading-relaxed">Real estate appraisal and advisory services for residential, multi-residential, commercial, industrial, agricultural and institutional properties in Southern Ontario.</p>
           <dl className="mt-8 space-y-3">
             <div><dt className="sr-only">Phone</dt><dd><CallLink href={telHref} location="footer" className="font-display text-2xl text-paper hover:text-accent-300">{site.phone}</CallLink></dd></div>
             <div><dt className="sr-only">Email</dt><dd><a href={`mailto:${site.email}`} className="hover:text-paper">{site.email}</a></dd></div>
-            <div><dt className="sr-only">Address</dt><dd><address className="not-italic">{site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}</address></dd></div>
+            <div><dt className="sr-only">Coverage</dt><dd>{site.coverage}, case by case</dd></div>
           </dl>
+          <div className="mt-8"><AicBadge className="w-[250px]" /></div>
         </div>
         <div className="lg:col-span-3">
           <h2 className={col}>Services</h2>

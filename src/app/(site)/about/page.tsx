@@ -1,7 +1,6 @@
 import { pageMeta } from "@/lib/seo";
 import Link from "next/link";
-import { team } from "@/lib/team";
-import { AicBadge, CtaBand, HeroCtas, PageHero, SectionHead, ServiceGrid, StatsBand, WhyUs } from "@/components/Sections";
+import { AicBadge, CtaBand, HeroCtas, PageHero, SectionHead, StatsBand } from "@/components/Sections";
 
 export const metadata = pageMeta({
   title: "About Value Trust Appraisals Inc.",
@@ -34,41 +33,17 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
-      <section className="py-20">
-        <div className="container-x">
-          <SectionHead eyebrow="What we appraise" title="Residential to institutional" sub="We provide appraisal reports for residential, multi-residential, commercial, industrial, farm, and institutional properties for a variety of use cases." />
-          <div className="mt-12"><ServiceGrid /></div>
-        </div>
-      </section>
-      <section className="py-20">
-        <div className="container-x">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <SectionHead eyebrow="Our team" title="The people behind Value Trust" />
-            <Link href="/team" className="link-arrow" data-reveal>View all profiles →</Link>
-          </div>
-          <ul className="mt-12 grid gap-6 sm:grid-cols-3">
-            {team.map((m) => (
-              <li key={m.slug} data-reveal>
-                <Link href={`/team/${m.slug}`} className="group block">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={m.photo} alt={m.name} width={640} height={800} loading="lazy" className="aspect-[4/5] w-full rounded-[28px] object-cover shadow-[0_30px_60px_-30px_rgba(22,22,22,0.45)]" />
-                  <p className="mt-4 font-display text-[22px] text-ink-950 group-hover:underline">{m.name}{m.credentials && `, ${m.credentials}`}</p>
-                  <p className="mt-1 text-[14px] text-accent-600">{m.title}</p>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-14 flex flex-col items-start gap-5 pt-4 sm:flex-row sm:items-center sm:justify-between" data-reveal>
-            <p className="max-w-md text-[16px] leading-relaxed text-ink-700">Accredited and in good standing with the Appraisal Institute of Canada (AIC).</p>
-            <AicBadge className="w-[300px] sm:w-[360px]" />
-          </div>
-        </div>
-      </section>
       <section className="dark-glow py-20">
-        <div className="container-x">
-          <StatsBand dark />
-          <div className="mt-16"><SectionHead dark eyebrow="Inside every report" title="Independent, reliable, professional" /></div>
-          <div className="mt-12"><WhyUs /></div>
+        <div className="container-x"><StatsBand dark /></div>
+      </section>
+      {/* The full team lives on its own page; About only points to it. */}
+      <section className="py-20">
+        <div className="container-x flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:justify-between" data-reveal>
+          <div className="max-w-xl">
+            <SectionHead eyebrow="Our team" title="The people behind Value Trust" sub="Meet our appraisers, their experience and the languages they speak." />
+            <Link href="/team" className="btn-primary mt-8">Meet the team</Link>
+          </div>
+          <AicBadge className="w-[300px] sm:w-[380px]" />
         </div>
       </section>
       <CtaBand location="about_bottom" />

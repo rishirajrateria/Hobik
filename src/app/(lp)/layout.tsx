@@ -20,7 +20,7 @@ export default function LandingLayout({ children }: { children: React.ReactNode 
       <main id="main">{children}</main>
       <footer className="dark-glow pb-24 text-center text-xs text-white/60 md:pb-0">
         <div className="container-x py-8">
-          © {new Date().getFullYear()} {site.legalName} · {site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode} · {site.phone}
+          © {new Date().getFullYear()} {site.legalName} · {site.coverage} · {site.phone}
         </div>
       </footer>
       <MobileCtaBar />

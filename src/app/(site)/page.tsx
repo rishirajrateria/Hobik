@@ -8,9 +8,10 @@ import { BlogCard } from "@/components/BlogCard";
 import { Testimonials } from "@/components/Testimonials";
 import { QuoteForm } from "@/components/QuoteForm";
 import { team } from "@/lib/team";
+import { whatWeDo } from "@/lib/services";
+import { CoverageMap } from "@/components/CoverageMap";
 import {
   AicBadge,
-  AreaMap,
   CtaBand,
   FaqList,
   HeroCtas,
@@ -18,17 +19,16 @@ import {
   JsonLd,
   Process,
   SectionHead,
-  ServiceGrid,
-  ServiceLines,
-  SouthernOntario,
   TrustStrip,
+  TurnaroundBand,
+  WhatWeDo,
   WhyUs,
 } from "@/components/Sections";
 
 export const metadata: Metadata = {
   title: { absolute: "Value Trust Appraisals Inc. | Real Estate Appraisers, Toronto & Southern Ontario" },
   description:
-    "Residential, commercial, industrial, agricultural and institutional appraisals across the GTHA and Southern Ontario. AACI-designated appraiser, CUSPAP-compliant reports. Call (647) 783-8979.",
+    "Residential, commercial, institutional, industrial and agricultural appraisals across the GTHA and Southern Ontario. AACI-designated appraiser, CUSPAP-compliant reports. Call (647) 783-8979.",
   alternates: { canonical: "/" },
 };
 
@@ -44,12 +44,11 @@ export default async function HomePage() {
       <section>
         <div className="container-x grid items-center gap-14 pt-14 pb-16 sm:pt-20 lg:grid-cols-12 lg:pb-24">
           <div className="lg:col-span-6">
-            <span className="lg inline-flex animate-fade-up items-center gap-2.5 !rounded-full py-2 pr-4 pl-2.5 text-[13px] font-medium text-ink-800"><span className="h-2 w-2 rounded-full bg-accent-500 shadow-[0_0_0_4px_rgba(232,169,65,0.2)]" aria-hidden="true" />{site.slogan}</span>
-            <h1 className="mt-6 animate-fade-up text-[42px] leading-[1.05] font-medium text-ink-950 [animation-delay:60ms] sm:text-[56px] lg:text-[60px] 2xl:text-[76px]">
-              Real estate appraisal &amp; advisory in Southern Ontario.
+            <h1 className="animate-fade-up text-[40px] leading-[1.06] font-semibold text-ink-950 [animation-delay:60ms] sm:text-[52px] lg:text-[56px] 2xl:text-[70px]">
+              Real estate appraisal &amp; advisory services in Southern Ontario.
             </h1>
-            <p className="mt-6 max-w-md animate-fade-up text-[19px] 2xl:max-w-lg 2xl:text-[21px] leading-relaxed text-ink-700 [animation-delay:120ms]">
-              Residential, commercial, industrial, agricultural and institutional property.
+            <p className="mt-6 max-w-md animate-fade-up text-[19px] leading-relaxed text-ink-700 [animation-delay:120ms] 2xl:max-w-lg 2xl:text-[21px]">
+              Residential, commercial, institutional, industrial and agricultural property.
             </p>
             <div className="animate-fade-up [animation-delay:180ms]"><HeroCtas location="hero" /></div>
           </div>
@@ -61,22 +60,32 @@ export default async function HomePage() {
 
       <TrustStrip />
 
-      {/* SERVICES */}
-      <section className="container-x py-20 sm:py-28" id="services">
-        <SectionHead eyebrow="What we appraise" title="Every property type" />
-        <div className="mt-12"><ServiceGrid /></div>
+      {/* QUICK TURNAROUND */}
+      <section className="py-20 sm:py-24">
+        <div className="container-x">
+          <SectionHead eyebrow="Quick turnaround" title="Reports on time, every time" />
+          <div className="mt-10"><TurnaroundBand /></div>
+        </div>
       </section>
 
-      {/* SERVICE LINES */}
-      <section className="dark-glow py-20 sm:py-28">
+      {/* WHAT WE DO */}
+      <section className="py-20 sm:py-24" id="services">
         <div className="container-x">
-          <SectionHead dark eyebrow="Our services" title="Financing, non-financing and advisory" />
-          <div className="mt-12"><ServiceLines dark /></div>
+          <div className="mx-auto max-w-3xl text-center" data-reveal>
+            <h2 className="text-[34px] leading-[1.1] font-semibold text-ink-950 sm:text-[46px]">What we do</h2>
+            <p className="mt-5 text-[18px] leading-relaxed text-ink-700">
+              We provide appraisal reports for residential, multi-residential, commercial, institutional, industrial and agricultural properties for a variety of use cases.
+            </p>
+          </div>
+          <div className="mt-14"><WhatWeDo items={whatWeDo} /></div>
+          <div className="mt-14 text-center" data-reveal>
+            <Link href="/services" className="btn-primary">All services</Link>
+          </div>
         </div>
       </section>
 
       {/* PROCESS */}
-      <section className="py-20 sm:py-28">
+      <section className="py-20 sm:py-24">
         <div className="container-x">
           <SectionHead eyebrow="How it works" title="Four simple steps" />
           <div className="mt-12"><Process /></div>
@@ -96,15 +105,16 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* AREAS */}
-      <section className="container-x py-20 sm:py-28">
-        <SectionHead eyebrow="Coverage" title="GTHA + Southern Ontario" sub={site.coverageNote} />
-        <div className="mt-10" data-reveal><AreaMap /></div>
-        <div className="mt-10"><SouthernOntario /></div>
+      {/* COVERAGE */}
+      <section className="py-20 sm:py-24">
+        <div className="container-x">
+          <SectionHead eyebrow="Coverage" title="GTHA + Southern Ontario" sub={site.coverageNote} />
+          <div className="mt-10" data-reveal><CoverageMap /></div>
+        </div>
       </section>
 
       {/* TEAM */}
-      <section className="py-20 sm:py-28">
+      <section className="py-20 sm:py-24">
         <div className="container-x">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <SectionHead eyebrow="Our team" title="Designated appraisers" />
@@ -113,12 +123,12 @@ export default async function HomePage() {
           <ul className="mt-12 grid gap-6 sm:grid-cols-3">
             {team.map((m, i) => (
               <li key={m.slug} data-reveal style={{ "--d": i } as React.CSSProperties}>
-                <Link href={`/team#${m.slug}`} className="group block">
-                  <div className="relative overflow-hidden rounded-[28px] bg-ink-100 shadow-[0_30px_60px_-30px_rgba(22,22,22,0.45)]">
+                <Link href={`/team/${m.slug}`} className="group block">
+                  <div className="relative overflow-hidden bg-ink-100 shadow-[0_30px_60px_-30px_rgba(22,22,22,0.45)]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={m.photo} alt={m.name} width={640} height={800} loading="lazy" className="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-[1.04]" />
-                    <div className="lg absolute inset-x-3 bottom-3 !rounded-[20px] px-4 py-3">
-                      <p className="font-display text-[20px] leading-tight font-medium text-ink-950">{m.name}{m.credentials && <span className="text-[15px] text-ink-700">, {m.credentials}</span>}</p>
+                    <div className="lg absolute inset-x-3 bottom-3 px-4 py-3">
+                      <p className="text-[19px] leading-tight font-semibold text-ink-950">{m.name}{m.credentials && <span className="text-[15px] font-medium text-ink-700">, {m.credentials}</span>}</p>
                       <p className="mt-0.5 text-[13px] text-accent-600">{m.title}</p>
                     </div>
                   </div>
@@ -126,18 +136,16 @@ export default async function HomePage() {
               </li>
             ))}
           </ul>
-          <div className="mt-14 flex flex-col items-start gap-5 pt-4 sm:flex-row sm:items-center sm:justify-between" data-reveal>
-            <p className="max-w-md text-[16px] leading-relaxed text-ink-700">Accredited and in good standing with the Appraisal Institute of Canada. All reports are CUSPAP compliant.</p>
+          <div className="mt-12 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between" data-reveal>
+            <p className="max-w-md text-[16px] leading-relaxed text-ink-700">Our appraisers are all good-standing members of the Appraisal Institute of Canada (AIC).</p>
             <AicBadge className="w-[300px] sm:w-[360px]" />
           </div>
         </div>
       </section>
 
-      <Testimonials single />
-
-      {/* BLOG */}
+      {/* ARTICLES */}
       {posts.length > 0 && (
-        <section className="py-20 sm:py-28">
+        <section className="py-20 sm:py-24">
           <div className="container-x">
             <div className="flex flex-wrap items-end justify-between gap-6">
               <SectionHead eyebrow="Articles" title="Quick reads" />
@@ -151,7 +159,7 @@ export default async function HomePage() {
       )}
 
       {/* FAQ */}
-      <section className="py-20 sm:py-28">
+      <section className="py-20 sm:py-24">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <SectionHead eyebrow="FAQ" title="Common questions" />
@@ -160,6 +168,9 @@ export default async function HomePage() {
           <div className="lg:col-span-8"><FaqList items={faqs.slice(0, 4)} /></div>
         </div>
       </section>
+
+      {/* GOOGLE REVIEWS: at the bottom, just above the closing call to action */}
+      <Testimonials />
 
       <CtaBand location="home_bottom" />
     </>

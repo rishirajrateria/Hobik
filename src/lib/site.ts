@@ -18,25 +18,28 @@ export const site = {
   phone: "(647) 783-8979",
   phoneE164: "+16477838979",
   email: "hobikh@valuetrustappraisalsinc.ca",
+  /** Home office: street address is intentionally NOT shown anywhere on the site, only the city. */
   address: {
-    street: "1195 The Queensway",
-    city: "Etobicoke",
+    street: "",
+    city: "Toronto",
     region: "ON",
     regionName: "Ontario",
-    postalCode: "", // VERIFY: confirm postal code with the client
+    postalCode: "",
     country: "CA",
   },
-  geo: { lat: 43.6215, lng: -79.5205 }, // approx. 1195 The Queensway, Etobicoke
-  hours: [
-    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "17:00" },
-  ], // VERIFY business hours
-  hoursLabel: "Mon–Fri 9am–5pm", // VERIFY
+  geo: { lat: 43.6532, lng: -79.3832 }, // Toronto city centre (not the home office)
   yearsExperience: "10+",
   credentials: "AACI-designated appraiser, Appraisal Institute of Canada (AIC)",
   /** Where we work: main area plus case-by-case coverage. */
   coverage: "GTHA + Southern Ontario",
   coverageNote: "Main coverage is the Greater Toronto and Hamilton Area. Elsewhere in Southern Ontario on a case-by-case basis.",
-  propertyTypes: ["Residential", "Multi-residential", "Commercial", "Industrial", "Agricultural", "Institutional"],
+  propertyTypes: ["Residential", "Multi-residential", "Commercial", "Institutional", "Industrial", "Agricultural"],
+  /** Typical turnaround by property type. VERIFY: placeholder values, confirm with the client. */
+  turnaround: { residential: "2–3 business days", commercial: "5–7 business days" },
+  /** The AIC member profile the AIC badge links to. */
+  aicProfileUrl: "https://www.aicanada.ca/appraisers/910280/?pager=1",
+  /** Link for the "Review us on Google" button. VERIFY: add the Google Business Profile review link. */
+  googleReviewsUrl: "" as string,
   priceRange: "$$",
   sameAs: [] as string[], // add the LinkedIn company page and Google Business Profile URLs when supplied
 };

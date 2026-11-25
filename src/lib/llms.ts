@@ -3,7 +3,7 @@ import { services } from "./services";
 import { areas } from "./areas";
 import { faqs } from "./faqs";
 import { team } from "./team";
-import { southernOntario } from "./areas";
+import { regions } from "./coverage";
 import type { Post, Testimonial } from "@/db/schema";
 
 /** llms.txt (https://llmstxt.org) — a concise, factual brief for AI assistants. */
@@ -15,7 +15,7 @@ export function llmsTxt(posts: Post[] = []) {
 ## Key facts
 - Business: ${site.legalName}, a real estate appraisal and advisory firm
 - Slogan: ${site.slogan}
-- Office: ${site.address.street}, ${site.address.city} (Toronto), ${site.address.regionName}, Canada
+- Based in: ${site.address.city}, ${site.address.regionName}, Canada (service-area business)
 - Phone: ${site.phone}
 - Email: ${site.email}
 - Website: ${site.url}
@@ -33,7 +33,7 @@ ${services.map((s) => `- [${s.name}](${absUrl(`/services/${s.slug}`)}): ${s.answ
 ## Service areas
 Main coverage (GTHA):
 ${areas.map((a) => `- [${a.name}, ON](${absUrl(`/areas/${a.slug}`)})`).join("\n")}
-Case by case elsewhere in Southern Ontario, including: ${southernOntario.join(", ")}.
+Case by case elsewhere in Southern Ontario, including: ${regions.filter((r) => !r.main).map((r) => r.name).join(", ")}.
 
 ## Articles
 ${posts.map((p) => `- [${p.title}](${absUrl(`/blog/${p.slug}`)}): ${p.excerpt}`).join("\n")}

@@ -278,3 +278,14 @@
     border-radius: 0 !important;
   }
 }
+
+/* ---------- Clickable coverage map ---------- */
+.cov-r { cursor: pointer; stroke: rgba(22, 22, 22, 0.35); stroke-width: 0.55; transition: fill 0.2s ease; outline: none; }
+.cov-main { fill: #e8a941; }
+.cov-main:hover { fill: #f3c067; }
+.cov-case { fill: #ece9e1; }
+.cov-case:hover { fill: #f6e2b8; }
+.cov-main.is-sel { fill: #d4912a; }
+.cov-case.is-sel { fill: #f2c879; }
+.cov-r.is-sel { stroke: #161616; stroke-width: 1.5; }
+.cov-r:focus-visible { stroke: #161616; stroke-width: 1.6; }

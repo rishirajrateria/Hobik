@@ -323,7 +323,9 @@ export const services: Service[] = [
 
 export const serviceLines = services.filter((s) => s.group === "service");
 export const serviceUses = services.filter((s) => s.group === "use");
-export const propertyTypes = services.filter((s) => s.group === "property");
+/** Property types in display order (agricultural last). */
+const PROPERTY_ORDER = ["residential-appraisal", "multi-residential-appraisal", "commercial-appraisal", "institutional-appraisal", "industrial-appraisal", "agricultural-appraisal"];
+export const propertyTypes = PROPERTY_ORDER.map((slug) => services.find((s) => s.slug === slug)!);
 
 export const getService = (slug: string) => services.find((s) => s.slug === slug);
 
@@ -340,3 +342,17 @@ export const legacyServiceRedirects: Record<string, string> = {
   "condo-appraisal": "residential-appraisal",
   "litigation-expert-witness": "litigation-appraisal",
 };
+
+/** The services shown in the "What we do" grid (the non-financing umbrella is represented by its uses). */
+const WHAT_WE_DO = [
+  "mortgage-financing-appraisal",
+  "marital-separation-appraisal",
+  "estate-appraisal",
+  "tax-appraisal",
+  "litigation-appraisal",
+  "power-of-sale-appraisal",
+  "assessment-appeal-appraisal",
+  "expropriation-appraisal",
+  "advisory-consulting",
+];
+export const whatWeDo = WHAT_WE_DO.map((slug) => services.find((s) => s.slug === slug)!);

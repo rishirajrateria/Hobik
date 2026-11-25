@@ -2,7 +2,8 @@ import Link from "next/link";
 import { pageMeta } from "@/lib/seo";
 import { areas } from "@/lib/areas";
 import { Icon } from "@/components/Icon";
-import { AreaMap, CtaBand, HeroCtas, PageHero, SectionHead, SouthernOntario } from "@/components/Sections";
+import { CoverageMap } from "@/components/CoverageMap";
+import { CtaBand, HeroCtas, PageHero, SectionHead } from "@/components/Sections";
 
 export const metadata = pageMeta({
   title: "Coverage Area: GTHA + Southern Ontario",
@@ -20,10 +21,10 @@ export default function AreasPage() {
         eyebrow="Coverage area"
         title={<>GTHA + Southern Ontario</>}
         answer="We are based in Toronto, and our main coverage area is the Greater Toronto and Hamilton Area. We also complete appraisals on a case by case basis all throughout Southern Ontario. If the property is outside the GTHA, please still contact us. We will always try to work with you!"
-        aside={<AreaMap />}
       >
         <HeroCtas location="areas_hero" />
       </PageHero>
+      <section className="container-x pb-4"><CoverageMap /></section>
       <section className="container-x py-20">
         <SectionHead eyebrow="Main coverage" title="Greater Toronto & Hamilton Area" />
         <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -42,18 +43,6 @@ export default function AreasPage() {
               </ul>
             </div>
           ))}
-        </div>
-      </section>
-      <section className="py-20">
-        <div className="container-x grid gap-12 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-5">
-            <SectionHead eyebrow="Beyond the GTHA" title="Southern Ontario, case by case" />
-            <div className="mt-8"><SouthernOntario label={false} /></div>
-          </div>
-          <div className="lg:col-span-7" data-reveal>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/southern-ontario.png" alt="Map of Southern Ontario" className="lg w-full !rounded-[28px] p-4 mix-blend-multiply" loading="lazy" />
-          </div>
         </div>
       </section>
       <CtaBand location="areas_bottom" />

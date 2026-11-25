@@ -8,7 +8,7 @@ import { faqSchema, serviceSchema } from "@/lib/schema";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Vignette } from "@/components/Vignettes";
 import { Testimonials } from "@/components/Testimonials";
-import { AreaChips, CtaBand, SouthernOntario, FaqList, HeroCtas, JsonLd, PageHero, Process, SectionHead } from "@/components/Sections";
+import { AreaChips, CtaBand, FaqList, HeroCtas, JsonLd, PageHero, Process, SectionHead } from "@/components/Sections";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -108,8 +108,8 @@ export default async function ServicePage({ params }: Props) {
         <div className="container-x grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <SectionHead eyebrow="Coverage" title="GTHA + Southern Ontario" />
+            <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-ink-700">Main coverage is the Greater Toronto and Hamilton Area. Elsewhere in Southern Ontario on a case-by-case basis. <Link href="/areas" className="font-semibold text-ink-950 underline decoration-accent-500 underline-offset-4">See the coverage map</Link>.</p>
             <div className="mt-10"><AreaChips /></div>
-            <div className="mt-10"><SouthernOntario /></div>
           </div>
           <div className="lg:col-span-5">
             <h2 className="text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">{s.group === "property" ? "Other property types" : "Related services"}</h2>

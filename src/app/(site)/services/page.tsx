@@ -1,6 +1,6 @@
 import { pageMeta } from "@/lib/seo";
-import { services, serviceUses } from "@/lib/services";
-import { CtaBand, HeroCtas, JsonLd, PageHero, Process, SectionHead, ServiceGrid, ServiceLines } from "@/components/Sections";
+import { services, propertyTypes, whatWeDo } from "@/lib/services";
+import { CtaBand, HeroCtas, JsonLd, PageHero, Process, SectionHead, WhatWeDo } from "@/components/Sections";
 import { absUrl } from "@/lib/site";
 
 export const metadata = pageMeta({
@@ -23,25 +23,19 @@ export default function ServicesPage() {
       <PageHero
         crumbs={[{ name: "Services", path: "/services" }]}
         eyebrow="Our services"
-        title={<>Appraisal and advisory services</>}
-        answer="We provide appraisal reports for residential, multi-residential, commercial, industrial, farm and institutional properties for a variety of use cases. We are accredited and in good standing with the Appraisal Institute of Canada (AIC), and all our reports are CUSPAP compliant."
+        title={<>What we do</>}
+        answer="We provide appraisal reports for residential, multi-residential, commercial, institutional, industrial and agricultural properties for a variety of use cases. We are accredited and in good standing with the Appraisal Institute of Canada (AIC), and all our reports are CUSPAP compliant."
       >
         <HeroCtas location="services_hero" />
       </PageHero>
-      <section className="container-x py-20"><ServiceLines /></section>
-      <section className="py-20">
-        <div className="container-x">
-          <SectionHead eyebrow="Non-financing" title="Current and retrospective reports" />
-          <div className="mt-12"><ServiceGrid items={serviceUses} /></div>
-        </div>
-      </section>
-      <section className="py-20">
+      <section className="container-x py-16"><WhatWeDo items={whatWeDo} /></section>
+      <section className="py-16">
         <div className="container-x">
           <SectionHead eyebrow="Property types" title="What we appraise" />
-          <div className="mt-12"><ServiceGrid /></div>
+          <div className="mt-12"><WhatWeDo items={propertyTypes} /></div>
         </div>
       </section>
-      <section className="py-20">
+      <section className="py-16">
         <div className="container-x">
           <SectionHead eyebrow="How it works" title="Simple from start to finish" />
           <div className="mt-14"><Process /></div>

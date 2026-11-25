@@ -7,7 +7,9 @@ import { absUrl } from "@/lib/site";
 import { Icon } from "@/components/Icon";
 import { QuoteForm } from "@/components/QuoteForm";
 import { Testimonials } from "@/components/Testimonials";
-import { AreaChips, AreaMap, CtaBand, FaqList, HeroCtas, JsonLd, PageHero, Process, SectionHead, ServiceGrid } from "@/components/Sections";
+import { CoverageMap } from "@/components/CoverageMap";
+import { regionOfArea } from "@/lib/coverage";
+import { AreaChips, CtaBand, FaqList, HeroCtas, JsonLd, PageHero, Process, SectionHead, ServiceGrid } from "@/components/Sections";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -63,7 +65,7 @@ export default async function AreaPage({ params }: Props) {
       </PageHero>
 
       <section className="container-x grid gap-14 py-20 lg:grid-cols-2 lg:items-start">
-        <div>
+        <div className="lg:col-span-2">
           <SectionHead center={false} eyebrow="Local expertise" title={`Neighbourhoods we cover in ${a.name}`} />
           <ul className="mt-8 columns-2 gap-8 lg !rounded-[24px] px-5 sm:px-6">
             {a.neighbourhoods.map((n) => (
@@ -73,8 +75,9 @@ export default async function AreaPage({ params }: Props) {
           <h3 className="mt-10 text-[12px] font-semibold tracking-[0.16em] text-accent-600 uppercase">Property types we see most</h3>
           <p className="mt-3 font-display text-[22px] leading-snug text-ink-950">{a.homeTypes.join(", ")}</p>
         </div>
-        <div data-reveal="scale"><AreaMap highlight={a.slug} /></div>
       </section>
+
+      <section className="container-x pb-20"><CoverageMap initial={regionOfArea(a.region)} /></section>
 
       <section className="py-20">
         <div className="container-x">

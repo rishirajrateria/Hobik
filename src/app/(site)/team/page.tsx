@@ -26,7 +26,7 @@ export default function TeamPage() {
           worksFor: { "@id": absUrl("/#business") },
         }))}
       />
-      <PageHero crumbs={[{ name: "Our Team", path: "/team" }]} eyebrow="The people behind Value Trust" title={<>Our Team</>} answer="Meet our appraisal team." />
+      <PageHero crumbs={[{ name: "Our Team", path: "/team" }]} eyebrow="The people behind Value Trust" title={<>Our Team</>} answer="Our appraisers are all good-standing members of the Appraisal Institute of Canada (AIC)." />
 
       <section className="container-x py-16 sm:py-20">
         <ul className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
@@ -48,9 +48,7 @@ export default function TeamPage() {
 
       <section className="py-14">
         <div className="container-x flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-lg text-[17px] leading-relaxed text-ink-800">
-            {site.name} is accredited and in good standing with the Appraisal Institute of Canada (AIC). All reports conform to CUSPAP.
-          </p>
+          <p className="max-w-lg text-[17px] leading-relaxed text-ink-800">Verify our membership on the AIC website. All of our reports conform to CUSPAP.</p>
           <AicBadge className="w-[300px] sm:w-[380px]" />
         </div>
       </section>

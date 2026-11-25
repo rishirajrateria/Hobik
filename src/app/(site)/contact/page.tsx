@@ -1,23 +1,19 @@
 import { pageMeta } from "@/lib/seo";
 import { site, telHref } from "@/lib/site";
-import { Icon } from "@/components/Icon";
 import { QuoteForm } from "@/components/QuoteForm";
 import { CallLink } from "@/components/Tracked";
 import { PageHero } from "@/components/Sections";
 
 export const metadata = pageMeta({
   title: "Contact Value Trust Appraisals Inc.",
-  description: `Call ${site.phone} or email ${site.email} to request an appraisal quote. Office at ${site.address.street}, ${site.address.city}.`,
+  description: `Call ${site.phone} or email ${site.email} to request an appraisal quote. Serving the GTHA and Southern Ontario.`,
   path: "/contact",
 });
 
 export default function ContactPage() {
-  const addr = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`.trim();
-  const mapQ = encodeURIComponent(addr);
   const cards = [
     { icon: "phone", t: "Call", v: site.phone, href: telHref, call: true },
     { icon: "mail", t: "Email", v: site.email, href: `mailto:${site.email}` },
-    { icon: "pin", t: "Office", v: addr, href: `https://www.google.com/maps/search/?api=1&query=${mapQ}` },
     { icon: "globe", t: "Coverage", v: `${site.coverage}, case by case` },
   ];
   return (
@@ -44,17 +40,6 @@ export default function ContactPage() {
           ))}
         </dl>
       </PageHero>
-      <section className="container-x py-16">
-        <div className="overflow-hidden border border-ink-100">
-          <iframe
-            title={`Map to ${site.name}`}
-            src={`https://www.google.com/maps?q=${mapQ}&output=embed`}
-            className="h-[380px] w-full"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
-      </section>
     </>
   );
 }
