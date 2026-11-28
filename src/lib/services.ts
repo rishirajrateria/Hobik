@@ -65,7 +65,7 @@ export const services: Service[] = [
     faqs: [
       {
         q: "Will my lender accept a Value Trust appraisal?",
-        a: "Many lenders accept independent reports from AIC-designated appraisers, while some order through their own panel. Ask your lender or broker which format they need and we will confirm before booking.",
+        a: "Many lenders accept independent reports from appraisers who are AIC members, while some order through their own panel. Ask your lender or broker which format they need and we will confirm before booking.",
       },
     ],
   },

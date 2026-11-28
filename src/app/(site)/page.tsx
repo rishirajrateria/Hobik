@@ -117,7 +117,7 @@ export default async function HomePage() {
       <section className="py-20 sm:py-24">
         <div className="container-x">
           <div className="flex flex-wrap items-end justify-between gap-6">
-            <SectionHead eyebrow="Our team" title="Designated appraisers" />
+            <SectionHead eyebrow="Value Trust" title="Our team" />
             <Link href="/team" className="link-arrow" data-reveal>Meet the team →</Link>
           </div>
           <ul className="mt-12 grid gap-6 sm:grid-cols-3">
